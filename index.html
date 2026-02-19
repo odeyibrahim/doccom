@@ -460,11 +460,11 @@
         </div><!-- end form-content -->
     </div><!-- end document -->
 
-    <!-- PDF export and demo form handling -->
+    <!-- PDF export and netlify form handling -->
     <script>
         (function() {
             const exportBtn = document.getElementById('exportPdfBtn');
-            const element = document.getElementById('pdf-content');  // capture form fields
+            const element = document.getElementById('pdf-content');
 
             exportBtn.addEventListener('click', function() {
                 const opt = {
@@ -477,11 +477,13 @@
                 html2pdf().set(opt).from(element).save();
             });
 
+            // ✅ NETLIFY FIX: Remove preventDefault, let Netlify handle submission
             const form = document.getElementById('mainForm');
             form.addEventListener('submit', function(e) {
-                e.preventDefault();  // for demo, remove when deploying to netlify
-                alert('Application submitted (demo). On Netlify this would be handled by their backend.');
-                // On a real Netlify site, remove e.preventDefault() and the alert.
+                // Do NOT call e.preventDefault()
+                // Allow natural form submission to Netlify
+                console.log('Form submitting to Netlify...');
+                return true;  // Let the form submit normally
             });
         })();
     </script>
