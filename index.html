@@ -3,3468 +3,489 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ray of Light | Bespoke Digital Experiences</title>
-    <meta name="description" content="Ray of Light creates bespoke digital experiences, web applications, and strategic design solutions that transform how businesses connect with their audiences.">
-    <meta name="keywords" content="bespoke web design, custom web applications, digital experiences, design strategy, web development, UI/UX design">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://rayoflight.design/">
-    <meta property="og:title" content="Ray of Light | Bespoke Digital Experiences">
-    <meta property="og:description" content="We craft bespoke digital experiences and web applications that transform how businesses connect with their audiences.">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://rayoflight.design/">
-    <meta property="twitter:title" content="Ray of Light | Bespoke Digital Experiences">
-    <meta property="twitter:description" content="We craft bespoke digital experiences and web applications that transform how businesses connect with their audiences.">
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-    
-    <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Ray of Light Design Studio",
-      "description": "Bespoke website design and application development services that transform how businesses connect with their audiences.",
-      "url": "https://rayoflight.design/",
-      "telephone": "+2349122356353",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Lagos",
-        "addressCountry": "Nigeria"
-      },
-      "serviceType": "Website Design, Application Development, UI/UX Design",
-      "areaServed": "Worldwide",
-      "offers": {
-        "@type": "Service",
-        "name": "Website Design",
-        "description": "High-conversion, user-centric websites designed to generate leads",
-        "priceRange": "₦1.2M – ₦4.5M"
-      }
-    }
-    </script>
-    
-   <style>
-        /* ===== CSS VARIABLES (ROOT) ===== */
-        :root {
-        
-         /* Safari 100vh fix variable */
-            --vh: 1vh;
-            
-            
-            /* Color Palette - Dark Mode */
-            --rich-black: #0A0E17;
-            --dark-blue: #121320;
-            --off-white: #D6D6D6;
-            --beige: #D0AF8F;
-            --beige-light: rgba(255, 255, 255, 0.15);
- 
-			--beige-dark: #BA9878;
-            --card-bg: rgba(12, 19, 40, 0.5);
-            --card-bg2: rgba(18, 24, 38, 0.3);
-
-            --text-primary: #D6D6D6;
-            --text-secondary: #C2c2c2;
-            
-            /* Font Variables - Updated for better mobile readability */
-            --font-primary: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            --font-secondary: 'Nunito', sans-serif;
-            
-            /* Font Sizes */
-            --text-xs: 0.75rem;
-            --text-sm: 0.875rem;
-            --text-base: 1rem;
-            --text-lg: 1.125rem;
-            --text-xl: 1.25rem;
-            --text-2xl: 1.5rem;
-            --text-3xl: 1.875rem;
-            --text-4xl: 2.25rem;
-            
-            /* Spacing */
-            --spacing-xs: 0.5rem;
-            --spacing-sm: 0.75rem;
-            --spacing-md: 1rem;
-            --spacing-lg: 1.5rem;
-            --spacing-xl: 2rem;
-            --spacing-2xl: 3rem;
-            
-            /* Transitions */
-            --transition-normal: all 0.3s ease;
-            --transition-fast: all 0.2s ease;
-            
-            /* Shadows */
-            --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.3);
-            --shadow-button: 0 4px 12px rgba(0, 0, 0, 0.4);
-        }
-
-        /* ===== BASE STYLES ===== */
+    <title>AMV · membership application</title>
+    <!-- html2pdf library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        /* RESET & BASE — flat, word‑document style */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-        
-       
         body {
-    display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-                        min-height: calc(var(--vh, 1vh) * 100); /* Safari fix */
-
-            background: var(--rich-black);
-            overflow: hidden;
-            padding: 0 var(--spacing-2xl);
-            position: relative;
-            color: var(--text-primary);
-            font-family: var(--font-primary);
-            transition: background-color 0.3s ease;
-        }
-         
-        
-        .dm-sans-<uniquifier> {
-  font-family: "DM Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight:600;
-  font-style: normal;
-}
-       
-     
-        
-        /* Lava Blob Background */
-        .blob-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            overflow: hidden;
-            opacity: 0.7;
-        }
-        
-        .blob {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.5;
-            animation: blob-animation 15s infinite alternate;
-        }
-        
-        .blob:nth-child(1) {
-            background: linear-gradient(135deg, #6F69C2 0%, #121826 100%);
-            width: 500px;
-            height: 500px;
-            top: -250px;
-            left: -100px;
-            animation-delay: 0s;
-        }
-        
-        .blob:nth-child(2) {
-            background: linear-gradient(135deg, #121826 0%, #6F69C2 100%);
-            width: 600px;
-            height: 600px;
-            bottom: -300px;
-            right: -150px;
-            animation-delay: -5s;
-        }
-        
-        .blob:nth-child(3) {
-            background: linear-gradient(135deg, #121826 0%, #6F69C2 100%);
-            width: 400px;
-            height: 400px;
-            bottom: 100px;
-            left: 200px;
-            animation-delay: -10s;
-        }
-        
-        @keyframes blob-animation {
-            0% {
-                transform: translate(0, 0) scale(1);
-            }
-            33% {
-                transform: translate(30px, -50px) scale(1.1);
-            }
-            66% {
-                transform: translate(-20px, 20px) scale(0.9);
-            }
-            100% {
-                transform: translate(-30px, 40px) scale(1.2);
-            }
-        }
-        
-        .container {
-            position: relative;
-            width: 100%;
-            max-width: 1200px;
+            background: #141414;  /* subtle grey background like office paper */
+            font-family: 'Times New Roman', Times, serif;  /* classic word‑processor */
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 2;
-        }
-        
-        .card {
-            width: 100%;
-            background: var(--card-bg2);
-            backdrop-filter: blur(12px);
-            border-radius: 16px;
-            box-shadow: var(--shadow-card);
-            overflow: hidden;
-            transition: all 0.5s ease;
-            max-height: 100vh;
-                        max-height: calc(var(--vh, 1vh) * 100); /* Safari fix */
-
-            display: flex;
-            flex-direction: column;
-            border: 1px solid var(--beige-light);
-            color: var(--text-primary);
-            position: relative;
-            z-index: 2;
-        }
-        
-        .card.expanded {
-            border-radius: 0;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh; /* Fallback */
-            height: calc(var(--vh, 1vh) * 100); /* Safari fix */
-            max-height: 100vh; /* Fallback */
-            max-height: calc(var(--vh, 1vh) * 100); /* Safari fix */
-            z-index: 100;
-            animation: fade 2s ease;
-        }
-        
-        @keyframes fade {
-            from { opacity: 1; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-           .card.expanded .card-content.active {
-            padding: 0p;
-            height: calc(100vh - 130px);
-        }
-        
-        .service-content {
-            display: none;
-            color: var(--text-primary);
-            padding-top: var(--spacing-lg);
-        }
-        
-        .card.expanded .service-content {
-            padding: var(--spacing-lg);
-        }
-        
-        
-        .card-header {
-            padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-md);
-            position: relative;
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-lg);
-        }
-        
-        .logo {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--beige);
-            font-weight: bold;
-            font-size: var(--text-md);
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-        
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .search-container {
-            display: flex;
-            align-items: center;
-            position: relative;
-            flex-grow: 1;
-            background: rgba(216, 196, 168, 0);
-            border-radius: 30px;
-            padding: 0 var(--spacing-xs);
-            border: 0px solid var(--beige-light);
-            transition: var(--transition-normal);
-            touch-action: pan-y; /* Prevent swipe interference */
-        }
-        
-        .search-container:focus-within {
-            box-shadow: 0 0 0 1px var(--beige-light);
-        }
-        
-        .search-icon {
-            color: var(--text-secondary);
-            font-size: var(--text-md);
-            margin-right: var(--spacing-md);
-        }
-        
-        .search-input {
-            flex: 1;
-            padding: var(--spacing-xs) 0;
-            border: none;
-            background: transparent;
-            font-size: var(--text-base);
-            font-weight: 400;
-            color: var(--text-primary);
-            outline: none;
-        }
-        
-        .search-input::placeholder {
-            color: var(--text-secondary);
-            opacity: 0.7;
-        }
-        
-        .close-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: var(--text-md);
-            cursor: pointer;
-            padding: 5px;
-            margin-left: var(--spacing-sm);
-            transition: var(--transition-normal);
-            opacity: 0.7;
-        }
-        
-        .close-btn:hover {
-            transform: rotate(90deg);
-            opacity: 1;
-        }
-        
-        .divider {
-            height: 0px;
-            background: linear-gradient(to right, transparent, var(--beige), transparent);
-            margin: 0;
-        }
-        
-        .card-content {
-            padding: 0 var(--spacing-lg);
-            overflow-y: auto;
-            max-height: 0;
-            transition: max-height 0.5s ease;
-            position: relative;
-        }
-      .card-content.active {
-            max-height: 100vh; /* Fallback */
-            max-height: calc(var(--vh, 1vh) * 100); /* Safari fix */
-            padding: 0 var(--spacing-lg) var(--spacing-lg);
-        }
-        
-        .card.expanded .card-content.active {
-            padding: 0;
-            height: calc(100vh - 130px); /* Fallback */
-            height: calc((var(--vh, 1vh) * 100) - 130px); /* Safari fix */
-        }
-     
-        
-        .service-content.active {
-            display: block;
-            animation: fadeIn 1s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(100px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .service-header {
-            display: flex;
-            gap: var(--spacing-lg);
-            margin: 0;
-            overflow-x: auto;
-            scrollbar-width: none;
-            padding-bottom: var(--spacing-sm);
-            /* touch-action: pan-y; /* Prevent swipe interference */
-        }
-        
-        .service-header::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .service-image {
-            width: 160px;
-            height: 160px;
-            border-radius: 12px;
-            object-fit: cover;
-            flex-shrink: 0;
-            border: 0px solid var(--beige-light);
-            transition: var(--transition-normal);
-            cursor: pointer;
-        }
-        
-        .service-image:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        
-      .service-title {
-            font-size: var(--text-2xl);
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-sm);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        
-        .service-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: var(--spacing-md);
-            font-size: var(--text-base);
-        }
-        
-        .impact {
-            background: rgba(216, 196, 168, 0);
-            padding: 0;
-            border-radius: 12px;
-            margin: var(--spacing-lg) 0;
-            border-left: 0px solid var(--beige);
-        }
-        
-        .impact-title {
-            font-weight: 600;
-            color: var(--beige);
-            margin-bottom: var(--spacing-sm);
-            font-size: var(--text-xl);
-        }
-        
-        .impact p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-        
-        .deliverables {
-            margin: var(--spacing-lg) 0;
-        }
-        
-        .section-title {
-            font-size: var(--text-lg);
-            color: var(--beige);
-            margin-bottom: var(--spacing-md);
-         
-            border-bottom: 0px solid var(--beige-light);
-            font-weight: 600;
-        }
-        
-
-  .section-titlereceipt{
-            font-size: var(--text-md);
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-md);
-         
-            border-bottom: 0px solid var(--beige-light);
-            font-weight: 600;
-        }
-
-
-        .packages {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
-            gap: var(--spacing-lg);
-            margin-bottom: var(--spacing-lg);
-        }
-        
-        .package {
-            border: 0px solid var(--beige-light);
-            border-radius: 12px;
-            padding: var(--spacing-md);
-            background: none;
-            transition: var(--transition-normal);
-        }
-        
-        .package:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-card);
-            border-color: var(--beige);
-        }
-        
-        .deliverable-item {
-            display: flex;
-            flex-direction: column;
-            padding: var(--spacing-md);
-            background: rgba(255, 255, 255, 0.03);
-            font-size: var(--text-xs);
-            color: var(--text-primary);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition-normal);
-            position: relative;
-            margin-bottom: var(--spacing-sm);
-            border: 1px solid transparent;
-        }
-
-        .deliverable-item:hover {
-            transform: translateY(-2px);
-            border-color: var(--beige-light);
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .deliverable-item.selected {
-            background: rgba(216, 196, 168, 0.12);
-        }
-
-        .deliverable-item::before {
-            content: "✓";
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            opacity: 0;
-            transition: var(--transition-normal);
-            color: var(--beige);
-            font-weight: bold;
-        }
-
-        .deliverable-item.selected::before {
-            opacity: 1;
-        }
-
-        .deliverable-name {
-            font-weight: 600;
-            color: var(--beige);
-            margin-bottom: 5px;
-            padding-right: 20px;
-            font-size: var(--text-sm);
-        }
-
-        .deliverable-details {
-            font-size: var(--text-xs);
-            margin-bottom: 8px;
-            line-height: 1.4;
-            color: var(--text-secondary);
-        }
-
-        .deliverable-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .deliverable-time {
-            color: var(--beige);
-            font-style: italic;
-            font-size: var(--text-xs);
-        }
-
-        .deliverable-price {
-            color: var(--beige);
-            font-weight: 600;
-            font-size: var(--text-sm);
-        }
-        
-        .get-quote-btn {
-            display: block;
-            width: 100%;
-            padding: var(--spacing-md);
-            background: var(--beige);
-            color: var(--rich-black);
-            border: none;
-            border-radius: 8px;
-            font-size: var(--text-base);
-            cursor: pointer;
-            transition: var(--transition-normal);
-            margin-top: var(--spacing-lg);
-            font-weight: 600;
-            box-shadow: var(--shadow-button);
-        }
-        
-        .get-quote-btn:hover {
-            background: var(--beige-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-        
-        .tabs-container {
-            padding: var(--spacing-md);
-            background: rgba(216, 196, 168, 0);
-            border-top: 1px solid var(--beige-light);
-            border-radius: 12px 12px 0 0;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        
-        .tabs-container::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .tabs {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: var(--spacing-sm);
-                        overflow-x: auto;
-
             justify-content: flex-start;
-            padding-bottom: 5px;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            min-height: 100vh;
+            padding: 0rem 0rem;
+            color: #DCDCDC;
         }
-        
-        .tabs::-webkit-scrollbar {
+
+        /* main container — flat, squared, minimal */
+        .document {
+            max-width: 1000px;
+            width: 100%;
+            background: #ffffff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            border: 1px solid #b4b9c2;    /* simple grey border like printed sheet */
+            margin-bottom: 1.5rem;
+        }
+
+        /* header — exactly as requested: only org name and title */
+        .header {
+            background: #ffffff;
+            padding: 1.2rem 2rem;
+            border-bottom: 2px solid #0055ff;  /* electric blue accent line */
+        }
+
+        .header h1 {
+            font-weight: 700;
+            font-size: 1.8rem;
+            letter-spacing: -0.01em;
+            color: #000000;
+            margin: 0;
+            line-height: 1.2;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .header h1 span {
+            font-weight: 400;
+            color: #0055ff;
+            font-size: 1.6rem;
+            margin-left: 0.5rem;
+        }
+
+        .header .title {
+            font-size: 1rem;
+            font-weight: 400;
+            color: #0055ff;
+            margin-top: 0.2rem;
+            border-left: px solid #0055ff;
+            padding-left: 0;
+        }
+
+        /* pdf toolbar — flat, minimal */
+        .pdf-toolbar {
+            background: #f2f5f9;
+            padding: 0.6rem 2rem;
+            display: flex;
+            justify-content: flex-end;
+            border-bottom: 1px solid #cbd2df;
+        }
+
+        .btn-pdf {
+            background: transparent;
+            border: 1px solid #0055ff;
+            color: #0055ff;
+            padding: 0.3rem 1.5rem;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            border-radius: 0px;   /* squared corners */
+        }
+
+        .btn-pdf:hover {
+            background: #e0ecff;
+        }
+
+        /* form content — flat, no rounding, moderate padding */
+        .form-content {
+            padding: 2rem 2rem 2.2rem 2rem;
+        }
+
+        /* netlify honeypot hidden */
+        .hidden {
             display: none;
         }
-        
-        .tab {
-            padding: var(--spacing-sm) var(--spacing-md);
-            border: 0px solid var(--beige-light);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-            font-size: var(--text-xs);
-            cursor: pointer;
-            transition: var(--transition-normal);
-            font-weight: 500;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-        
-        .tab:hover {
-            background: rgba(216, 196, 168, 0.1);
-        }
-        
-        .tab.active {
-            background: var(--beige);
-            border: 1px solid var(--beige);
-            font-weight: 700;
-            color: var(--rich-black);
-        }
-        
-        .quote-items {
-            margin: 60px 0;
-            padding: var(--spacing-xl);
-            font-family: "Roboto Mono", monospace;
-            font-size: 13px;
-            background: rgba(216, 196, 168, 0.05);
-            border-radius: 12px;
-            border: 1px solid var(--beige-light);
-        }
-        
-        .roboto-mono-<uniquifier> {
-            font-family: "Roboto Mono", monospace;
-            font-optical-sizing: auto;
-            font-weight: <weight>;
-            font-style: normal;
+
+        /* sections */
+        .section {
+            margin-bottom: 2rem;
         }
 
-        .quote-item {
-            display: flex;
-            justify-content: space-between;
-            padding: var(--spacing-sm);
-            border-bottom: 1px solid var(--beige-light);
-            color: var(--text-secondary);
-        }
-        
-        .quote-item:last-child {
-            border-bottom: none;
-        }
-        
-        /* FORM STYLING */
-        .form-container {
-            margin: var(--spacing-md) 0;
-        }
-
-        .form-group {
-            margin-bottom: var(--spacing-lg);
-            position: relative;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
+        .section-title {
+            font-size: 1.2rem;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.3px;
-            color: var(--beige);
-            font-size: var(--text-xs);
+            letter-spacing: 0.01em;
+            color: #0055ff;
+            margin-bottom: 1.2rem;
+            border-bottom: 1px solid #a0b3cc;
+            padding-bottom: 0.2rem;
+            font-family: 'Times New Roman', Times, serif;
         }
 
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 0px solid var(--beige-light);
-            background: rgba(216, 196, 168, 0.05);
-            color: var(--text-primary);
-            font-size: var(--text-base);
-            transition: var(--transition-normal);
-            border-radius: 8px;
-            appearance: none;
+        /* grid – responsive */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem 2rem;
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--beige);
-            box-shadow: 0 0 0 2px rgba(216, 196, 168, 0.2);
+        .full {
+            grid-column: span 2;
         }
 
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 0.2rem;
         }
 
-        .form-error {
-            color: #e74c3c;
-            font-size: var(--text-xs);
-            margin-top: 4px;
-            display: none;
-        }
-
-        .form-group.error {
-            border-color: #e74c3c;
-        }
-
-        .form-group.error .form-error {
-            display: block;
-        }
-
-        .conditional-field {
-            display: none;
-        }
-
-        .conditional-field.active {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: var(--spacing-md);
-            border: none;
-            background: var(--beige);
-            color: var(--rich-black);
+        label {
+            font-size: 0.85rem;
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition-normal);
-            font-size: var(--text-base);
-            border-radius: 8px;
-            margin-top: var(--spacing-sm);
-            box-shadow: var(--shadow-button);
+            text-transform: uppercase;
+            color: #1f2a38;
+            letter-spacing: 0.01em;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            background: var(--beige-dark);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+        .hint {
+            color: #64748b;
+            font-size: 0.7rem;
+            font-weight: 400;
+            text-transform: none;
+            margin-left: 4px;
         }
-        
-        /* WhatsApp-style notice */
-        .whatsapp-notice {
-            background: rgba(216, 196, 168, 0.02);
-            border-radius: 12px;
-            padding: var(--spacing-md);
-            margin-top: var(--spacing-lg);
-            margin-bottom: var(--spacing-lg);
-            border: 1px solid var(--beige-light);
-            position: relative;
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
+
+        input, select, textarea {
+            background: #ffffff;
+            border: 1px solid #808080;  /* simple grey border like word */
+            padding: 0.6rem 0.8rem;
+            font-size: 0.95rem;
+            font-family: 'Times New Roman', Times, serif;
+            transition: border 0.1s;
+            width: 100%;
+            border-radius: 0;           /* squared */
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: 2px solid #0055ff;
+            border-color: #0055ff;
+        }
+
+        /* inline groups (radios, checkboxes) */
+        .inline-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            background: #f8faff;
+            padding: 0.7rem 1.2rem;
+            border: 1px solid #bcc3cf;
+        }
+
+        .inline-option {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .inline-option input[type="radio"], 
+        .inline-option input[type="checkbox"] {
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: #0055ff;
+            margin: 0;
+        }
+
+        .inline-option label {
+            text-transform: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            color: #1e2a36;
+        }
+
+        /* commitment box */
+        .commitment-box {
+            background: #f9fbfe;
+            padding: 1.5rem 1.8rem;
+            border: 1px solid #bdc5d2;
+            margin: 1rem 0 1rem;
+        }
+
+        .checkbox-line {
             display: flex;
             align-items: flex-start;
-            gap: var(--spacing-sm);
+            gap: 0.8rem;
+            margin-bottom: 1rem;
         }
 
-        .whatsapp-notice-icon {
-            color: var(--beige);
-            font-size: var(--text-xs);
+        .checkbox-line input[type="checkbox"] {
+            width: 1.1rem;
+            height: 1.1rem;
+            accent-color: #0055ff;
             flex-shrink: 0;
+            margin-top: 2px;
         }
 
-        .whatsapp-notice-content {
-            flex: 1;
+        .checkbox-line label {
+            text-transform: none;
+            font-weight: 450;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #1e2a36;
         }
 
-        .whatsapp-notice-title {
-            font-weight: 600;
-            color: var(--beige);
-            margin-bottom: var(--spacing-xs);
-            font-size: var(--text-base);
-        }
-
-        .back-to-top {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            margin-top: var(--spacing-sm);
-            color: var(--beige);
-            cursor: pointer;
-            font-weight: 500;
-            transition: var(--transition-normal);
-        }
-
-        .back-to-top:hover {
-            color: var(--beige-dark);
-        }
-
-        /* Contact links in notice */
-        .contact-links {
-            display: flex;
-            gap: var(--spacing-md);
-            margin-top: var(--spacing-sm);
-            flex-wrap: wrap;
-        }
-
-        .contact-link {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: var(--text-xs);
-            transition: var(--transition-normal);
-            padding: 6px 12px;
-            border-radius: 20px;
-            background: rgba(216, 196, 168, 0.1);
-            border: 1px solid transparent;
-        }
-
-        .contact-link:hover {
-            color: var(--beige);
-            background: rgba(216, 196, 168, 0.15);
-            border-color: var(--beige-light);
-        }
-        
-        .deliverables-notice {
-            background: rgba(216, 196, 168, 0.05);
-            border-radius: 8px;
-            padding: var(--spacing-md);
-            margin-bottom: var(--spacing-lg);
-            letter-spacing: 0.03px;
-            border: 1px solid var(--beige-light);
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-sm);
-        }
-        
-        .deliverables-notice-icon {
-            color: var(--beige);
-            font-size: var(--text-md);
-            flex-shrink: 0;
-        }
-        
-        /* Portfolio Styles */
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: var(--spacing-lg);
-            margin: var(--spacing-lg) 0;
-        }
-        
-        .portfolio-item {
-            background: rgba(216, 196, 168, 0.03);
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid var(--beige-light);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .portfolio-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--beige);
-            box-shadow: var(--shadow-card);
-        }
-        
-        .portfolio-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .portfolio-content {
-            padding: var(--spacing-md);
-        }
-        
-        .portfolio-title {
-            font-size: var(--text-lg);
-            color: var(--text-primary);
-            margin-bottom: var(--spacing-sm);
-            font-weight: 600;
-        }
-        
-        .portfolio-description {
-            color: var(--text-secondary);
-            font-size: var(--text-sm);
-            line-height: 1.5;
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        .portfolio-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 5px;
-            margin-top: var(--spacing-sm);
-        }
-        
-        .portfolio-tag {
-            background: rgba(216, 196, 168, 0.15);
-            color: var(--beige);
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: var(--text-xs);
-        }
-        
-        .case-study-btn {
-            display: block;
-            width: 100%;
-            padding: var(--spacing-sm);
-            background: transparent;
-            color: var(--beige);
-            border: 1px solid var(--beige);
-            border-radius: 8px;
-            font-size: var(--text-sm);
-            cursor: pointer;
-            transition: var(--transition-normal);
-            margin-top: var(--spacing-md);
-            text-align: center;
-            font-weight: 500;
-        }
-        
-        .case-study-btn:hover {
-            background: rgba(216, 196, 168, 0.1);
-        }
-        
-        /* Case Study Detail */
-        .case-study-detail {
-            display: none;
-            padding: var(--spacing-lg) 0;
-        }
-        
-        .case-study-detail.active {
-            display: block;
-        }
-        
-        .case-study-header {
-            margin-bottom: var(--spacing-xl);
-        }
-        
-        .case-study-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: var(--spacing-md);
-            margin: var(--spacing-lg) 0;
-        }
-        
-        .case-study-image {
-            width: 100%;
-            border-radius: 12px;
-            object-fit: cover;
-            height: 200px;
-            border: 1px solid var(--beige-light);
-            transition: var(--transition-normal);
-        }
-        
-        .case-study-image:hover {
-            transform: scale(1.02);
-            box-shadow: var(--shadow-card);
-        }
-        
-        .case-study-back {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            color: var(--beige);
-            cursor: pointer;
-            margin-bottom: var(--spacing-lg);
-            font-weight: 500;
-            padding: 8px 16px;
-            border-radius: 20px;
-            background: rgba(216, 196, 168, 0.1);
-            border: 1px solid transparent;
-            transition: var(--transition-normal);
-        }
-        
-        .case-study-back:hover {
-            color: var(--beige-dark);
-            background: rgba(216, 196, 168, 0.15);
-            border-color: var(--beige-light);
-        }
-        
-        /* FAQ Accordion Styles */
-        
-        .faq-container {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-xs);
-        }
-
-        .faq-category {
-            padding: var(--spacing-lg) 10px 0;
-            border: 0px solid var(--beige-light);
-        }
-    
-        .faq-item {
-            margin-bottom: var(--spacing-md);
-            border-bottom: 0px solid var(--beige-light);
-            border-radius: 12px;
-            overflow: hidden;
-            transition: var(--transition-normal);
-        }
-        
-        .faq-item:hover {
-            border-color: var(--beige);
-        }
- 
-        .faq-question {
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: var(--spacing-lg);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--beige);
-            cursor: pointer;
-            font-size: var(--text-xs);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: var(--transition-normal);
-        }
-        
-        .faq-question:hover {
-            background: rgba(216, 196, 168, 0.08);
-        }
-        
-        .faq-title {
-            margin:0;
+        .checkbox-line label strong {
             font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding-bottom: var(--spacing-sm);
-            font-size: var(--text-lg);
-            color: var(--text-secondary);
-            border-bottom: 0px solid var(--beige-light);
-            font-weight: 600;
-        }
-        
-        .faq-question::after {
-            content: '\f078';
-            font-family: 'Font Awesome 5 Free';
-            font-weight: 900;
-            transition: transform 0.3s ease;
-            font-size: var(--text-sm);
-        }
-        
-        .faq-question.active::after {
-            transform: rotate(180deg);
-        }
-        
-        .faq-answer {
-            padding: 0 var(--spacing-lg);
-            max-height: 0;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-            background: rgba(216, 196, 168, 0.03);
-        }
-        
-        .faq-answer.active {
-            padding: var(--spacing-lg);
-            max-height: 1000px;
-        }
-        
-        /* Loading animation */
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--rich-black);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body {
-                padding: 0px;
-                overflow: hidden;
-                height: 100vh; /* Fallback */
-                height: calc(var(--vh, 1vh) * 100); /* Safari fix */
-            }
-            
-            .card {
-                width: 100%;
-                border-radius: 5px;
-            }
-            
-            .card.expanded {
-                border-radius: 0px;
-            }
-            
-            .card-header {
-                padding: var(--spacing-xs);
-                gap: 0;
-            }
-            
-            .search-container {
-                padding: 0 var(--spacing-sm);
-            }
-            
-            .search-input {
-                font-size: var(--text-base);
-            }
-            
-            .service-header {
-                gap: var(--spacing-md);
-            }
-            
-            .service-image {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .packages {
-                grid-template-columns: 1fr;
-            }
-            
-            .tabs {
-                justify-content: flex-start;
-                padding-bottom: 0;
-            }
-            
-            .tab {
-                padding: var(--spacing-sm) 12px;
-                font-size: 11px;
-            }
-            
-            .card-content.active {
-                padding: 0 var(--spacing-md) var(--spacing-md);
-            }
-            
-            .card.expanded .card-content.active {
-                padding: 0;
-            }
-            
-            .card.expanded .service-content {
-                padding: var(--spacing-md);
-            }
-            
-            .contact-links {
-                justify-content: center;
-                gap: var(--spacing-sm);
-            }
-            
-            .contact-link {
-                justify-content: center;
-            }
-            
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .impact {
-                padding: var(--spacing-md);
-            }
-            
-            .quote-items {
-                padding: var(--spacing-md);
-            }
-            
-            .whatsapp-notice {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .whatsapp-notice-icon {
-                align-self: center;
-            }
-            
-            .faq-question {
-                padding: var(--spacing-md);
-            }
-            
-            .faq-answer {
-                padding: 0 var(--spacing-md);
-            }
-            
-            .faq-answer.active {
-                padding: var(--spacing-md);
-            }
+            color: #000;
         }
 
-        @media (max-width: 480px) {
-            .service-header {
-                flex-direction: flex;
-                align-items: center;
-            }
-         
-            .service-image {
-                width: 120px;
-                height: 120px;
-                max-width: 280px;
-                aspect-ratio: 1/1;
-            }
-            
-            .tabs {
-                gap: 6px;
-            }
-            
-            .tab {
-                padding: 6px 10px;
-                font-size: 11px;
-            }
-        }
-        
-        /* Horizontal Slider */
-        .horizontal-slider {
-            display: flex;
-            place-items: center;
-            opacity: 1;
-            -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 12.5%, rgba(0, 0, 0, 0.8) 87.5%, rgba(0, 0, 0, 0) 100%);
-            -moz-mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 12.5%, rgba(0, 0, 0, 1) 87.5%, rgba(0, 0, 0, 0) 100%);
-            mask-image: linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 12.5%, rgba(0, 0, 0, 0.8) 87.5%, rgba(0, 0, 0, 0) 100%);
-            overflow: hidden;
-        }
-        
-        .horizontal-slider ul {
-            display: flex;
-            place-items: center;
-            list-style-type: none;
-            gap: 40px;
-            position: relative;
-            flex-direction: row;
-            will-change: transform;
-            animation: horizontal-scroll 20s linear infinite;
-        }
-        
-        /* Animations */
-        @keyframes horizontal-scroll {
-            0% {
-                transform: translateX(-100%);
-            }
-            50% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(100%);
-            }
-        }
-      
-        /* Receipt Styling for Quote Section */
-        .receipt-container {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--beige-light);
-            border-radius: 8px;
-            font-size: var(--text-xs);
-            padding: var(--spacing-lg);
-            margin: var(--spacing-lg) 0;
-            font-family: "Roboto Mono", monospace;
-        }
-        
-        .receipt-header {
-            text-align: center;
-            margin-bottom: var(--spacing-lg);
-            border-bottom: 1px dashed var(--beige-light);
-            padding-bottom: var(--spacing-md);
-        }
-        
-        .receipt-title {
-            font-size: var(--text-lg);
-            color: var(--beige);
-            margin-bottom: var(--spacing-xs);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        .receipt-subtitle {
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        .receipt-line {
-            display: flex;
-            justify-content: space-between;
-            padding: var(--spacing-xs) 0;
-            border-bottom: 1px dashed var(--beige-light);
-        }
-        
-        .receipt-line:last-child {
-            border-bottom: none;
-        }
-        
-        .receipt-line.total {
-            border-top: 1px solid var(--beige);
-            font-weight: bold;
-            margin-top: var(--spacing-sm);
-            padding-top: var(--spacing-sm);
-        }
-        
-        .receipt-line .label {
-            color: var(--text-secondary);
-        }
-        
-        .receipt-line .value {
-            color: var(--beige);
-            text-align: right;
-        }
-        
-        .receipt-footer {
-            text-align: center;
-            margin-top: var(--spacing-lg);
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
-            border-top: 1px dashed var(--beige-light);
-            padding-top: var(--spacing-md);
-        }
-        
-        /* Receipt-style form fields */
-        .receipt-form-group {
-            margin-bottom: var(--spacing-md);
-            position: relative;
-        }
-        
-        .receipt-form-group label {
-            display: block;
-            margin-bottom: 4px;
-            color: var(--beige);
-            font-size: var(--text-xs);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .receipt-form-group input,
-        .receipt-form-group select,
-        .receipt-form-group textarea {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--beige-light);
-            background: rgba(18, 24, 38, 0.5);
-            color: var(--text-primary);
-            font-family: "Roboto Mono", monospace;
-            font-size: var(--text-sm);
-            transition: var(--transition-normal);
-            border-radius: 4px;
-        }
-        
-        .receipt-form-group input:focus,
-        .receipt-form-group select:focus,
-        .receipt-form-group textarea:focus {
-            outline: none;
-            border-color: var(--beige);
-            box-shadow: 0 0 0 1px var(--beige);
-        }
-        
-        .receipt-select-wrapper {
-            position: relative;
+        .signature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 1.5rem;
         }
 
-        .receipt-select-wrapper::after {
-            content: "▼";
-            font-size: var(--text-xs);
-            color: var(--beige);
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
+        .sig-field {
+            border-bottom: 1px solid #808080;
         }
-        
-        /* Remove button for quote items */
-        .remove-item {
-            color: var(--text-secondary);
-            background: none;
+        .sig-field input {
             border: none;
-            cursor: pointer;
-            font-size: var(--text-xs);
-            margin-left: var(--spacing-xs);
-            transition: var(--transition-normal);
+            padding: 0.4rem 0;
+            background: transparent;
+            font-size: 1rem;
+            border-radius: 0;
         }
-        
-        .remove-item:hover {
-            color: #e74c3c;
+        .sig-field input:focus {
+            outline: none;
+            border-bottom: 2px solid #0055ff;
+        }
+        .sig-label {
+            font-size: 0.7rem;
+            color: #3a4b62;
+            text-transform: uppercase;
+            margin-top: 0.1rem;
         }
 
-        /* Testimonial Chat Bubbles */
-        .testimonial-section {
-            margin:0;
-        }
-        
-        .testimonial-title {
-            font-size: 0;
-            color: var(--beige);
-            margin-bottom: 0;
-            text-align: center;
+        /* simple submit button */
+        .btn-submit {
+            background: #0055ff;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.7rem 1.8rem;
+            border: none;
+            width: auto;
+            min-width: 200px;
+            cursor: pointer;
+            transition: background 0.15s;
             text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .chat-container {
-            background: rgba(216, 196, 168, 0);
-            border: 0px solid var(--beige-light);
-            border-radius: 12px;
-            margin-top: 0;
-            padding: var(--spacing-sm);
-            max-height: 100vh;
-            overflow-y: auto;
-        }
-        
-        .chat-container::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .chat-bubble {
-            max-width: 85%;
-            margin-bottom: var(--spacing-md);
-            padding: var(--spacing-md);
-            border-radius: 18px;
-            position: relative;
-            line-height: 1.5;
-            font-size: var(--text-sm);
-        }
-        
-        .chat-bubble.client {
-            background: var(--beige-light);
-            border: 0px solid var(--beige-light);
-            margin-right: auto;
-            color: var(--text-primary);
-            border-radius: 18px 18px 18px 3px;
-        }
-        
-        .chat-bubble.provider {
-            background: rgba(0,0,0,0.2);
-            border: 0px solid var(--beige-light2);
-            margin-left: auto;
-            color: var(--beige);
-            border-radius: 18px 18px 3px 18px;
-        }
-        
-        .chat-bubble .time {
-            display: none;
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
-            text-align: right;
-            margin-top: var(--spacing-xs);
-        }
-        
-        .chat-bubble.client .time {
-            text-align: left;
-        }
-        
-        .chat-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: var(--spacing-xs);
-            border: 0px solid var(--beige-light);
-        }
-        
-        .chat-meta {
-            display: flex;
-            align-items: center;
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: var(--text-xs);
-        }
-        
-        .chat-meta.client {
-            color: var(--text-secondary);
-        }
-        
-        .chat-meta.provider {
-            color: var(--text-secondary);
-            justify-content: flex-end;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .chat-bubble {
-                max-width: 90%;
-            }
-            
-            .receipt-container {
-                padding: var(--spacing-md);
-            }
-        }
-        
-        .profile-container {
-            width: 100%;
-            max-width: 800px;
-            background: var(--card-bg2);
-            border-radius: 16px;
-            border: 1px solid var(--beige-light);
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            padding: var(--spacing-xl);
-            text-align: center;
-            justify-content: center;
-        }
-        
-        .profile-header {
-            text-align: center;
-            margin-bottom: var(--spacing-xl);
-        }
-        
-        .profile-image {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 0px solid var(--beige);
-            margin: 0 auto var(--spacing-md);
-        }
-        
-        .profile-name {
-            font-size: var(--text-2xl);
-            color: var(--beige);
-            margin-bottom: var(--spacing-xs);
-        }
-        
-        .profile-title {
-            font-size: var(--text-base);
-            color: var(--text-secondary);
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .metrics-row {
-            display: flex;
-            justify-content: center;
-            margin-bottom: var(--spacing-xl);
-            padding: var(--spacing-md);
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            border: 1px solid var(--beige-light);
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-            gap: var(--spacing-xl);
-        }
-        
-        .metrics-row::-webkit-scrollbar {
-            display: none;
-        }
-        
-        .metric {
-            text-align: center;
-            min-width: 100px;
-            padding: 0 var(--spacing-xs);
-        }
-        
-        .metric-value {
-            font-size: var(--text-lg);
-            font-weight: 700;
-            color: var(--beige);
-            margin-bottom: var(--spacing-xs);
-        }
-        
-        .metric-label {
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .content-section {
-            margin-bottom: var(--spacing-xl);
-            text-align: center;
-        }
-        
-        .section-title {
-            font-size: var(--text-lg);
-            color: var(--beige);
-            margin-bottom: var(--spacing-md);
-            padding-bottom: var(--spacing-xs);
-            border-bottom: 1px solid var(--beige-light);
+            letter-spacing: 0.02em;
+            margin-top: 1.5rem;
+            border-radius: 0;          /* squared */
+            font-family: 'Times New Roman', Times, serif;
+            border-bottom: 2px solid #003bb5;
             display: inline-block;
         }
-        
-        .experience-container {
-            max-width: 600px;
-            margin: 0 auto;
+
+        .btn-submit:hover {
+            background: #1a61ff;
         }
-        
-        .experience-item {
-            margin-bottom: var(--spacing-lg);
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            border: 1px solid var(--beige-light);
-            overflow: hidden;
+
+        /* no footnotes, no badges, no extra notices */
+        .footer-placeholder {
             text-align: left;
+            font-size: 0.7rem;
+            color: #5e6f88;
+            margin-top: 1rem;
+            border-top: 1px dashed #c7d1dd;
+            padding-top: 0.8rem;
         }
-        
-        .experience-header {
-            padding: var(--spacing-md);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .experience-main {
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-md);
-        }
-        
-        .timeline-date {
-            color: var(--beige);
-            font-size: var(--text-sm);
-            min-width: 100px;
-        }
-        
-        .experience-title {
-            font-weight: 600;
-            margin-bottom: var(--spacing-xs);
-        }
-        
-        .experience-company {
-            color: var(--text-secondary);
-            font-size: var(--text-sm);
-        }
-        
-        .dropdown-icon {
-            color: var(--beige);
-            transition: var(--transition-normal);
-        }
-        
-        .experience-details {
-            padding: 0 var(--spacing-md);
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-            background: rgba(10, 14, 23, 0.5);
-        }
-        
-        .experience-details.active {
-            max-height: 500px;
-            padding: var(--spacing-md);
-        }
-        
-        .responsibilities {
-            margin-bottom: var(--spacing-md);
-        }
-        
-        .responsibilities-title {
-            font-size: var(--text-sm);
-            color: var(--beige);
-            margin-bottom: var(--spacing-xs);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .responsibilities-list {
-            padding-left: var(--spacing-md);
-            color: var(--text-secondary);
-        }
-        
-        .responsibilities-list li {
-            margin-bottom: var(--spacing-xs);
-            font-size: var(--text-sm);
-        }
-        
-        .approach {
-            background: rgba(208, 175, 143, 0.05);
-            padding: var(--spacing-md);
-            border-radius: 6px;
-            border-left: 2px solid var(--beige);
-        }
-        
-        .approach-title {
-            font-size: var(--text-sm);
-            color: var(--beige);
-            margin-bottom: var(--spacing-xs);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .approach-text {
-            color: var(--text-secondary);
-            font-size: var(--text-sm);
-            font-style: italic;
-        }
-        
-        .philosophy-section {
-            background: rgba(208, 175, 143, 0);
-            border-left: 0px solid var(--beige);
-            padding: var(--spacing-md);
-            border-radius: 0 8px 8px 0;
-            margin: var(--spacing-xl) auto;
-            max-width: 600px;
-            text-align: center;
-        }
-        
-        .contact-container {
-            position: relative;
-            display: inline-block;
-            margin: var(--spacing-lg) auto;
-        }
-        
-        .contact-trigger {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            padding: var(--spacing-md) var(--spacing-lg);
-            background: rgba(208, 175, 143, 0.1);
-            color: var(--text-primary);
-            border: 1px solid var(--beige-light);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition-normal);
-        }
-        
-        .contact-trigger:hover {
-            background: rgba(208, 175, 143, 0.2);
-            border-color: var(--beige);
-        }
-        
-        .contact-options {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(-10px);
-            display: flex;
-            gap: var(--spacing-md);
-            padding: var(--spacing-md);
-            background: rgba(10, 14, 23, 0.95);
-            border-radius: 8px;
-            border: 1px solid var(--beige-light);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition-normal);
-            margin-bottom: var(--spacing-sm);
-        }
-        
-        .contact-container:hover .contact-options {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-        
-        .contact-option {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(208, 175, 143, 0.1);
-            color: var(--text-primary);
-            border: 1px solid var(--beige-light);
-            text-decoration: none;
-            transition: var(--transition-normal);
-        }
-        
-        .contact-option:hover {
-            background: var(--beige);
-            color: var(--rich-black);
-            transform: translateY(-3px);
-        }
-        
-        .profile-footer {
-            margin-top: var(--spacing-xl);
-            text-align: center;
-            font-size: var(--text-sm);
-            color: var(--text-secondary);
-            padding-top: var(--spacing-md);
-            border-top: 1px solid var(--beige-light);
-        }
-        
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: var(--spacing-lg);
-            margin-top: var(--spacing-md);
-        }
-        
-        .skill-category {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 8px;
-            padding: var(--spacing-md);
-            border: 1px solid var(--beige-light);
-        }
-        
-        .skill-title {
-            font-size: var(--text-sm);
-            color: var(--beige);
-            margin-bottom: var(--spacing-sm);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .skills-list {
-            list-style-type: none;
-            color: var(--text-secondary);
-        }
-        
-        .skills-list li {
-            margin-bottom: var(--spacing-xs);
-            font-size: var(--text-sm);
-            position: relative;
-            padding-left: var(--spacing-sm);
-        }
-        
-        .skills-list li:before {
-            content: "•";
-            color: var(--beige);
-            position: absolute;
-            left: 0;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .profile-container {
-                padding: var(--spacing-lg);
-            }
-            
-            .metrics-row {
-                padding: var(--spacing-sm);
-                gap: var(--spacing-md);
-            }
-            
-            .metric {
-                min-width: 80px;
-            }
-            
-            .metric-value {
-                font-size: var(--text-base);
-            }
-            
-            .metric-label {
-                font-size: 0.7rem;
-            }
-            
-            .experience-header {
-                flex-direction: flex;
-                align-items: flex-start;
-                gap: var(--spacing-sm);
-            }
-            
-            .experience-main {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: var(--spacing-xs);
-            }
-            
-            .contact-options {
-                flex-wrap: wrap;
-                justify-content: center;
-                width: 200px;
-            }
-            
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .profile-container {
-                padding: var(--spacing-md);
-            }
-            
-            .profile-image {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .metrics-row {
-                gap: var(--spacing-sm);
-            }
-            
-            .metric {
-                min-width: 70px;
-            }
-            
-            .metric-value {
-                font-size: var(--text-sm);
-            }
-            
-            .metric-label {
-                font-size: 0.65rem;
-            }
-            
-            .contact-options {
-                width: 180px;
-            }
+
+        /* responsive */
+        @media (max-width: 700px) {
+            body { padding: 0.8rem; }
+            .header { padding: 1rem 1.5rem; }
+            .pdf-toolbar { padding: 0.5rem 1.5rem; }
+            .form-content { padding: 1.5rem; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .full { grid-column: span 1; }
+            .signature-row { grid-template-columns: 1fr; }
+            .inline-group { flex-direction: column; gap: 0.6rem; }
+            .btn-submit { width: 100%; }
         }
     </style>
 </head>
 <body>
-  <!-- Lava Blob Background -->
-    <div class="blob-container" aria-hidden="true">
-        <div class="blob"></div>
-        <div class="blob"></div>
-        <div class="blob"></div>
-    </div>
-    
-    <div class="container">
-        <div class="card">
-            <div class="card-header">
-                <div class="logo" aria-label="Ray of Light Design Studio Logo">
-                    <img src="https://giddycloth.s6-tastewp.com/wp-content/uploads/2025/10/IMG_1920.png" alt="Ray of Light Design Studio Logo">
-                </div>
-                
-                <div class="search-container">
-                    <i class="search-icon fas fa-search" aria-hidden="true"></i>
-                    <input type="text" class="search-input" placeholder="Search for bespoke websites, applications, dashboards..." aria-label="Search services">
-                    <button class="close-btn" aria-label="Close content"><i class="fas fa-times" aria-hidden="true"></i></button>
-                </div>
-            </div>
+    <div class="document" id="application-document">
+        <!-- header: only org name and form title -->
+        <div class="header">
+            <h1>Association of Mutual Values <span><div class="title">MEMBERSHIP APPLICATION</div></span></h1>
             
-            <div class="divider"></div>
-            
-            <div class="card-content">
-
-                <!-- Website Design Content -->
-                <div class="service-content" id="website-content">
-                    <div class="service-header">
-                        <section class="horizontal-slider">
-                            <ul>  
-                                <img src="https://via.placeholder.com/400x400/121826/D0AF8F?text=E-commerce+Store" alt="E-commerce Store" class="service-image portfolio-link" data-case-study="coal">
-                                <img src="https://via.placeholder.com/400x400/121826/D0AF8F?text=Art+Gallery+PWA" class="service-image portfolio-link" data-case-study="gallery">
-                                <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" class="service-image portfolio-link" data-case-study="portfolio-app">
-                                <img src="https://via.placeholder.com/400x400/121826/D0AF8F?text=Dashboard+Design" class="service-image portfolio-link" data-case-study="butterfly">
-                                <img src="https://via.placeholder.com/400x400/121826/D0AF8F?text=Web+Application" class="service-image portfolio-link" data-case-study="mezer">
-                                <img src="https://via.placeholder.com/400x400/121826/D0AF8F?text=Custom+Solution" class="service-image portfolio-link" data-case-study="ecommerce">
-                            </ul>
-                        </section>
-                    </div>
-                    
-                    <div class="impact">
-                        <h2 class="service-title">Bespoke Digital Experiences</h2>
-                        <p class="service-description">We craft intentional digital solutions that transform how businesses connect with their audiences. Each project is a unique journey from understanding your challenges to delivering elegant, purposeful solutions.</p>
-                        <h3 class="section-title">₦1.2M – ₦4.5M</h3>
-                    </div>
-                    
-                    <div class="deliverables">
-                        
-                        <div class="deliverables-notice">
-                            <div class="deliverables-notice-icon">
-                                <i class="fas fa-mouse-pointer"></i>
-                            </div>
-                            <div class="deliverables-notice-content">
-                                Click on items to select them for your quote. Each selection represents a thoughtful component of your bespoke digital solution.
-                            </div>
-                        </div>
-                        
-                        <div class="packages">
-                            <div class="package">
-                                <h3 class="section-title">E-commerce Solutions</h3>
-                                <div class="deliverable-item" data-price="950000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">Complete E-commerce Platform</div>
-                                        <div class="deliverable-details">From product discovery to seamless checkout, we build online stores that feel personal and perform exceptionally</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">4-6 weeks</div>
-                                            <div class="deliverable-price">₦950,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="deliverable-item" data-price="400000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">Inventory & Order Management</div>
-                                        <div class="deliverable-details">Intuitive backend systems that make managing products and orders feel effortless</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">3-4 weeks</div>
-                                            <div class="deliverable-price">₦400,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="deliverable-item" data-price="350000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">Customer Experience Personalization</div>
-                                        <div class="deliverable-details">Tailored shopping journeys that make each customer feel uniquely understood</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">2-3 weeks</div>
-                                            <div class="deliverable-price">₦350,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="package">
-                                <h3 class="section-title">Portfolio & Creative Presence</h3>
-                                <div class="deliverable-item" data-price="750000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">Artist & Creative Portfolio</div>
-                                        <div class="deliverable-details">Digital galleries that showcase your work with the care and attention it deserves</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">3-5 weeks</div>
-                                            <div class="deliverable-price">₦750,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="deliverable-item" data-price="550000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">Portfolio Document Generator</div>
-                                        <div class="deliverable-details">Transform your digital presence into beautiful, printable PDF documents with ease</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">3-4 weeks</div>
-                                            <div class="deliverable-price">₦550,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="deliverable-item" data-price="300000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">Content Management System</div>
-                                        <div class="deliverable-details">Effortlessly update your portfolio with new work, maintaining the aesthetic integrity</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">2-3 weeks</div>
-                                            <div class="deliverable-price">₦300,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="package">
-                                <h3 class="section-title">PWAs & Dashboards</h3>
-                                <div class="deliverable-item" data-price="850000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">Progressive Web Application</div>
-                                        <div class="deliverable-details">App-like experiences that work seamlessly across all devices, online or offline</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">4-6 weeks</div>
-                                            <div class="deliverable-price">₦850,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="deliverable-item" data-price="600000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">Business Intelligence Dashboard</div>
-                                        <div class="deliverable-details">Transform complex data into intuitive visual stories that inform decision-making</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">3-5 weeks</div>
-                                            <div class="deliverable-price">₦600,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="deliverable-item" data-price="450000">
-                                    <div class="deliverable-info">
-                                        <div class="deliverable-name">UX Research & User Flow Mapping</div>
-                                        <div class="deliverable-details">Deep understanding of user needs, behaviors, and journeys to inform every design decision</div>
-                                        <div class="deliverable-meta">
-                                            <div class="deliverable-time">2-3 weeks</div>
-                                            <div class="deliverable-price">₦450,000</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="get-quote-btn" aria-label="Add selected services to quote">Add to Quote</button>
-                    
-                    <!-- WhatsApp-style notice -->
-                    <div class="whatsapp-notice">
-                        <div class="whatsapp-notice-icon">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                        <div class="whatsapp-notice-content">
-                            <div class="whatsapp-notice-title">Your vision, thoughtfully realized</div>
-                            <p>We believe technology should serve human connection and business purpose. Let's discuss your project and create a digital experience that feels as intentional as your vision.</p>
-                            
-                            <div class="contact-links">
-                                <a href="mailto:odey.helpdesk@gmail.com" class="contact-link" aria-label="Email us for website design services">
-                                    <i class="fas fa-envelope"></i> Email us
-                                </a>
-                                <a href="https://wa.me/2349122356353" class="contact-link" aria-label="Message us on WhatsApp for website design services">
-                                    <i class="fab fa-whatsapp"></i> Message us
-                                </a>
-                                <a href="https://linkedin.com/company/rayoflight" class="contact-link" aria-label="Connect with us on LinkedIn">
-                                    <i class="fab fa-linkedin"></i> Connect
-                                </a>
-                            </div>  
-                            
-                            <div class="back-to-top" onclick="scrollToTopCard()" aria-label="Back to top">
-                                <i class="fas fa-arrow-up"></i> Back to top
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Portfolio Content -->
-                <div class="service-content" id="portfolio-content">
-                    <h2 class="service-title">Our Portfolio</h2>
-                    <p class="service-description">Each project is a unique story of transformation—from initial challenges to elegant digital solutions. We approach every collaboration with care, crafting experiences that resonate deeply with both businesses and their audiences.</p>
-                    
-                    <div class="portfolio-grid">
-                        <div class="portfolio-item">
-                            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Butterfly Effect Dashboard" class="portfolio-image">
-                            <div class="portfolio-content">
-                                <h3 class="portfolio-title">Butterfly Effect Dashboard</h3>
-                                <p class="portfolio-description">Event management dashboard with comprehensive task tracking, vendor management, and real-time analytics for fashion pop-up events.</p>
-                                <div class="portfolio-tags">
-                                    <span class="portfolio-tag">Dashboard Design</span>
-                                    <span class="portfolio-tag">Event Management</span>
-                                    <span class="portfolio-tag">Real-time Analytics</span>
-                                </div>
-                                <button class="case-study-btn" data-case-study="butterfly">View Case Study</button>
-                            </div>
-                        </div>
-                        
-                        <div class="portfolio-item">
-                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Mezer App" class="portfolio-image">
-                            <div class="portfolio-content">
-                                <h3 class="portfolio-title">Mezer App</h3>
-                                <p class="portfolio-description">AI-powered body measurement application with real-time scanning technology and personalized clothing recommendations.</p>
-                                <div class="portfolio-tags">
-                                    <span class="portfolio-tag">Mobile Application</span>
-                                    <span class="portfolio-tag">AI Integration</span>
-                                    <span class="portfolio-tag">User Experience</span>
-                                </div>
-                                <button class="case-study-btn" data-case-study="mezer">View Case Study</button>
-                            </div>
-                        </div>
-                        
-                        <div class="portfolio-item">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Coal By Jacklyn" class="portfolio-image">
-                            <div class="portfolio-content">
-                                <h3 class="portfolio-title">Coal By Jacklyn</h3>
-                                <p class="portfolio-description">E-commerce platform blending lookbook aesthetics with seamless shopping experience for a contemporary fashion brand.</p>
-                                <div class="portfolio-tags">
-                                    <span class="portfolio-tag">E-commerce</span>
-                                    <span class="portfolio-tag">Fashion</span>
-                                    <span class="portfolio-tag">Brand Experience</span>
-                                </div>
-                                <button class="case-study-btn" data-case-study="coal">View Case Study</button>
-                            </div>
-                        </div>
-                        
-                        <div class="portfolio-item">
-                            <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Art Gallery PWA" class="portfolio-image">
-                            <div class="portfolio-content">
-                                <h3 class="portfolio-title">Art Gallery PWA</h3>
-                                <p class="portfolio-description">Progressive web application connecting art collectors with galleries through an immersive digital experience.</p>
-                                <div class="portfolio-tags">
-                                    <span class="portfolio-tag">PWA</span>
-                                    <span class="portfolio-tag">Art Platform</span>
-                                    <span class="portfolio-tag">Digital Experience</span>
-                                </div>
-                                <button class="case-study-btn" data-case-study="gallery">View Case Study</button>
-                            </div>
-                        </div>
-                        
-                        <div class="portfolio-item">
-                            <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Portfolio App" class="portfolio-image">
-                            <div class="portfolio-content">
-                                <h3 class="portfolio-title">Portfolio Document Generator</h3>
-                                <p class="portfolio-description">Application that transforms digital portfolios into beautifully designed, printable PDF documents with ease.</p>
-                                <div class="portfolio-tags">
-                                    <span class="portfolio-tag">Productivity Tool</span>
-                                    <span class="portfolio-tag">PDF Generation</span>
-                                    <span class="portfolio-tag">Creative Tool</span>
-                                </div>
-                                <button class="case-study-btn" data-case-study="portfolio-app">View Case Study</button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Case Study Details -->
-                    <div class="case-study-detail" id="butterfly-case-study">
-                        <div class="case-study-back" onclick="backToPortfolio()">
-                            <i class="fas fa-arrow-left"></i> Back to Portfolio
-                        </div>
-                        
-                        <div class="case-study-header">
-                            <h2 class="service-title">Butterfly Effect Dashboard</h2>
-                            <p class="service-description">Transforming event management from chaotic coordination to elegant orchestration</p>
-                        </div>
-                        
-                        <div class="impact">
-                            <h3 class="impact-title">The Challenge</h3>
-                            <p>Event organizers were managing fashion pop-ups through a fragmented collection of spreadsheets, emails, and messaging apps. This disjointed approach created communication gaps, missed details, and administrative overwhelm that distracted from the creative aspects of event production.</p>
-                        </div>
-                        
-                        <div class="impact">
-                            <h3 class="impact-title">Our Approach</h3>
-                            <p>We immersed ourselves in the world of event production, shadowing organizers through multiple event cycles. Through this deep understanding, we designed a centralized dashboard that brings clarity to complexity—transforming chaotic coordination into an orchestrated workflow where every detail finds its place.</p>
-                        </div>
-                        
-                        <div class="case-study-gallery">
-                            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Butterfly Effect Dashboard Overview" class="case-study-image">
-                            <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Vendor Management Interface" class="case-study-image">
-                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Inventory Tracking System" class="case-study-image">
-                        </div>
-                        
-                        <div class="impact">
-                            <h3 class="impact-title">The Results</h3>
-                            <p>Within 3 months of implementation, event organizers reported a 60% reduction in administrative time, 45% improvement in vendor communication, and 30% increase in event profitability through better financial tracking. The platform has become an essential tool for managing multiple concurrent events.</p>
-                        </div>
-                        
-                        <div class="impact">
-                            <h3 class="impact-title">Key Features</h3>
-                            <ul>
-                                <li>Vendor management with status tracking</li>
-                                <li>Inventory tracking with real-time updates</li>
-                                <li>Financial dashboard with expense tracking</li>
-                                <li>Task management with team assignments</li>
-                                <li>Marketing campaign planning and execution</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="case-study-detail" id="coal-case-study">
-                        <div class="case-study-back" onclick="backToPortfolio()">
-                            <i class="fas fa-arrow-left"></i> Back to Portfolio
-                        </div>
-                        
-                        <div class="case-study-header">
-                            <h2 class="service-title">Coal By Jacklyn</h2>
-                            <p class="service-description">Where fashion e-commerce meets artistic expression</p>
-                        </div>
-                        
-                        <div class="impact">
-                            <h3 class="impact-title">The Challenge</h3>
-                            <p>Coal By Jacklyn needed an online presence that reflected their brand's artistic sensibility while providing a seamless shopping experience. Their previous website failed to capture the brand's aesthetic and made the shopping process feel transactional rather than experiential.</p>
-                        </div>
-                        
-                        <div class="impact">
-                            <h3 class="impact-title">Our Approach</h3>
-                            <p>We approached this project as a collaboration between commerce and art. The design prioritizes visual storytelling through immersive lookbooks while maintaining intuitive navigation and frictionless purchasing. Every interaction was crafted to feel like browsing through a carefully curated collection rather than shopping on a typical e-commerce site.</p>
-                        </div>
-                        
-                        <div class="case-study-gallery">
-                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Coal By Jacklyn Homepage" class="case-study-image">
-                            <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Product Display" class="case-study-image">
-                            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80" alt="Lookbook Section" class="case-study-image">
-                        </div>
-                        
-                        <div class="impact">
-                            <h3 class="impact-title">The Results</h3>
-                            <p>The new platform increased average session duration by 3.2x and reduced bounce rate by 68%. Most importantly, it captured the brand's essence so effectively that it became a marketing asset in itself, with customers frequently mentioning the website experience in social media posts about the brand.</p>
-                        </div>
-                        
-                        <div class="impact">
-                            <h3 class="impact-title">Key Features</h3>
-                            <ul>
-                                <li>Immersive lookbook experience</li>
-                                <li>Seamless product discovery and filtering</li>
-                                <li>Integrated size guide and styling recommendations</li>
-                                <li>Streamlined checkout process</li>
-                                <li>Content management for seasonal collections</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <!-- Additional case studies would be here -->
-                    
-                    <!-- WhatsApp-style notice -->
-                    <div class="whatsapp-notice">
-                        <div class="whatsapp-notice-icon">
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <div class="whatsapp-notice-content">
-                            <div class="whatsapp-notice-title">Your story deserves to be told beautifully</div>
-                            <p>Every business has a unique narrative waiting to be expressed through thoughtful design. Let's collaborate to create a digital presence that captures the essence of what makes your work special.</p>
-                            
-                            <div class="contact-links">
-                                <a href="mailto:odey.helpdesk@gmail.com" class="contact-link" aria-label="Email us for general inquiries">
-                                    <i class="fas fa-envelope"></i> Email us
-                                </a>
-                               
-                                <a href="https://wa.me/2349122356353" class="contact-link" aria-label="Message us on WhatsApp for general inquiries">
-                                    <i class="fab fa-whatsapp"></i> Message us
-                                </a>
-                                <a href="https://linkedin.com/company/rayoflight" class="contact-link" aria-label="Connect with us on LinkedIn">
-                                    <i class="fab fa-linkedin"></i> Connect
-                                </a>
-                            </div>
-                            
-                            <div class="back-to-top" onclick="scrollToTopCard()" aria-label="Back to top">
-                                <i class="fas fa-arrow-up"></i> Back to top
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Feedback Content -->
-                <div class="service-content" id="feedback-content">
-                    <h2 class="service-title">Client Reflections</h2>
-                    <p class="service-description">These conversations capture the essence of our collaborations—the challenges, the process, and the transformations that emerged from working together.</p>
-                    
-                    <div class="chat-container">
-                        <div class="chat-meta client">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80" alt="Nonye C." class="chat-avatar">
-                            Nonye C., Event Director at Butterfly Effect
-                        </div>
-                        
-                        <div class="chat-bubble client">
-                            <p>We were struggling to manage multiple fashion pop-up events with disconnected tools. Our team was spending more time on administration than on creative execution.</p>
-                            <div class="time">10:24 AM</div>
-                        </div>
-                        
-                        <div class="chat-meta provider">
-                            <img src="https://giddycloth.s6-tastewp.com/wp-content/uploads/2025/10/O.-Ibrahim-1-scaled.jpg" alt="Ibrahim Odey" class="chat-avatar">
-                            Ibrahim Odey, Creative Director
-                        </div>
-                        
-                        <div class="chat-bubble provider">
-                            <p>Our dashboard solution centralized all your event management needs. How has it impacted your operations?</p>
-                            <div class="time">10:30 AM</div>
-                        </div>
-                        
-                        <div class="chat-bubble client">
-                            <p>The transformation has been incredible! We've reduced administrative time by 60% and improved vendor communication significantly. The financial tracking alone has increased our event profitability by 30%.</p>
-                            <div class="time">10:35 AM</div>
-                        </div>
-                        
-                        <div class="chat-bubble provider">
-                            <p>That's fantastic to hear! The integrated approach ensures all aspects of your events work together seamlessly.</p>
-                            <div class="time">10:38 AM</div>
-                        </div>
-                        
-                        <div class="chat-meta client">
-                            <img src="https://images.unsplash.com/photo-1536922246289-88c42f957773?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80" alt="Sally B." class="chat-avatar">
-                            Sally B., CTO at Mezer
-                        </div>
-                        
-                        <div class="chat-bubble client">
-                            <p>Our body measurement app project with Ray of Light exceeded all expectations. The AI integration and user experience design resulted in 95% measurement accuracy.</p>
-                            <div class="time">2:15 PM</div>
-                        </div>
-                        
-                        <div class="chat-meta provider">
-                            <img src="https://giddycloth.s6-tastewp.com/wp-content/uploads/2025/10/O.-Ibrahim-1-scaled.jpg" alt="Ibrahim Odey" class="chat-avatar">
-                            Ibrahim Odey, Creative Director
-                        </div>
-                        
-                        <div class="chat-bubble provider">
-                            <p>We focused on creating a seamless scanning experience that anyone could use, with clear instructions and immediate value through personalized recommendations.</p>
-                            <div class="time">2:22 PM</div>
-                        </div>
-                        
-                        <div class="chat-bubble client">
-                            <p>The results speak for themselves - 40% reduction in clothing returns for our users and 65% increase in shopping confidence. This has been transformative for our business.</p>
-                            <div class="time">2:25 PM</div>
-                        </div>
-                        
-                        <div class="chat-meta client">
-                            <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=400&q=80" alt="Jacklyn N" class="chat-avatar">
-                            Jacquelyn N., Founder of Coal By Jacklyn
-                        </div>
-                        
-                        <div class="chat-bubble client">
-                            <p>I was concerned about losing the artistic sensibility of my brand in an e-commerce platform. Most solutions felt too transactional for what we represent.</p>
-                            <div class="time">3:45 PM</div>
-                        </div>
-                        
-                        <div class="chat-meta provider">
-                            <img src="https://giddycloth.s6-tastewp.com/wp-content/uploads/2025/10/O.-Ibrahim-1-scaled.jpg" alt="Ibrahim Odey" class="chat-avatar">
-                            Ibrahim Odey, Creative Director
-                        </div>
-                        
-                        <div class="chat-bubble provider">
-                            <p>We approached your site as a digital gallery space where commerce happens naturally. The lookbook experience was designed to feel like browsing through a carefully curated collection.</p>
-                            <div class="time">3:52 PM</div>
-                        </div>
-                        
-                        <div class="chat-bubble client">
-                            <p>You captured the essence perfectly. Customers now mention the website experience in their social media posts about our brand. It's become a marketing asset in itself.</p>
-                            <div class="time">3:58 PM</div>
-                        </div>
-                    </div>
-                    
-                    <!-- WhatsApp-style notice -->
-                    <div class="whatsapp-notice">
-                        <div class="whatsapp-notice-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <div class="whatsapp-notice-content">
-                            <div class="whatsapp-notice-title">Ready to create your success story?</div>
-                            <p>Let's discuss how we can help your business achieve similar results through strategic design and development.</p>
-                            
-                            <div class="contact-links">
-                                <a href="mailto:odey.helpdesk@gmail.com" class="contact-link" aria-label="Email us">
-                                    <i class="fas fa-envelope"></i> Email us
-                                </a>
-                                <a href="https://wa.me/2349122356353" class="contact-link" aria-label="Message us on WhatsApp">
-                                    <i class="fab fa-whatsapp"></i> Message us
-                                </a>
-                                <a href="https://linkedin.com/company/rayoflight" class="contact-link" aria-label="Connect with us on LinkedIn">
-                                    <i class="fab fa-linkedin"></i> Connect
-                                </a>
-                            </div>
-                            
-                            <div class="back-to-top" onclick="scrollToTopCard()" aria-label="Back to top">
-                                <i class="fas fa-arrow-up"></i> Back to top
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-               <div class="service-content" id="profile-content">
-                    <!-- Profile Card -->
-                    <div class="profile-header">
-                        <img src="https://giddycloth.s6-tastewp.com/wp-content/uploads/2025/10/O.-Ibrahim-1-scaled.jpg" alt="Ibrahim Odey" class="profile-image">
-                        <h1 class="profile-name">Ibrahim Odey</h1>
-                        <p class="profile-title">Creative Director & Digital Experience Strategist</p>
-                    </div>
-                    
-                    <div class="metrics-row">
-                        <div class="metric">
-                            <div class="metric-value">10+</div>
-                            <div class="metric-label">Years</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">150+</div>
-                            <div class="metric-label">Projects</div>
-                        </div>
-                        <div class="metric">
-                            <div class="metric-value">95%</div>
-                            <div class="metric-label">Client Satisfaction</div>
-                        </div>
-                    </div>
-                    
-                    <div class="content-section">
-                        <h2 class="section-title">Experience & Expertise</h2>
-                        
-                        <div class="experience-container">
-                            <div class="experience-item">
-                                <div class="experience-header" onclick="toggleExperience(this)">
-                                    <div class="experience-main">
-                                        <div class="timeline-date">2018 - Present</div>
-                                        <div>
-                                            <div class="experience-title">Founder & Creative Director</div>
-                                            <div class="experience-company">Ray of Light Design Studio</div>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-icon">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </div>
-                                </div>
-                                <div class="experience-details">
-                                    <div class="responsibilities">
-                                        <div class="responsibilities-title">Key Responsibilities</div>
-                                        <ul class="responsibilities-list">
-                                            <li>Lead digital product design and development for web and mobile applications</li>
-                                            <li>Architect user experience strategies for complex business applications</li>
-                                            <li>Develop conversion-focused interfaces and digital experiences</li>
-                                            <li>Oversee technical implementation and quality assurance</li>
-                                        </ul>
-                                    </div>
-                                    <div class="approach">
-                                        <div class="approach-title">Digital Focus</div>
-                                        <div class="approach-text">Specialized in creating sophisticated web applications, dashboards, and mobile experiences that solve complex business problems through intuitive design and robust technical implementation.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="experience-item">
-                                <div class="experience-header" onclick="toggleExperience(this)">
-                                    <div class="experience-main">
-                                        <div class="timeline-date">2015 - 2018</div>
-                                        <div>
-                                            <div class="experience-title">Senior UX Designer & Developer</div>
-                                            <div class="experience-company">Nexus Creative Agency</div>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-icon">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </div>
-                                </div>
-                                <div class="experience-details">
-                                    <div class="responsibilities">
-                                        <div class="responsibilities-title">Key Responsibilities</div>
-                                        <ul class="responsibilities-list">
-                                            <li>Designed and developed enterprise web applications for Fortune 500 clients</li>
-                                            <li>Created interactive prototypes and design systems for digital products</li>
-                                            <li>Implemented responsive web designs with modern front-end frameworks</li>
-                                            <li>Conducted user research and usability testing for product validation</li>
-                                        </ul>
-                                    </div>
-                                    <div class="approach">
-                                        <div class="approach-title">Technical Expertise</div>
-                                        <div class="approach-text">Developed expertise in creating data-intensive applications, dashboard interfaces, and complex web systems that balance user needs with technical constraints and business objectives.</div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="experience-item">
-                                <div class="experience-header" onclick="toggleExperience(this)">
-                                    <div class="experience-main">
-                                        <div class="timeline-date">2012 - 2015</div>
-                                        <div>
-                                            <div class="experience-title">Web Developer & UI Designer</div>
-                                            <div class="experience-company">Digital Solutions Inc.</div>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown-icon">
-                                        <i class="fas fa-chevron-down"></i>
-                                    </div>
-                                </div>
-                                <div class="experience-details">
-                                    <div class="responsibilities">
-                                        <div class="responsibilities-title">Key Responsibilities</div>
-                                        <ul class="responsibilities-list">
-                                            <li>Built responsive websites and web applications from concept to deployment</li>
-                                            <li>Created UI components and design systems for consistent user experiences</li>
-                                            <li>Optimized web performance and implemented SEO best practices</li>
-                                            <li>Collaborated with back-end developers on full-stack solutions</li>
-                                        </ul>
-                                    </div>
-                                    <div class="approach">
-                                        <div class="approach-title">Foundation Development</div>
-                                        <div class="approach-text">Established the core principles of my approach: that every digital experience must serve both user and business purposes, with technical excellence as the foundation for exceptional design.</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="philosophy-section">
-                        "Creating digital experiences that transform how businesses operate and connect with their audiences. I specialize in designing and developing sophisticated web applications, dashboards, and mobile experiences that solve complex problems through intuitive interfaces and robust technical implementation. I believe exceptional digital products emerge from the perfect balance of strategic thinking, user-centered design, and technical excellence."
-                    </div>
-                    
-                    <div class="content-section">
-                        <h2 class="section-title">Technical Expertise</h2>
-                        <div class="skills-container">
-                            <div class="skills-grid">
-                                <div class="skill-category">
-                                    <h3 class="skill-title">Design & UX</h3>
-                                    <ul class="skills-list">
-                                        <li>User Experience Design</li>
-                                        <li>Interface Design</li>
-                                        <li>Interaction Design</li>
-                                        <li>Design Systems</li>
-                                        <li>Prototyping</li>
-                                    </ul>
-                                </div>
-                                <div class="skill-category">
-                                    <h3 class="skill-title">Development</h3>
-                                    <ul class="skills-list">
-                                        <li>Front-end Development</li>
-                                        <li>Responsive Web Design</li>
-                                        <li>JavaScript Frameworks</li>
-                                        <li>API Integration</li>
-                                        <li>Performance Optimization</li>
-                                    </ul>
-                                </div>
-                                <div class="skill-category">
-                                    <h3 class="skill-title">Specializations</h3>
-                                    <ul class="skills-list">
-                                        <li>Dashboard Design</li>
-                                        <li>Web Applications</li>
-                                        <li>Mobile Experiences</li>
-                                        <li>E-commerce Solutions</li>
-                                        <li>Data Visualization</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- WhatsApp-style notice -->
-                    <div class="whatsapp-notice">
-                        <div class="whatsapp-notice-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <div class="whatsapp-notice-content">
-                            <div class="whatsapp-notice-title">Let's create something remarkable together</div>
-                            <p>I personally oversee every project that comes through Ray of Light to ensure the highest quality of strategic thinking and technical execution. Your vision deserves attention to detail and expertise.</p>
-                            
-                            <div class="contact-links">
-                                <a href="#" class="contact-link" id="emailLink" aria-label="Email us">
-                                    <i class="fas fa-envelope"></i> Email us
-                                </a>
-                                <a href="#" class="contact-link" id="whatsappLink" aria-label="Message us on WhatsApp">
-                                    <i class="fab fa-whatsapp"></i> Message us
-                                </a>
-                                <a href="https://linkedin.com/company/rayoflight" class="contact-link" aria-label="Connect with us on LinkedIn">
-                                    <i class="fab fa-linkedin"></i> Connect
-                                </a>
-                            </div>
-                            
-                            <div class="back-to-top" onclick="scrollToTopCard()" aria-label="Back to top">
-                                <i class="fas fa-arrow-up"></i> Back to top
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- FAQ Content -->
-                <div class="service-content" id="faq-content">
-                    <h2 class="service-title">Frequently Asked Questions</h2>
-                    <p class="service-description">Everything you need to know about working with Ray of Light for your digital projects. Can't find what you're looking for? Contact us directly for personalized answers.</p>
-                     <div class="faq-container">
-                        <div class="faq-category">
-                            <h3 class="faq-title">Getting Started</h3>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">How do I get started with Ray of Light?</div>
-                                <div class="faq-answer">Getting started is easy! Simply reach out through our contact form or use the chat feature. We'll schedule a complimentary consultation to discuss your project needs, goals, and technical requirements. Based on our conversation, we'll provide a tailored proposal that outlines the recommended approach, timeline, and investment.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">What information should I prepare for our first meeting?</div>
-                                <div class="faq-answer">For our initial consultation, it's helpful if you can share your business goals, target audience, technical requirements, and any existing systems or platforms. Don't worry if you don't have all this information—we're here to help you clarify your vision and technical strategy.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">How do you determine which approach is right for my project?</div>
-                                <div class="faq-answer">We take a strategic approach to understand your business objectives and technical requirements first. Based on your goals, user needs, and technical constraints, we'll recommend the approach that will deliver the greatest impact. We consider factors like scalability, performance, and integration requirements.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">Do you offer free consultations?</div>
-                                <div class="faq-answer">Yes, we offer a complimentary 30-minute consultation to discuss your project needs and determine if we're a good fit for your business. This is an opportunity for us to understand your goals and for you to learn more about our process.</div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-category">
-                            <h3 class="faq-title">Our Process & Approach</h3>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">What's your typical process for a web application project?</div>
-                                <div class="faq-answer">We follow a structured 4-phase process: 1) Discovery & Strategy where we deeply understand your business, users, and technical requirements; 2) Design & Prototyping where we create user flows and interactive prototypes; 3) Development & Implementation where we build and test the application; and 4) Launch & Optimization where we deploy and monitor performance. Each phase includes collaboration and feedback sessions.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">How does your approach differ for dashboard projects vs. consumer websites?</div>
-                                <div class="faq-answer">Dashboard projects focus on data visualization, complex interactions, and user efficiency, while consumer websites prioritize conversion, storytelling, and brand experience. Our approach adapts to each project type, ensuring the right balance of functionality, usability, and visual appeal for the specific context and users.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">We already have an existing system. Can you work with what we have?</div>
-                                <div class="faq-answer">Absolutely! We frequently work with existing systems and platforms. We can design new interfaces for legacy systems, integrate with existing APIs, or rebuild specific components while maintaining compatibility with your current infrastructure. We'll conduct a technical assessment to understand your existing environment and recommend the best approach.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">How many revisions do you include in your projects?</div>
-                                <div class="faq-answer">We typically include 2-3 rounds of revisions for each major deliverable. This allows for refinement while keeping the project on track. Additional revisions can be accommodated if needed, and we'll discuss any potential impact on timeline and budget beforehand.</div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-category">
-                            <h3 class="faq-title">Execution & Delivery</h3>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">How long does a typical web application project take?</div>
-                                <div class="faq-answer">Most web application projects take 8-16 weeks, depending on complexity and specific requirements. Dashboard projects typically take 6-12 weeks. We'll provide a detailed timeline after our initial consultation based on your specific needs and the scope of work.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">What if we need help after our project is complete?</div>
-                                <div class="faq-answer">We offer ongoing support and maintenance packages to help you optimize performance, add new features, and ensure your application continues to meet your business needs. Many clients find value in having a dedicated technical partner for their evolving requirements.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">What technical standards do you follow?</div>
-                                <div class="faq-answer">We follow industry best practices for web standards, accessibility (WCAG), performance, and security. Our code is clean, documented, and follows modern development patterns. We ensure cross-browser compatibility and responsive design for all devices.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">Do you provide training on how to use our new application?</div>
-                                <div class="faq-answer">Yes, we include comprehensive training and documentation as part of our web application packages. We'll walk your team through the system, explain key features, and provide administrator training. For dashboard projects, we include specific training on data interpretation and system management.</div>
-                            </div>
-                        </div>
-                        
-                        <div class="faq-category">
-                            <h3 class="faq-title">Investment & Value</h3>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">What makes your development process different?</div>
-                                <div class="faq-answer">Our approach is user-centered and business-focused from the start. We begin by understanding your business objectives and user needs, ensuring that every technical decision supports your goals rather than just following trends. We focus on creating "useful technology" that not only functions beautifully but also drives measurable business results.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">Do you offer payment plans?</div>
-                                <div class="faq-answer">Yes, we offer flexible payment options for larger projects, typically with a 50% deposit to begin work and the remainder upon completion. Support services are billed monthly. We believe in transparent pricing with no hidden fees, and we'll clearly outline all costs in your proposal.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">How do you measure the success of our digital products?</div>
-                                <div class="faq-answer">We establish key performance indicators (KPIs) at the beginning of each project based on your business goals. These might include metrics like user engagement, conversion rates, task completion times, system performance, and business process efficiency. We believe technology should deliver measurable ROI, not just functional improvement.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">What's included in your retainer services?</div>
-                                <div class="faq-answer">Our retainer services provide ongoing technical support that can include: performance monitoring, feature enhancements, security updates, technical optimization, and user support. We tailor each retainer to the specific needs of the client, ensuring you get the most value from our partnership.</div>
-                            </div>
-                            
-                            <div class="faq-item">
-                                <div class="faq-question">Do you offer discounts for startups or non-profits?</div>
-                                <div class="faq-answer">Yes, we offer special pricing for early-stage startups with limited budgets and non-profit organizations. We believe in supporting organizations that are making a positive impact. Contact us with details about your organization, and we'll create a customized proposal that fits your budget.</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- WhatsApp-style notice -->
-                    <div class="whatsapp-notice">
-                        <div class="whatsapp-notice-icon">
-                            <i class="fas fa-question-circle"></i>
-                        </div>
-                        <div class="whatsapp-notice-content">
-                            <div class="whatsapp-notice-title">Still have questions?</div>
-                            <p>We're here to help. Send us a message through the chat or contact us directly for personalized answers to your specific questions. No question is too technical!</p>
-                            
-                            <div class="contact-links">
-                                <a href="mailto:odey.helpdesk@gmail.com" class="contact-link" aria-label="Email us for support">
-                                    <i class="fas fa-envelope"></i> Email us
-                                </a>
-                                <a href="https://wa.me/2349122356353" class="contact-link" aria-label="Message us on WhatsApp for support">
-                                    <i class="fab fa-whatsapp"></i> Message us
-                                </a>
-                                <a href="https://linkedin.com/company/rayoflight" class="contact-link" aria-label="Connect with us on LinkedIn">
-                                    <i class="fab fa-linkedin"></i> Connect
-                                </a>
-                            </div>
-                            
-                            <div class="back-to-top" onclick="scrollToTopCard()" aria-label="Back to top">
-                                <i class="fas fa-arrow-up"></i> Back to top
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    
-                <!-- Quote Content -->
-                <div class="service-content" id="quote-content">
-                    <h2 class="service-title">Get a Quote</h2>
-                    <p class="service-description">Review your selected services and provide your contact information. We'll get back to you within 24 hours with a detailed proposal tailored to your specific needs.</p>
-                    
-                    <!-- Receipt-style Quote Summary -->
-                    <div class="receipt-container">
-                        <div class="receipt-header">
-                            <div class="receipt-title">Ray of Light Design Studio</div>
-                            <div class="receipt-subtitle">EST. 2018 | SERVICE QUOTATION</div>
-                            <div class="receipt-subtitle">№ RL-2023-0872 | <span id="current-date"></span></div>
-                        </div>
-                        
-                        <div id="selected-services-receipt">
-                            <div class="receipt-line">
-                                <span class="label">SERVICE ITEMS:</span>
-                            </div>
-                            <div id="receipt-items">
-                                <div class="receipt-line">
-                                    <span class="label" style="padding-left: 10px;">No services selected</span>
-                                    <span class="value">₦0</span>
-                                </div>
-                            </div>
-                            
-                            <div class="receipt-line">
-                                <span class="label">SUBTOTAL:</span>
-                                <span class="value" id="receipt-subtotal">₦0</span>
-                            </div>
-                            
-                            <div class="receipt-line">
-                                <span class="label">TAX (7.5%):</span>
-                                <span class="value" id="receipt-tax">₦0</span>
-                            </div>
-                            
-                            <div class="receipt-line total">
-                                <span class="label">TOTAL ESTIMATE:</span>
-                                <span class="value" id="receipt-total">₦0</span>
-                            </div>
-                        </div>
-                        
-                        <div class="receipt-footer">
-                            <div>Thank you for your inquiry!</div>
-                            <div>This quote is valid for 30 days</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Receipt-style Form -->
-                    <div class="receipt-container">
-                        <div class="receipt-header">
-                            <div class="receipt-title">Client Information</div>
-                            <div class="receipt-subtitle">Please complete your details</div>
-                        </div>
-                        
-                        <div class="form-container">
-                            <form id="quoteForm" action="https://formsubmit.co/odey.helpdesk@gmail.com" method="POST">
-                                <input type="hidden" name="_subject" value="New Design Request from Ray of Light">
-                                <input type="hidden" name="_template" value="table">
-                                <input type="hidden" name="_captcha" value="false">
-                                <input type="hidden" name="_next" value="https://raybrands.netlify.app">
-                                
-                                <div class="receipt-form-group">
-                                    <label for="service">Service Required</label>
-                                    <div class="select-wrapper">
-                                        <select id="service" name="service" required aria-required="true">
-                                            <option value="">Select what you need...</option>
-                                            <option value="Website Design">Website Design</option>
-                                            <option value="Web Application">Web Application</option>
-                                            <option value="Dashboard Design">Dashboard Design</option>
-                                            <option value="Mobile Experience">Mobile Experience</option>
-                                            <option value="Custom Package">Custom Package</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                
-                                <!-- Conditional Fields -->
-                                <div class="conditional-field" id="website-questions">
-                                    <div class="receipt-form-group">
-                                        <label for="website-type">Website Type</label>
-                                        <div class="select-wrapper">
-                                            <select id="website-type" name="website-type">
-                                                <option value="">Select website type...</option>
-                                                <option value="Corporate/Business">Corporate/Business</option>
-                                                <option value="E-commerce">E-commerce Store</option>
-                                                <option value="Portfolio">Portfolio/Showcase</option>
-                                                <option value="Landing Page">Landing Page</option>
-                                                <option value="Web Application">Web Application</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="receipt-form-group">
-                                        <label for="pages">Number of Pages Needed</label>
-                                        <input type="number" id="pages" name="pages" min="1" placeholder="e.g., 5">
-                                    </div>
-                                    <div class="receipt-form-group">
-                                        <label for="functionality">Special Functionality Needed</label>
-                                        <textarea id="functionality" name="functionality" rows="2" placeholder="e.g., Online booking, Payment processing, User accounts"></textarea>
-                                    </div>
-                                </div>
-                                
-                                <div class="receipt-form-group">
-                                    <label for="message">Project Details & Goals</label>
-                                    <textarea id="message" name="message" rows="3" required placeholder="What goals would you like to achieve with this project? What challenges are you facing?" aria-required="true"></textarea>
-                                </div>
-                                
-                                <div class="receipt-form-group">
-                                    <label for="name">Your Name</label>
-                                    <input type="text" id="name" name="name" required aria-required="true">
-                                </div>
-                                
-                                <div class="receipt-form-group">
-                                    <label for="email">Email Address</label>
-                                    <input type="email" id="email" name="email" required aria-required="true">
-                                </div>
-
-                                <div class="receipt-form-group">
-                                    <label for="company">Company Name</label>
-                                    <input type="text" id="company" name="company">
-                                </div>
-
-                                <div class="receipt-form-group">
-                                    <label for="timeline">Project Start Date</label>
-                                    <input type="date" id="timeline" name="timeline">
-                                </div>
-                                
-                                <button type="submit" class="submit-btn" style="font-family: var(--font-primary);">GET YOUR CUSTOM QUOTE</button>
-                            </form>
-                        </div>
-                        
-                        <div class="receipt-footer">
-                            <!--    <div>Your information is secure and confidential</div>
-                            <div>We respect your privacy</div> -->
-                        </div>
-                    </div>
-                      <!-- WhatsApp-style notice -->
-                    <div class="whatsapp-notice">
-                        <div class="whatsapp-notice-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="whatsapp-notice-content">
-                            <div class="whatsapp-notice-title">Your information is secure</div>
-                            <p>We respect your privacy and will never share your information with third parties. All communications are confidential. We value your trust and handle your project details with the utmost care.</p>
-                            
-                            <div class="back-to-top" onclick="scrollToTopCard()" aria-label="Back to top">
-                                <i class="fas fa-arrow-up"></i> Back to top
-                            </div>
-                        </div>
-                    </div>
-              
-                </div>
-            </div>
-            
-            <div class="tabs-container">
-                <button class="tab" data-tab="website">Bespoke Design</button>
-                <button class="tab" data-tab="portfolio">Portfolio</button>
-                <button class="tab" data-tab="feedback">Feedback</button>
-                <button class="tab" data-tab="profile">Profile</button>
-                <button class="tab" data-tab="faq">FAQ</button>
-                <button class="tab" data-tab="quote">Get a Quote</button>
-            </div>
         </div>
-    </div>
 
-    <script>
-        // Set current date in the receipt
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString('en-GB');
-    
-        function toggleExperience(element) {
-            const details = element.nextElementSibling;
-            const icon = element.querySelector('i');
-            
-            details.classList.toggle('active');
-            
-            if (details.classList.contains('active')) {
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            } else {
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            }
-        }
-        
-        // Safari 100vh fix
-        function setVH() {
-            let vh = window.innerHeight * 0.01;
-            document.documentElement.style.setProperty('--vh', `${vh}px`);
-        }
-        
-        // Initial set
-        setVH();
-        
-        // Throttled resize event
-        let resizeTimeout;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(setVH, 250);
-        });
-        
-        window.addEventListener('orientationchange', setVH);
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hide contact information but keep functionality
-            document.getElementById('emailLink').href = 'mailto:' + 'odey.helpdesk' + '@gmail.com';
-            document.getElementById('whatsappLink').href = 'https://wa.me/' + '2349122356353';
-            
-            // Initialize missing case studies
-            initializeMissingCaseStudies();
-            
-            // Tab functionality
-            const tabs = document.querySelectorAll('.tab');
-            const searchInput = document.querySelector('.search-input');
-            const closeBtn = document.querySelector('.close-btn');
-            const card = document.querySelector('.card');
-            const cardContent = document.querySelector('.card-content');
-            const serviceContents = document.querySelectorAll('.service-content');
-            const deliverableItems = document.querySelectorAll('.deliverable-item');
-            const getQuoteBtns = document.querySelectorAll('.get-quote-btn');
-            const faqQuestions = document.querySelectorAll('.faq-question');
-            const caseStudyBtns = document.querySelectorAll('.case-study-btn');
-            const caseStudyDetails = document.querySelectorAll('.case-study-detail');
-            const serviceSelect = document.getElementById('service');
-            const conditionalFields = document.querySelectorAll('.conditional-field');
-            const portfolioImages = document.querySelectorAll('.service-image.portfolio-link');
-            
-            let selectedItems = [];
-            let currentTab = null;
-            
-            // Service keywords for search functionality
-            const serviceKeywords = {
-                'website': ['website', 'web', 'ecommerce', 'landing page', 'responsive', 'shop', 'ui design', 'ux design', 'interface', 'web design', 'online store', 'e-commerce', 'bespoke', 'custom'],
-                'portfolio': ['portfolio', 'work', 'projects', 'examples', 'case studies'],
-                'feedback': ['feedback', 'testimonials', 'reviews', 'success stories', 'clients', 'reflections'],
-                'profile': ['profile', 'about', 'team', 'Ibrahim', 'odey', 'director', 'designer'],
-                'faq': ['faq', 'question', 'help', 'support', 'how to'],
-                'quote': ['quote', 'price', 'cost', 'get quote', 'pricing', 'budget']
-            };
-            
-            // Service change handler for conditional fields
-            serviceSelect.addEventListener('change', function() {
-                // Hide all conditional fields
-                conditionalFields.forEach(field => {
-                    field.classList.remove('active');
-                });
-                
-                // Show relevant conditional fields based on selection
-                if (this.value === 'Website Design' || this.value === 'Web Application') {
-                    document.getElementById('website-questions').classList.add('active');
-                }
-            });
-            
-            // Portfolio image click handler
-            portfolioImages.forEach(img => {
-                img.addEventListener('click', function() {
-                    const caseStudyId = this.dataset.caseStudy;
-                    openTab('portfolio');
-                    
-                    // Hide portfolio grid
-                    document.querySelector('.portfolio-grid').style.display = 'none';
-                    // Show case study detail
-                    const caseStudyElement = document.getElementById(`${caseStudyId}-case-study`);
-                    if (caseStudyElement) {
-                        caseStudyElement.classList.add('active');
-                    } else {
-                        // If case study doesn't exist, show a message or redirect
-                        console.log(`Case study ${caseStudyId} not found`);
-                        // Optionally show a message to the user
-                        alert('Project details coming soon!');
-                        // Or redirect to the main portfolio
-                        document.querySelector('.portfolio-grid').style.display = 'grid';
-                    }
-                });
-            });
-            
-            // Open tab function
-            function openTab(tabName) {
-                // Toggle if clicking the same tab
-                if (currentTab === tabName) {
-                    closeTab();
-                    return;
-                }
-                
-                currentTab = tabName;
-                
-                // Update tabs
-                tabs.forEach(tab => {
-                    if (tab.dataset.tab === tabName) {
-                        tab.classList.add('active');
-                    } else {
-                        tab.classList.remove('active');
-                    }
-                });
-                
-                // Update content
-                serviceContents.forEach(content => {
-                    content.classList.remove('active');
-                });
-                
-                // Hide all case study details
-                caseStudyDetails.forEach(detail => {
-                    detail.classList.remove('active');
-                });
-                
-                // Show portfolio grid by default
-                if (tabName === 'portfolio') {
-                    document.querySelector('.portfolio-grid').style.display = 'grid';
-                }
-                
-                const activeContent = document.getElementById(`${tabName}-content`);
-                if (activeContent) {
-                    activeContent.classList.add('active');
-                    cardContent.classList.add('active');
-                    closeBtn.style.display = 'block';
-                }
-                
-                // Scroll to top of content
-                cardContent.scrollTop = 0;
-            }
-            
-            // Close tab function
-            function closeTab() {
-                card.classList.remove('expanded');
-                cardContent.classList.remove('active');
-                closeBtn.style.display = 'none';
-                tabs.forEach(tab => tab.classList.remove('active'));
-                currentTab = null;
-                document.body.style.overflow = 'auto';
-                
-                // Reset scroll position
-                cardContent.scrollTop = 0;
-                
-                // Clear search input
-                searchInput.value = '';
-            }
-            
-            // Tab click event
-            tabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    openTab(tab.dataset.tab);
-                });
-            });
-            
-            // Close button event
-            closeBtn.addEventListener('click', closeTab);
-            
-            // Search functionality
-            searchInput.addEventListener('keyup', function(e) {
-                if (e.key === 'Enter') {
-                    const searchTerm = this.value.toLowerCase().trim();
-                    
-                    // Check which service category the search term matches
-                    for (const [tab, keywords] of Object.entries(serviceKeywords)) {
-                        if (keywords.some(keyword => searchTerm.includes(keyword))) {
-                            openTab(tab);
-                            return;
-                        }
-                    }
-                    
-                    // If no match, show an alert
-                    alert("No matching service found. Please try another search term.");
-                }
-            });
-            
-            // Deliverable item selection
-            deliverableItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    this.classList.toggle('selected');
-                    
-                    const itemText = this.querySelector('.deliverable-name').textContent;
-                    const itemPrice = parseInt(this.dataset.price) || 0;
-                    
-                    if (this.classList.contains('selected')) {
-                        // Check if already in selectedItems to avoid duplicates
-                        if (!selectedItems.some(i => i.text === itemText)) {
-                            selectedItems.push({ text: itemText, price: itemPrice, id: Date.now() + Math.random() });
-                        }
-                    } else {
-                        selectedItems = selectedItems.filter(i => i.text !== itemText);
-                    }
-                    
-                    updateReceiptDisplay();
-                });
-            });
-            
-            // Update receipt display
-            function updateReceiptDisplay() {
-                const receiptItems = document.getElementById('receipt-items');
-                const receiptSubtotal = document.getElementById('receipt-subtotal');
-                const receiptTax = document.getElementById('receipt-tax');
-                const receiptTotal = document.getElementById('receipt-total');
-                
-                if (selectedItems.length > 0) {
-                    let itemsHTML = '';
-                    selectedItems.forEach(item => {
-                        itemsHTML += `
-                            <div class="receipt-line">
-                                <span class="label" style="padding-left: 10px;">${item.text}</span>
-                                <span class="value">₦${item.price.toLocaleString()} <button class="remove-item" data-id="${item.id}">×</button></span>
-                            </div>
-                        `;
-                    });
-                    
-                    receiptItems.innerHTML = itemsHTML;
-                    
-                    // Add event listeners to remove buttons
-                    document.querySelectorAll('.remove-item').forEach(button => {
-                        button.addEventListener('click', function() {
-                            const itemId = this.dataset.id;
-                            selectedItems = selectedItems.filter(item => item.id != itemId);
-                            
-                            // Also unselect the corresponding deliverable item
-                            deliverableItems.forEach(deliverable => {
-                                const deliverableText = deliverable.querySelector('.deliverable-name').textContent;
-                                if (selectedItems.findIndex(item => item.text === deliverableText) === -1) {
-                                    deliverable.classList.remove('selected');
-                                }
-                            });
-                            
-                            updateReceiptDisplay();
-                        });
-                    });
-                    
-                    const subtotal = selectedItems.reduce((sum, item) => sum + item.price, 0);
-                    const tax = subtotal * 0.075;
-                    const total = subtotal + tax;
-                    
-                    receiptSubtotal.textContent = `₦${subtotal.toLocaleString()}`;
-                    receiptTax.textContent = `₦${tax.toLocaleString()}`;
-                    receiptTotal.textContent = `₦${total.toLocaleString()}`;
-                } else {
-                    receiptItems.innerHTML = `
-                        <div class="receipt-line">
-                            <span class="label" style="padding-left: 10px;">No services selected</span>
-                            <span class="value">₦0</span>
+        <!-- pdf toolbar (simple) -->
+        <div class="pdf-toolbar">
+            <button class="btn-pdf" id="exportPdfBtn" type="button">
+                export PDF
+            </button>
+        </div>
+
+        <!-- main form content -->
+        <div class="form-content" id="pdf-content">
+            <!-- netlify form – fully functional, but no visible notices -->
+            <form name="membership-application" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="mainForm">
+                <input type="hidden" name="form-name" value="membership-application" />
+                <p class="hidden">
+                    <label>bot check: <input name="bot-field" /></label>
+                </p>
+
+                <!-- SECTION 1 – PERSONAL DATA -->
+                <div class="section">
+                    <div class="section-title">1 · identity & contact</div>
+                    <div class="grid-2">
+                        <div class="field full">
+                            <label>full legal name <span class="hint">as on ID</span></label>
+                            <input type="text" name="fullname" placeholder="e.g., Adebayo O. Lawal" required>
                         </div>
-                    `;
-                    
-                    receiptSubtotal.textContent = '₦0';
-                    receiptTax.textContent = '₦0';
-                    receiptTotal.textContent = '₦0';
-                }
-            }
-            
-            // Get Quote button functionality
-            getQuoteBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const serviceContent = this.closest('.service-content');
-                    
-                    // Get selected deliverables
-                    const selectedItemsInService = serviceContent.querySelectorAll('.deliverable-item.selected');
-                    
-                    if (selectedItemsInService.length === 0) {
-                        // If no items selected, select all in this service
-                        serviceContent.querySelectorAll('.deliverable-item').forEach(item => {
-                            item.classList.add('selected');
-                            const itemText = item.querySelector('.deliverable-name').textContent;
-                            const itemPrice = parseInt(item.dataset.price) || 0;
-                            
-                            // Check if already in selectedItems to avoid duplicates
-                            if (!selectedItems.some(i => i.text === itemText)) {
-                                selectedItems.push({ text: itemText, price: itemPrice, id: Date.now() + Math.random() });
-                            }
-                        });
-                    }
-                    
-                    // Update the receipt display
-                    updateReceiptDisplay();
-                    
-                    // Open quote tab
-                    openTab('quote');
-                });
-            });
-            
-            // FAQ accordion functionality
-            faqQuestions.forEach(question => {
-                question.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                    const answer = this.nextElementSibling;
-                    answer.classList.toggle('active');
-                });
-            });
-            
-            // Case study functionality
-            caseStudyBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const caseStudyId = this.dataset.caseStudy;
-                    // Hide portfolio grid
-                    document.querySelector('.portfolio-grid').style.display = 'none';
-                    // Show case study detail
-                    const caseStudyElement = document.getElementById(`${caseStudyId}-case-study`);
-                    if (caseStudyElement) {
-                        caseStudyElement.classList.add('active');
-                    } else {
-                        // If case study doesn't exist, show a message
-                        console.log(`Case study ${caseStudyId} not found`);
-                        alert('Project details coming soon!');
-                        document.querySelector('.portfolio-grid').style.display = 'grid';
-                    }
-                });
-            });
-            
-            function backToPortfolio() {
-                // Hide all case study details
-                caseStudyDetails.forEach(detail => {
-                    detail.classList.remove('active');
-                });
-                // Show portfolio grid
-                document.querySelector('.portfolio-grid').style.display = 'grid';
-            }
-            
-            // Form submission
-            document.getElementById('quoteForm').addEventListener('submit', function(e) {
-                // Add selected services to form data
-                const selectedServicesField = document.createElement('input');
-                selectedServicesField.type = 'hidden';
-                selectedServicesField.name = 'selected_services';
-                selectedServicesField.value = selectedItems.map(item => `${item.text} - ₦${item.price.toLocaleString()}`).join(', ');
-                this.appendChild(selectedServicesField);
-                
-                // Calculate total
-                const subtotal = selectedItems.reduce((sum, item) => sum + item.price, 0);
-                const tax = subtotal * 0.075;
-                const total = subtotal + tax;
-                
-                const totalField = document.createElement('input');
-                totalField.type = 'hidden';
-                totalField.name = 'total_estimate';
-                totalField.value = `₦${total.toLocaleString()}`;
-                this.appendChild(totalField);
-                
-                console.log('Form submitted with data');
-                // FormSubmit.co will handle the actual submission
-            });
-            
-            // Scroll to top of card function
-            function scrollToTopCard() {
-                cardContent.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-            
-            // Fix the back-to-top links in the notices
-            document.querySelectorAll('.back-to-top').forEach(link => {
-                link.addEventListener('click', scrollToTopCard);
-            });
-            
-            // Global functions
-            window.backToPortfolio = backToPortfolio;
-            window.scrollToTopCard = scrollToTopCard;
-        });
-
-        // Add missing case study content for new projects
-        function initializeMissingCaseStudies() {
-            // Check if case studies exist, if not create them
-            const caseStudies = ['coal', 'gallery', 'portfolio-app'];
-            
-            caseStudies.forEach(studyId => {
-                if (!document.getElementById(`${studyId}-case-study`)) {
-                    createCaseStudy(studyId);
-                }
-            });
-        }
-
-        function createCaseStudy(studyId) {
-            const caseStudyContainer = document.querySelector('.service-content#portfolio-content');
-            const caseStudyHTML = `
-                <div class="case-study-detail" id="${studyId}-case-study">
-                    <div class="case-study-back" onclick="backToPortfolio()">
-                        <i class="fas fa-arrow-left"></i> Back to Portfolio
-                    </div>
-                    
-                    <div class="case-study-header">
-                        <h2 class="service-title">${getCaseStudyTitle(studyId)}</h2>
-                        <p class="service-description">${getCaseStudyDescription(studyId)}</p>
-                    </div>
-                    
-                    <div class="impact">
-                        <h3 class="impact-title">The Challenge</h3>
-                        <p>${getCaseStudyChallenge(studyId)}</p>
-                    </div>
-                    
-                    <div class="impact">
-                        <h3 class="impact-title">Our Approach</h3>
-                        <p>${getCaseStudyApproach(studyId)}</p>
-                    </div>
-                    
-                    <div class="case-study-gallery">
-                        <img src="${getCaseStudyImage(studyId, 1)}" alt="${getCaseStudyTitle(studyId)}" class="case-study-image">
-                        <img src="${getCaseStudyImage(studyId, 2)}" alt="${getCaseStudyTitle(studyId)} Interface" class="case-study-image">
-                        <img src="${getCaseStudyImage(studyId, 3)}" alt="${getCaseStudyTitle(studyId)} Features" class="case-study-image">
-                    </div>
-                    
-                    <div class="impact">
-                        <h3 class="impact-title">The Results</h3>
-                        <p>${getCaseStudyResults(studyId)}</p>
-                    </div>
-                    
-                    <div class="impact">
-                        <h3 class="impact-title">Key Features</h3>
-                        <ul>
-                            ${getCaseStudyFeatures(studyId)}
-                        </ul>
+                        <div class="field">
+                            <label>date of birth</label>
+                            <input type="date" name="dob" required>
+                        </div>
+                        <div class="field">
+                            <label>gender</label>
+                            <select name="gender" required>
+                                <option value="" disabled selected>— select —</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Prefer not to say</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>phone <span class="hint">whatsapp</span></label>
+                            <input type="tel" name="phone" placeholder="+234 800 000 0000" required>
+                        </div>
+                        <div class="field">
+                            <label>email</label>
+                            <input type="email" name="email" placeholder="hello@domain.com" required>
+                        </div>
+                        <div class="field full">
+                            <label>residential address <span class="hint">city, LGA, state</span></label>
+                            <input type="text" name="address" placeholder="Ikeja, Lagos Mainland, Lagos" required>
+                        </div>
+                        <div class="field full">
+                            <label>occupation / profession</label>
+                            <input type="text" name="occupation" placeholder="e.g., teacher, trader, engineer" required>
+                        </div>
                     </div>
                 </div>
-            `;
-            
-            caseStudyContainer.insertAdjacentHTML('beforeend', caseStudyHTML);
-        }
 
-        // Helper functions to generate case study content
-        function getCaseStudyTitle(studyId) {
-            const titles = {
-                'coal': 'Coal By Jacklyn',
-                'gallery': 'Art Gallery PWA',
-                'portfolio-app': 'Portfolio Document Generator'
-            };
-            return titles[studyId] || 'Project Details';
-        }
+                <!-- SECTION 2 – MOTIVATION & AWARENESS -->
+                <div class="section">
+                    <div class="section-title">2 · motivation & awareness</div>
+                    <div class="grid-2">
+                        <div class="field full">
+                            <label>how did you learn about AMV?</label>
+                            <input type="text" name="referral" placeholder="friend, church, social media..." required>
+                        </div>
+                        <div class="field full">
+                            <label>local community you primarily identify with</label>
+                            <input type="text" name="community" placeholder="e.g., Lagos traders" required>
+                        </div>
+                        
+                        <div class="field">
+                            <label>willing to serve on a committee?</label>
+                            <div class="inline-group">
+                                <div class="inline-option"><input type="radio" name="committee" value="yes" required> <label>Yes</label></div>
+                                <div class="inline-option"><input type="radio" name="committee" value="limited"> <label>Limited time</label></div>
+                                <div class="inline-option"><input type="radio" name="committee" value="no"> <label>Not now</label></div>
+                            </div>
+                        </div>
+                        <div class="field full">
+                            <label>core areas that resonate (select all that apply)</label>
+                            <div class="inline-group" style="gap: 1.5rem;">
+                                <div class="inline-option"><input type="checkbox" name="interest_faith" value="faith"> <label>Christ-like values</label></div>
+                                <div class="inline-option"><input type="checkbox" name="interest_socio" value="socio"> <label>Socio-economic awareness</label></div>
+                                <div class="inline-option"><input type="checkbox" name="interest_philan" value="philan"> <label>Philanthropy</label></div>
+                                <div class="inline-option"><input type="checkbox" name="interest_loans" value="loans"> <label>Community loans</label></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        function getCaseStudyDescription(studyId) {
-            const descriptions = {
-                'coal': 'Where fashion e-commerce meets artistic expression in a seamless digital experience',
-                'gallery': 'Connecting art collectors with galleries through an immersive progressive web application',
-                'portfolio-app': 'Transforming digital portfolios into beautifully designed, printable documents with ease'
-            };
-            return descriptions[studyId] || 'Detailed project information and outcomes';
-        }
+                <!-- SECTION 3 – COMMITMENT -->
+                <div class="section">
+                    <div class="section-title">3 · mutual commitment</div>
+                    <div class="commitment-box">
+                        <div class="checkbox-line">
+                            <input type="checkbox" name="covenant_faith" value="yes" id="cov1" required>
+                            <label for="cov1"><strong>Christ-like values</strong> — I commit to walk in compassion, humility, and integrity.</label>
+                        </div>
+                        <div class="checkbox-line">
+                            <input type="checkbox" name="covenant_aware" value="yes" id="cov2" required>
+                            <label for="cov2"><strong>Awareness & proactivity</strong> — I will stay aware of socio-economic issues and contribute.</label>
+                        </div>
+                        <div class="checkbox-line">
+                            <input type="checkbox" name="covenant_contrib" value="yes" id="cov3" required>
+                            <label for="cov3"><strong>Philanthropy & mutual loans</strong> — I understand financial participation is part of membership.</label>
+                        </div>
+                        <div class="checkbox-line">
+                            <input type="checkbox" name="covenant_integrity" value="yes" id="cov4" required>
+                            <label for="cov4"><strong>Community integrity</strong> — I will not exploit loans or members; I will uphold dignity.</label>
+                        </div>
 
-        function getCaseStudyChallenge(studyId) {
-            const challenges = {
-                'coal': 'Coal By Jacklyn needed an online presence that reflected their brand\'s artistic sensibility while providing a seamless shopping experience. Their previous website failed to capture the brand\'s aesthetic and made the shopping process feel transactional rather than experiential.',
-                'gallery': 'Art galleries struggled to showcase their collections digitally while maintaining the emotional connection of physical viewing. The existing solutions felt detached from the artistic experience and failed to engage potential buyers effectively.',
-                'portfolio-app': 'Creative professionals needed a way to easily transform their digital portfolios into professional, printable documents without sacrificing design quality or spending hours on formatting.'
-            };
-            return challenges[studyId] || 'The client faced significant challenges that required a thoughtful, customized solution.';
-        }
+                        <div style="margin: 1.8rem 0 1.2rem;">
+                            <label>additional information (skills, concerns, experience) <span class="hint">optional</span></label>
+                            <textarea name="additional_info" rows="2" placeholder="brief and relevant ..."></textarea>
+                        </div>
 
-        function getCaseStudyApproach(studyId) {
-            const approaches = {
-                'coal': 'We approached this project as a collaboration between commerce and art. The design prioritizes visual storytelling through immersive lookbooks while maintaining intuitive navigation and frictionless purchasing. Every interaction was crafted to feel like browsing through a carefully curated collection rather than shopping on a typical e-commerce site.',
-                'gallery': 'We designed a progressive web application that combines the immersive quality of physical gallery visits with the convenience of digital access. The experience focuses on visual storytelling, allowing artworks to take center stage while providing collectors with the information they need to make confident purchasing decisions.',
-                'portfolio-app': 'We developed an intuitive application that automates the transformation of digital portfolios into beautifully formatted PDF documents. The system maintains design integrity while allowing for customization, ensuring each portfolio reflects the creator\'s unique style and vision.'
-            };
-            return approaches[studyId] || 'Our approach focused on understanding the core needs and creating a solution that addresses both functional requirements and emotional connections.';
-        }
+                        <div class="signature-row">
+                            <div class="sig-field">
+                                <input type="text" name="signature_name" placeholder="Full name (confirm)" required>
+                                <div class="sig-label">electronic signature</div>
+                            </div>
+                            <div class="sig-field">
+                                <input type="date" name="signature_date" required>
+                                <div class="sig-label">date of application</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        function getCaseStudyResults(studyId) {
-            const results = {
-                'coal': 'The new platform increased average session duration by 3.2x and reduced bounce rate by 68%. Most importantly, it captured the brand\'s essence so effectively that it became a marketing asset in itself, with customers frequently mentioning the website experience in social media posts about the brand.',
-                'gallery': 'The PWA resulted in a 45% increase in online engagement and a 30% rise in appointment requests for physical viewings. Gallery owners reported that the digital experience complemented their physical spaces rather than competing with them.',
-                'portfolio-app': 'Users reported saving an average of 5 hours per month on portfolio preparation and updates. The application has been adopted by over 500 creative professionals who appreciate the balance between automation and creative control.'
-            };
-            return results[studyId] || 'The project delivered significant improvements in user engagement, conversion rates, and overall satisfaction.';
-        }
+                <!-- simple submit button, no extra text -->
+                <div style="display: flex; justify-content: flex-start;">
+                    <button type="submit" class="btn-submit">submit</button>
+                </div>
 
-        function getCaseStudyFeatures(studyId) {
-            const features = {
-                'coal': `
-                    <li>Immersive lookbook experience with full-screen imagery</li>
-                    <li>Intuitive product filtering by collection, color, and style</li>
-                    <li>Integrated size guide with visual measurements</li>
-                    <li>Seamless checkout with multiple payment options</li>
-                    <li>Content management for seasonal collections</li>
-                    <li>Mobile-optimized shopping experience</li>
-                `,
-                'gallery': `
-                    <li>Progressive web app with offline functionality</li>
-                    <li>High-resolution image zoom and detail views</li>
-                    <li>Virtual exhibition spaces with curated collections</li>
-                    <li>Artist biographies and statement integration</li>
-                    <li>Appointment scheduling for physical viewings</li>
-                    <li>Collector inquiry and purchase request system</li>
-                `,
-                'portfolio-app': `
-                    <li>Drag-and-drop portfolio organization</li>
-                    <li>Multiple professional template designs</li>
-                    <li>Automatic formatting and layout optimization</li>
-                    <li>Custom color schemes and typography</li>
-                    <li>Export to PDF with print-ready quality</li>
-                    <li>Cloud synchronization across devices</li>
-                `
-            };
-            return features[studyId] || `
-                <li>Customized user experience design</li>
-                <li>Responsive across all devices</li>
-                <li>Performance optimized</li>
-                <li>Scalable architecture</li>
-            `;
-        }
+                <!-- no footnote, no netlify badge, nothing else -->
+            </form>
+        </div><!-- end form-content -->
+    </div><!-- end document -->
 
-        function getCaseStudyImage(studyId, imageNumber) {
-            const imageBase = 'https://images.unsplash.com/photo-';
-            const images = {
-                'coal': [
-                    '1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80',
-                    '1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80',
-                    '1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80'
-                ],
-                'gallery': [
-                    '1541961017774-22349e4a1262?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80',
-                    '1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80',
-                    '1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80'
-                ],
-                'portfolio-app': [
-                    '1558655146-9f40138edfeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80',
-                    '1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80',
-                    '1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80'
-                ]
-            };
-            
-            const studyImages = images[studyId] || [
-                '1558769132-cb1aea458c5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80',
-                '1441986300917-64674bd600d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80',
-                '1584917865442-de89df76afd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400&q=80'
-            ];
-            
-            return imageBase + studyImages[imageNumber - 1];
-        }
+    <!-- PDF export and demo form handling -->
+    <script>
+        (function() {
+            const exportBtn = document.getElementById('exportPdfBtn');
+            const element = document.getElementById('pdf-content');  // capture form fields
+
+            exportBtn.addEventListener('click', function() {
+                const opt = {
+                    margin:        [0.5, 0.5, 0.5, 0.5],
+                    filename:     'AMV_membership_application.pdf',
+                    image:        { type: 'jpeg', quality: 0.98 },
+                    html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
+                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+                };
+                html2pdf().set(opt).from(element).save();
+            });
+
+            const form = document.getElementById('mainForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();  // for demo, remove when deploying to netlify
+                alert('Application submitted (demo). On Netlify this would be handled by their backend.');
+                // On a real Netlify site, remove e.preventDefault() and the alert.
+            });
+        })();
     </script>
+
+    <!-- no footer notice at all -->
 </body>
 </html>
-
-replace all the images with intentional, context specific images throughout with images from unsplash or other royalty free image. the client images in the feedback area should be african but dont change the one for Ibrahim throughout. from the reel content to the portfolio content (arrange the rest of the project contents to be set up like butterfly effect arrangement of content) and make sure the project detail pages also always start from top.
