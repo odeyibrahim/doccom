@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pro Image Converter — HEIC → WebP / PNG / JPEG / AVIF</title>
-    <!-- Load heic2any with WASM support -->
-    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js">
-    </script>
-    <!-- Load libheif WASM for actual HEIC decoding -->
-    <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.16.2/libheif.min.js">
-    </script>
+    <title>Image URL Generator — Upload & Get Shareable Links</title>
     <style>
         * {
             margin: 0;
@@ -29,6 +23,7 @@
             --danger: #b91c1c;
             --warning: #d97706;
             --border: #2a2a3e;
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
         }
 
         body {
@@ -44,6 +39,7 @@
             margin: 0 auto;
         }
 
+        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -104,6 +100,7 @@
             font-weight: 600;
         }
 
+        /* Controls */
         .controls-bar {
             display: flex;
             flex-wrap: wrap;
@@ -127,44 +124,6 @@
             font-size: 13px;
             font-weight: 500;
             color: var(--text-secondary);
-        }
-
-        .controls-bar select,
-        .controls-bar input[type="number"],
-        .controls-bar input[type="range"] {
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 6px 12px;
-            font-size: 13px;
-            cursor: pointer;
-            min-width: 80px;
-        }
-
-        .controls-bar select:focus,
-        .controls-bar input:focus {
-            outline: 2px solid var(--accent);
-            border-color: transparent;
-        }
-
-        .controls-bar input[type="range"] {
-            width: 120px;
-            accent-color: var(--accent);
-            height: 4px;
-            padding: 0;
-            cursor: pointer;
-        }
-
-        .controls-bar input[type="number"] {
-            width: 60px;
-        }
-
-        .quality-value {
-            min-width: 40px;
-            font-weight: 600;
-            color: #a78bfa;
-            font-size: 14px;
         }
 
         .controls-bar .spacer {
@@ -208,11 +167,6 @@
             background: #10b981;
             transform: translateY(-2px);
         }
-        .btn-success:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-        }
 
         .btn-danger {
             background: var(--danger);
@@ -220,15 +174,6 @@
         }
         .btn-danger:hover:not(:disabled) {
             background: #dc2626;
-            transform: translateY(-2px);
-        }
-
-        .btn-warning {
-            background: var(--warning);
-            color: #fff;
-        }
-        .btn-warning:hover:not(:disabled) {
-            background: #f59e0b;
             transform: translateY(-2px);
         }
 
@@ -241,6 +186,20 @@
             transform: translateY(-2px);
         }
 
+        .btn-copy {
+            background: #2d3748;
+            color: #e2e8f0;
+        }
+        .btn-copy:hover:not(:disabled) {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+        .btn-copy.copied {
+            background: var(--success);
+            color: #fff;
+        }
+
+        /* Drop Zone */
         .drop-zone {
             border: 2px dashed var(--border);
             border-radius: 16px;
@@ -294,169 +253,7 @@
             cursor: pointer;
         }
 
-        .stats-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-            background: var(--bg-secondary);
-            padding: 10px 16px;
-            border-radius: 10px;
-            margin-bottom: 16px;
-            border: 1px solid var(--border);
-            font-size: 13px;
-        }
-        .stats-bar .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            color: var(--text-secondary);
-        }
-        .stats-bar .stat-item .value {
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-
-        .file-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 12px;
-            margin-bottom: 20px;
-            max-height: 500px;
-            overflow-y: auto;
-            padding: 4px 2px;
-        }
-        .file-grid::-webkit-scrollbar {
-            width: 6px;
-        }
-        .file-grid::-webkit-scrollbar-track {
-            background: var(--bg-secondary);
-            border-radius: 4px;
-        }
-        .file-grid::-webkit-scrollbar-thumb {
-            background: var(--bg-tertiary);
-            border-radius: 4px;
-        }
-
-        .file-card {
-            background: var(--bg-secondary);
-            border-radius: 10px;
-            padding: 12px;
-            border: 1px solid var(--border);
-            transition: all 0.2s ease;
-            position: relative;
-            min-height: 180px;
-        }
-        .file-card:hover {
-            border-color: var(--bg-tertiary);
-            transform: translateY(-2px);
-        }
-        .file-card .thumb {
-            width: 100%;
-            height: 120px;
-            border-radius: 6px;
-            background: var(--bg-primary);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
-        }
-        .file-card .thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .file-card .thumb .placeholder {
-            font-size: 36px;
-            opacity: 0.3;
-        }
-        .file-card .name {
-            font-size: 12px;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-bottom: 4px;
-        }
-        .file-card .meta {
-            font-size: 11px;
-            color: var(--text-secondary);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            align-items: center;
-        }
-        .file-card .meta .status {
-            font-weight: 600;
-            font-size: 10px;
-            padding: 1px 8px;
-            border-radius: 10px;
-        }
-        .file-card .meta .status.pending {
-            background: var(--bg-tertiary);
-            color: var(--text-secondary);
-        }
-        .file-card .meta .status.processing {
-            background: #7c3aed33;
-            color: #a78bfa;
-            animation: pulse 1.5s infinite;
-        }
-        .file-card .meta .status.done {
-            background: #05966933;
-            color: #34d399;
-        }
-        .file-card .meta .status.error {
-            background: #b91c1c33;
-            color: #f87171;
-        }
-        .file-card .size-reduction {
-            font-size: 11px;
-            font-weight: 600;
-            padding: 1px 8px;
-            border-radius: 10px;
-            background: #05966933;
-            color: #34d399;
-        }
-        .file-card .size-reduction.negative {
-            background: #b91c1c33;
-            color: #f87171;
-        }
-        .file-card .remove-file {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: var(--bg-primary);
-            border: none;
-            color: var(--text-secondary);
-            font-size: 14px;
-            cursor: pointer;
-            padding: 2px 6px;
-            border-radius: 4px;
-            transition: all 0.2s;
-            line-height: 1;
-        }
-        .file-card .remove-file:hover {
-            color: #f87171;
-            background: #b91c1c33;
-        }
-        .file-card .error-msg {
-            font-size: 10px;
-            color: #f87171;
-            margin-top: 4px;
-            word-break: break-all;
-        }
-
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
+        /* Upload Progress */
         .progress-global {
             background: var(--bg-secondary);
             border-radius: 10px;
@@ -493,18 +290,211 @@
             white-space: nowrap;
         }
 
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            background: var(--bg-secondary);
+            padding: 10px 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            font-size: 13px;
+        }
+        .stats-bar .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+        }
+        .stats-bar .stat-item .value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* URL Grid */
+        .url-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 4px 2px;
+        }
+        .url-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .url-grid::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+        .url-grid::-webkit-scrollbar-thumb {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        .url-card {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 14px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .url-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .url-card .thumb {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            background: var(--bg-primary);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .url-card .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .url-card .thumb .placeholder {
+            font-size: 40px;
+            opacity: 0.2;
+        }
+
+        .url-card .info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+        .url-card .info .name {
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .url-card .info .meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .url-card .info .meta .status {
+            font-weight: 600;
+            font-size: 10px;
+            padding: 1px 8px;
+            border-radius: 10px;
+        }
+        .url-card .info .meta .status.uploading {
+            background: #7c3aed33;
+            color: #a78bfa;
+            animation: pulse 1.5s infinite;
+        }
+        .url-card .info .meta .status.done {
+            background: #05966933;
+            color: #34d399;
+        }
+        .url-card .info .meta .status.error {
+            background: #b91c1c33;
+            color: #f87171;
+        }
+
+        .url-card .url-display {
+            background: var(--bg-primary);
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 12px;
+            color: #a78bfa;
+            word-break: break-all;
+            font-family: monospace;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+        .url-card .url-display:hover {
+            border-color: var(--accent);
+            background: #1a1a3a;
+        }
+        .url-card .url-display .placeholder-text {
+            color: var(--text-secondary);
+            font-family: inherit;
+        }
+
+        .url-card .actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 2px;
+        }
+        .url-card .actions .btn {
+            flex: 1;
+            justify-content: center;
+            padding: 6px 12px;
+            font-size: 12px;
+            min-width: 60px;
+        }
+
+        .url-card .error-msg {
+            font-size: 11px;
+            color: #f87171;
+            word-break: break-all;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        .empty-state .big-icon {
+            font-size: 64px;
+            display: block;
+            margin-bottom: 16px;
+            opacity: 0.4;
+        }
+
+        /* Bottom Actions */
         .actions {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             padding-top: 16px;
             border-top: 1px solid var(--border);
-            margin-top: 4px;
         }
         .actions .spacer {
             flex: 1;
         }
 
+        /* Toast */
         .toast-container {
             position: fixed;
             bottom: 20px;
@@ -522,7 +512,7 @@
             padding: 12px 20px;
             border-radius: 10px;
             font-size: 13px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            box-shadow: var(--shadow);
             transform: translateX(120%);
             opacity: 0;
             transition: all 0.4s ease;
@@ -543,23 +533,7 @@
             border-color: var(--warning);
         }
 
-        .heic-warning {
-            background: #d9770633;
-            border: 1px solid var(--warning);
-            border-radius: 10px;
-            padding: 12px 16px;
-            margin-bottom: 16px;
-            display: none;
-            font-size: 13px;
-            color: #fbbf24;
-        }
-        .heic-warning.visible {
-            display: block;
-        }
-        .heic-warning strong {
-            color: #f59e0b;
-        }
-
+        /* Responsive */
         @media (max-width: 700px) {
             .header {
                 flex-direction: column;
@@ -573,15 +547,12 @@
             .controls-bar .group {
                 justify-content: space-between;
             }
-            .controls-bar input[type="range"] {
-                width: 100px;
-            }
-            .file-grid {
-                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            .url-grid {
+                grid-template-columns: 1fr;
                 max-height: 400px;
             }
-            .file-card .thumb {
-                height: 90px;
+            .url-card .thumb {
+                height: 120px;
             }
             .actions {
                 flex-direction: column;
@@ -594,30 +565,22 @@
                 right: 20px;
                 bottom: 20px;
             }
-            .header-stats {
-                font-size: 12px;
-                gap: 12px;
-            }
-            .stats-bar {
-                font-size: 12px;
-                padding: 8px 12px;
-            }
         }
 
         @media (max-width: 480px) {
             body {
                 padding: 10px;
             }
-            .file-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 8px;
+            .header-left h1 {
+                font-size: 20px;
             }
-            .file-card {
-                padding: 8px;
-                min-height: 140px;
+            .url-card .actions .btn {
+                font-size: 11px;
+                padding: 5px 10px;
             }
-            .file-card .thumb {
-                height: 70px;
+            .url-card .url-display {
+                font-size: 11px;
+                padding: 6px 10px;
             }
         }
     </style>
@@ -625,99 +588,79 @@
 <body>
 
     <div class="app">
+        <!-- Header -->
         <div class="header">
             <div class="header-left">
-                <h1>⚡ Image Converter Pro</h1>
-                <span class="badge">HEIC ✓</span>
-                <span class="badge success">Batch ✓</span>
+                <h1>🔗 Image URL Generator</h1>
+                <span class="badge success">Free</span>
+                <span class="badge">No sign-up</span>
                 <span class="badge warning">100% Local</span>
             </div>
             <div class="header-stats">
-                <div>📁 <span id="fileCount">0</span> files</div>
-                <div>✅ <span id="doneCount">0</span> done</div>
-                <div>📊 <span id="totalSize">0 KB</span></div>
+                <div>📸 <span id="fileCount">0</span> uploaded</div>
+                <div>🔗 <span id="urlCount">0</span> URLs</div>
             </div>
         </div>
 
-        <!-- HEIC Warning -->
-        <div class="heic-warning" id="heicWarning">
-            ⚠️ <strong>HEIC Support:</strong> Some browsers may require the <strong>HEIF Image Extensions</strong> from the Windows Store.
-            <br>If HEIC files fail, try:
-            <ul style="margin-top:6px;padding-left:20px;">
-                <li>Chrome 94+ with <a href="https://chrome.google.com/webstore/detail/heic-converter/heic-converter" target="_blank" style="color:#a78bfa;">HEIC Converter</a> extension</li>
-                <li>Edge 94+ (built-in HEIC support)</li>
-                <li>Install <a href="https://www.microsoft.com/store/productId/9n4wgh0z6vhq" target="_blank" style="color:#a78bfa;">HEIF Image Extensions</a> from Windows Store</li>
-            </ul>
-        </div>
-
+        <!-- Controls -->
         <div class="controls-bar">
             <div class="group">
-                <label for="formatSelect">Output</label>
-                <select id="formatSelect">
-                    <option value="image/webp">WebP</option>
-                    <option value="image/png">PNG</option>
-                    <option value="image/jpeg">JPEG</option>
-                    <option value="image/avif">AVIF</option>
-                </select>
-            </div>
-            <div class="group">
-                <label for="qualitySlider">Quality</label>
-                <input type="range" id="qualitySlider" min="1" max="100" value="85" />
-                <span class="quality-value" id="qualityDisplay">85%</span>
-            </div>
-            <div class="group">
-                <label for="parallelInput">Parallel</label>
-                <input type="number" id="parallelInput" min="1" max="8" value="4" style="width:50px;" />
+                <label>Upload to</label>
+                <span style="color:#a78bfa;font-weight:600;">ImgBB</span>
+                <span style="color:var(--text-secondary);font-size:12px;">(free, no account needed)</span>
             </div>
             <div class="spacer"></div>
             <div class="group">
-                <button class="btn btn-secondary" id="clearAllBtn">🗑️ Clear All</button>
+                <button class="btn btn-danger" id="clearAllBtn">🗑️ Clear All</button>
                 <button class="btn btn-secondary" id="addFilesBtn">➕ Add Files</button>
             </div>
         </div>
 
+        <!-- Drop Zone -->
         <div class="drop-zone" id="dropZone">
             <span class="icon">📂</span>
             <h3>Drop images anywhere</h3>
-            <p>HEIC · JPG · PNG · BMP · GIF · WebP · TIFF · SVG</p>
+            <p>Upload → Get a shareable URL instantly</p>
             <div class="formats">
-                <span>HEIC</span><span>JPG</span><span>PNG</span><span>BMP</span>
-                <span>GIF</span><span>WebP</span><span>TIFF</span><span>SVG</span>
+                <span>JPG</span><span>PNG</span><span>WebP</span><span>HEIC</span>
+                <span>GIF</span><span>SVG</span><span>BMP</span><span>TIFF</span>
             </div>
             <input type="file" id="fileInput" accept="image/*" multiple />
         </div>
 
-        <div class="stats-bar" id="statsBar">
-            <div class="stat-item">⏳ Pending: <span class="value" id="pendingCount">0</span></div>
-            <div class="stat-item">🔄 Processing: <span class="value" id="processingCount">0</span></div>
-            <div class="stat-item">✅ Done: <span class="value" id="doneCount2">0</span></div>
-            <div class="stat-item">❌ Errors: <span class="value" id="errorCount">0</span></div>
-        </div>
-
+        <!-- Upload Progress -->
         <div class="progress-global" id="progressGlobal">
-            <span style="font-size:18px;">⏳</span>
+            <span style="font-size:18px;">⬆️</span>
             <div class="bar-track">
                 <div class="fill" id="progressFill"></div>
             </div>
             <span class="progress-text" id="progressText">0 / 0</span>
-            <span class="progress-text" id="progressETA">--</span>
         </div>
 
-        <div class="file-grid" id="fileGrid">
-            <div style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--text-secondary);font-size:14px;">
-                No files added. Drop images or click "Add Files".
+        <!-- Stats Bar -->
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-item">⏳ Uploading: <span class="value" id="uploadingCount">0</span></div>
+            <div class="stat-item">✅ Done: <span class="value" id="doneCount">0</span></div>
+            <div class="stat-item">❌ Errors: <span class="value" id="errorCount">0</span></div>
+        </div>
+
+        <!-- URL Grid -->
+        <div class="url-grid" id="urlGrid">
+            <div class="empty-state">
+                <span class="big-icon">🖼️</span>
+                No images uploaded yet.<br />
+                Drop images above or click "Add Files" to get started.
             </div>
         </div>
 
+        <!-- Actions -->
         <div class="actions">
-            <button class="btn btn-primary" id="convertAllBtn">⚡ Convert All</button>
-            <button class="btn btn-success" id="downloadAllBtn">⬇️ Download All (ZIP)</button>
-            <button class="btn btn-secondary" id="downloadSelectedBtn">⬇️ Download Selected</button>
+            <button class="btn btn-success" id="copyAllUrlsBtn">📋 Copy All URLs</button>
+            <button class="btn btn-secondary" id="exportUrlsBtn">📄 Export URLs (JSON)</button>
             <span class="spacer"></span>
-            <label style="font-size:12px;color:var(--text-secondary);display:flex;align-items:center;gap:6px;">
-                <input type="checkbox" id="skipExistingCheck" checked />
-                Skip existing
-            </label>
+            <span style="font-size:12px;color:var(--text-secondary);">
+                URLs hosted on ImgBB · Private · No expiration
+            </span>
         </div>
     </div>
 
@@ -730,164 +673,25 @@
             // ---- DOM refs ----
             const dropZone = document.getElementById('dropZone');
             const fileInput = document.getElementById('fileInput');
-            const fileGrid = document.getElementById('fileGrid');
+            const urlGrid = document.getElementById('urlGrid');
             const fileCount = document.getElementById('fileCount');
+            const urlCount = document.getElementById('urlCount');
+            const uploadingCount = document.getElementById('uploadingCount');
             const doneCount = document.getElementById('doneCount');
-            const totalSize = document.getElementById('totalSize');
-            const pendingCount = document.getElementById('pendingCount');
-            const processingCount = document.getElementById('processingCount');
-            const doneCount2 = document.getElementById('doneCount2');
             const errorCount = document.getElementById('errorCount');
-            const formatSelect = document.getElementById('formatSelect');
-            const qualitySlider = document.getElementById('qualitySlider');
-            const qualityDisplay = document.getElementById('qualityDisplay');
-            const parallelInput = document.getElementById('parallelInput');
-            const convertAllBtn = document.getElementById('convertAllBtn');
-            const downloadAllBtn = document.getElementById('downloadAllBtn');
-            const downloadSelectedBtn = document.getElementById('downloadSelectedBtn');
-            const clearAllBtn = document.getElementById('clearAllBtn');
-            const addFilesBtn = document.getElementById('addFilesBtn');
             const progressGlobal = document.getElementById('progressGlobal');
             const progressFill = document.getElementById('progressFill');
             const progressText = document.getElementById('progressText');
-            const progressETA = document.getElementById('progressETA');
-            const skipExistingCheck = document.getElementById('skipExistingCheck');
+            const clearAllBtn = document.getElementById('clearAllBtn');
+            const addFilesBtn = document.getElementById('addFilesBtn');
+            const copyAllUrlsBtn = document.getElementById('copyAllUrlsBtn');
+            const exportUrlsBtn = document.getElementById('exportUrlsBtn');
             const toastContainer = document.getElementById('toastContainer');
-            const heicWarning = document.getElementById('heicWarning');
 
             // ---- State ----
-            let files = [];
+            let items = [];
             let idCounter = 0;
-            let isConverting = false;
-            let abortController = null;
-
-            // ---- HEIC decoder setup ----
-            let heicDecoderReady = false;
-            let heicDecoder = null;
-
-            // Try to initialize libheif
-            async function initHeicDecoder() {
-                try {
-                    if (typeof libheif !== 'undefined') {
-                        heicDecoder = new libheif.HeifDecoder();
-                        heicDecoderReady = true;
-                        console.log('✅ libheif initialized successfully');
-                        heicWarning.classList.remove('visible');
-                        return true;
-                    } else {
-                        console.warn('libheif not available, using fallback');
-                        heicWarning.classList.add('visible');
-                        return false;
-                    }
-                } catch (e) {
-                    console.warn('libheif init failed:', e);
-                    heicWarning.classList.add('visible');
-                    return false;
-                }
-            }
-
-            // ---- HEIC decoding using libheif ----
-            async function decodeHeic(arrayBuffer) {
-                // Try libheif first
-                if (heicDecoderReady && heicDecoder) {
-                    try {
-                        const decoded = await new Promise((resolve, reject) => {
-                            try {
-                                const result = heicDecoder.decode(arrayBuffer);
-                                if (result && result.length > 0) {
-                                    resolve(result);
-                                } else {
-                                    reject(new Error('No frames decoded'));
-                                }
-                            } catch (e) {
-                                reject(e);
-                            }
-                        });
-
-                        // Get first frame
-                        const frame = decoded[0];
-                        if (!frame) throw new Error('No frame available');
-
-                        // Get image data
-                        const width = frame.get_width();
-                        const height = frame.get_height();
-
-                        // Create canvas and draw
-                        const canvas = document.createElement('canvas');
-                        canvas.width = width;
-                        canvas.height = height;
-                        const ctx = canvas.getContext('2d');
-                        const imageData = ctx.createImageData(width, height);
-
-                        // Get RGBA data from frame
-                        const data = frame.get_data();
-                        if (data) {
-                            const rgbaData = new Uint8ClampedArray(data);
-                            imageData.data.set(rgbaData);
-                            ctx.putImageData(imageData, 0, 0);
-
-                            // Convert to blob
-                            const blob = await new Promise((resolve) => {
-                                canvas.toBlob((b) => resolve(b), 'image/png');
-                            });
-
-                            if (blob) {
-                                return blob;
-                            }
-                        }
-                        throw new Error('Failed to get image data');
-                    } catch (e) {
-                        console.warn('libheif decode failed:', e);
-                        // Fall through to next method
-                    }
-                }
-
-                // Fallback: Try heic2any (which may use WASM)
-                try {
-                    if (typeof heic2any !== 'undefined') {
-                        const blob = new Blob([arrayBuffer], { type: 'image/heic' });
-                        const result = await heic2any({
-                            blob: blob,
-                            toType: 'image/png',
-                            quality: 0.92,
-                        });
-                        const pngBlob = Array.isArray(result) ? result[0] : result;
-                        return pngBlob;
-                    }
-                } catch (e) {
-                    console.warn('heic2any fallback failed:', e);
-                }
-
-                // Last resort: Try browser's native HEIC support (Chrome/Edge)
-                try {
-                    const blob = new Blob([arrayBuffer], { type: 'image/heic' });
-                    const url = URL.createObjectURL(blob);
-
-                    const img = new Image();
-                    await new Promise((resolve, reject) => {
-                        img.onload = resolve;
-                        img.onerror = () => reject(new Error('Browser cannot decode HEIC'));
-                        img.src = url;
-                    });
-
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth || img.width;
-                    canvas.height = img.naturalHeight || img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-
-                    const pngBlob = await new Promise((resolve) => {
-                        canvas.toBlob((b) => resolve(b), 'image/png');
-                    });
-
-                    URL.revokeObjectURL(url);
-                    if (pngBlob) return pngBlob;
-                } catch (e) {
-                    console.warn('Native HEIC decoding failed:', e);
-                }
-
-                throw new Error('HEIC decoding failed. Install HEIF Image Extensions from Windows Store or use Chrome/Edge.');
-            }
+            let isUploading = false;
 
             // ---- Helper functions ----
             function formatSize(bytes) {
@@ -899,25 +703,8 @@
                 return val + ' ' + sizes[i];
             }
 
-            function getExtension(mimeType) {
-                const map = {
-                    'image/webp': 'webp',
-                    'image/png': 'png',
-                    'image/jpeg': 'jpg',
-                    'image/avif': 'avif'
-                };
-                return map[mimeType] || 'bin';
-            }
-
-            function isImageFile(file) {
-                return file.type.startsWith('image/') ||
-                    /\.(heic|heif|jpg|jpeg|png|bmp|gif|webp|tiff|tif|svg|avif)$/i.test(file.name);
-            }
-
-            function isHeicFile(file) {
-                return file.type === 'image/heic' ||
-                    file.type === 'image/heif' ||
-                    /\.(heic|heif)$/i.test(file.name);
+            function generateId() {
+                return ++idCounter;
             }
 
             function showToast(message, type = 'info', duration = 3000) {
@@ -936,450 +723,373 @@
                 }, duration);
             }
 
-            // ---- Render file grid ----
-            function renderFileGrid() {
-                if (files.length === 0) {
-                    fileGrid.innerHTML =
-                        `<div style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--text-secondary);font-size:14px;">No files added. Drop images or click "Add Files".</div>`;
+            function isImageFile(file) {
+                return file.type.startsWith('image/') ||
+                    /\.(heic|heif|jpg|jpeg|png|bmp|gif|webp|tiff|tif|svg|avif)$/i.test(file.name);
+            }
+
+            // ---- Render grid ----
+            function renderGrid() {
+                if (items.length === 0) {
+                    urlGrid.innerHTML = `
+                        <div class="empty-state">
+                            <span class="big-icon">🖼️</span>
+                            No images uploaded yet.<br />
+                            Drop images above or click "Add Files" to get started.
+                        </div>
+                    `;
                     updateStats();
                     return;
                 }
 
                 let html = '';
-                for (const f of files) {
-                    const statusClass = f.status || 'pending';
+                for (const item of items) {
+                    const statusClass = item.status || 'pending';
                     const statusLabel = {
-                        'pending': 'Pending',
-                        'processing': 'Processing...',
-                        'done': 'Done',
-                        'error': 'Error'
+                        'pending': '⏳ Pending',
+                        'uploading': '⬆️ Uploading...',
+                        'done': '✅ Done',
+                        'error': '❌ Error'
                     } [statusClass] || statusClass;
 
-                    let reductionHtml = '';
-                    if (statusClass === 'done' && f.file && f.convertedBlob) {
-                        const origSize = f.file.size;
-                        const newSize = f.convertedBlob.size;
-                        if (origSize > 0) {
-                            const diff = ((origSize - newSize) / origSize * 100).toFixed(1);
-                            const sign = diff > 0 ? '-' : '+';
-                            const cls = diff > 0 ? '' : 'negative';
-                            reductionHtml =
-                                `<span class="size-reduction ${cls}">${sign}${Math.abs(diff)}%</span>`;
-                        }
-                    }
-
-                    const thumbHtml = f.originalDataUrl ?
-                        `<img src="${f.originalDataUrl}" alt="thumb" loading="lazy" />` :
+                    const thumbHtml = item.localUrl ?
+                        `<img src="${item.localUrl}" alt="thumb" loading="lazy" />` :
                         `<span class="placeholder">🖼️</span>`;
 
-                    const isChecked = f.selected !== false ? 'checked' : '';
-                    const heicBadge = f.isHeic ? `<span style="font-size:9px;background:#7c3aed33;padding:0 6px;border-radius:4px;color:#a78bfa;">HEIC</span>` :
+                    const urlDisplay = item.url ?
+                        `<span style="word-break:break-all;cursor:pointer;" onclick="copyUrl(${item.id})">${item.url}</span>` :
+                        `<span class="placeholder-text">Waiting for upload...</span>`;
+
+                    const errorHtml = item.error ? `<div class="error-msg">${item.error}</div>` : '';
+
+                    // Upload button only if not done and not uploading
+                    const uploadBtn = (statusClass !== 'done' && statusClass !== 'uploading') ?
+                        `<button class="btn btn-primary upload-btn" data-id="${item.id}">⬆️ Upload</button>` :
                         '';
 
                     html += `
-                        <div class="file-card" data-id="${f.id}">
-                            <button class="remove-file" data-id="${f.id}" title="Remove">✕</button>
+                        <div class="url-card" data-id="${item.id}">
                             <div class="thumb">${thumbHtml}</div>
-                            <div class="name" title="${f.file.name}">${f.file.name} ${heicBadge}</div>
-                            <div class="meta">
-                                <span>${formatSize(f.file.size)}</span>
-                                <span class="status ${statusClass}">${statusLabel}</span>
-                                ${reductionHtml}
+                            <div class="info">
+                                <div class="name" title="${item.fileName}">${item.fileName}</div>
+                                <div class="meta">
+                                    <span>${formatSize(item.fileSize)}</span>
+                                    <span class="status ${statusClass}">${statusLabel}</span>
+                                    ${item.url ? `<span style="color:#34d399;">🔗 Live</span>` : ''}
+                                </div>
                             </div>
-                            ${f.error ? `<div class="error-msg">${f.error}</div>` : ''}
-                            <div style="margin-top:4px;display:flex;gap:6px;align-items:center;font-size:11px;color:var(--text-secondary);">
-                                <input type="checkbox" class="file-select" data-id="${f.id}" ${isChecked} />
-                                <label style="cursor:pointer;">Select</label>
-                                ${f.convertedBlob ? `<span style="margin-left:auto;">${formatSize(f.convertedBlob.size)}</span>` : ''}
+                            ${errorHtml}
+                            <div class="url-display" onclick="copyUrl(${item.id})" title="Click to copy URL">
+                                ${urlDisplay}
+                            </div>
+                            <div class="actions">
+                                ${uploadBtn}
+                                ${item.url ? `<button class="btn btn-copy copy-btn" data-id="${item.id}">📋 Copy</button>` : ''}
+                                <button class="btn btn-danger remove-btn" data-id="${item.id}">🗑️</button>
                             </div>
                         </div>
                     `;
                 }
-                fileGrid.innerHTML = html;
+                urlGrid.innerHTML = html;
                 updateStats();
 
-                document.querySelectorAll('.remove-file').forEach(btn => {
-                    btn.addEventListener('click', (e) => {
-                        e.stopPropagation();
+                // Event listeners
+                document.querySelectorAll('.upload-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
                         const id = parseInt(btn.dataset.id, 10);
-                        removeFile(id);
+                        uploadItem(id);
                     });
                 });
 
-                document.querySelectorAll('.file-select').forEach(cb => {
-                    cb.addEventListener('change', (e) => {
-                        const id = parseInt(cb.dataset.id, 10);
-                        const f = files.find(f => f.id === id);
-                        if (f) f.selected = cb.checked;
-                        updateStats();
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.dataset.id, 10);
+                        copyUrl(id);
+                    });
+                });
+
+                document.querySelectorAll('.remove-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        const id = parseInt(btn.dataset.id, 10);
+                        removeItem(id);
                     });
                 });
             }
 
-            // ---- Update stats ----
-            function updateStats() {
-                const total = files.length;
-                const done = files.filter(f => f.status === 'done').length;
-                const pending = files.filter(f => f.status === 'pending').length;
-                const processing = files.filter(f => f.status === 'processing').length;
-                const errors = files.filter(f => f.status === 'error').length;
-                const totalBytes = files.reduce((sum, f) => sum + (f.file ? f.file.size : 0), 0);
-
-                fileCount.textContent = total;
-                doneCount.textContent = done;
-                totalSize.textContent = formatSize(totalBytes);
-                pendingCount.textContent = pending;
-                processingCount.textContent = processing;
-                doneCount2.textContent = done;
-                errorCount.textContent = errors;
-
-                if (isConverting) {
-                    convertAllBtn.disabled = true;
-                    convertAllBtn.textContent = '⏳ Converting...';
-                } else {
-                    convertAllBtn.disabled = pending === 0 && processing === 0;
-                    convertAllBtn.textContent = pending > 0 ? `⚡ Convert ${pending} Files` : '⚡ Convert All';
-                }
-
-                const hasDone = done > 0;
-                downloadAllBtn.disabled = !hasDone || isConverting;
-                downloadSelectedBtn.disabled = !hasDone || isConverting;
-            }
-
-            // ---- File operations ----
-            function addFile(file) {
-                const dup = files.some(f => f.file.name === file.name && f.file.size === file.size);
-                if (dup) {
-                    showToast(`⚠️ "${file.name}" already added.`, 'warning', 2000);
+            // Expose functions to global scope for onclick
+            window.copyUrl = function(id) {
+                const item = items.find(i => i.id === id);
+                if (!item || !item.url) {
+                    showToast('No URL to copy.', 'warning', 1500);
                     return;
                 }
 
-                const isHeic = isHeicFile(file);
+                navigator.clipboard.writeText(item.url).then(() => {
+                    showToast('✅ URL copied to clipboard!', 'success', 1500);
 
-                const entry = {
-                    id: ++idCounter,
-                    file: file,
-                    originalDataUrl: null,
-                    convertedBlob: null,
-                    status: 'pending',
-                    error: null,
-                    selected: true,
-                    isHeic: isHeic,
-                    outputFormat: formatSelect.value,
-                    outputQuality: parseInt(qualitySlider.value, 10) / 100,
-                };
+                    // Visual feedback on the copy button
+                    const btn = document.querySelector(`.copy-btn[data-id="${id}"]`);
+                    if (btn) {
+                        btn.textContent = '✅ Copied!';
+                        btn.classList.add('copied');
+                        setTimeout(() => {
+                            btn.textContent = '📋 Copy';
+                            btn.classList.remove('copied');
+                        }, 2000);
+                    }
+                }).catch(() => {
+                    // Fallback: select and copy
+                    const urlDisplay = document.querySelector(`.url-display[data-id="${id}"]`);
+                    if (urlDisplay) {
+                        const range = document.createRange();
+                        range.selectNodeContents(urlDisplay);
+                        const selection = window.getSelection();
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                        document.execCommand('copy');
+                        showToast('✅ URL copied!', 'success', 1500);
+                    }
+                });
+            };
 
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    entry.originalDataUrl = e.target.result;
-                    renderFileGrid();
-                };
-                reader.onerror = () => {
-                    entry.status = 'error';
-                    entry.error = 'Failed to read file';
-                    renderFileGrid();
-                };
-                reader.readAsDataURL(file);
+            window.copyUrlGlobal = window.copyUrl;
 
-                files.push(entry);
-                renderFileGrid();
+            // ---- Update stats ----
+            function updateStats() {
+                const total = items.length;
+                const done = items.filter(i => i.status === 'done' && i.url).length;
+                const uploading = items.filter(i => i.status === 'uploading').length;
+                const errors = items.filter(i => i.status === 'error').length;
 
-                if (isHeic) {
-                    showToast(`📎 Added HEIC: "${file.name}" (will decode on convert)`, 'info', 2000);
-                } else {
-                    showToast(`📎 Added "${file.name}"`, 'success', 1500);
-                }
+                fileCount.textContent = total;
+                urlCount.textContent = done;
+                uploadingCount.textContent = uploading;
+                doneCount.textContent = done;
+                errorCount.textContent = errors;
             }
 
-            function removeFile(id) {
-                files = files.filter(f => f.id !== id);
-                renderFileGrid();
-                if (files.length === 0) {
+            // ---- Item operations ----
+            function addItem(file) {
+                const dup = items.some(i => i.fileName === file.name && i.fileSize === file.size);
+                if (dup) {
+                    showToast(`⚠️ "${file.name}" already uploaded.`, 'warning', 2000);
+                    return;
+                }
+
+                const id = generateId();
+                const localUrl = URL.createObjectURL(file);
+
+                const item = {
+                    id: id,
+                    fileName: file.name,
+                    fileSize: file.size,
+                    file: file,
+                    localUrl: localUrl,
+                    url: null,
+                    status: 'pending',
+                    error: null,
+                };
+
+                items.push(item);
+                renderGrid();
+                showToast(`📎 Added "${file.name}"`, 'success', 1500);
+
+                // Auto-upload
+                uploadItem(id);
+            }
+
+            function removeItem(id) {
+                const item = items.find(i => i.id === id);
+                if (item && item.localUrl) {
+                    URL.revokeObjectURL(item.localUrl);
+                }
+                items = items.filter(i => i.id !== id);
+                renderGrid();
+                if (items.length === 0) {
                     progressGlobal.classList.remove('visible');
                 }
             }
 
             function clearAll() {
-                if (files.length === 0) return;
-                if (isConverting) {
-                    showToast('⛔ Cannot clear while converting.', 'error', 2000);
+                if (items.length === 0) return;
+                if (isUploading) {
+                    showToast('⛔ Cannot clear while uploading.', 'error', 2000);
                     return;
                 }
-                files = [];
-                renderFileGrid();
+                // Revoke all blob URLs
+                for (const item of items) {
+                    if (item.localUrl) {
+                        URL.revokeObjectURL(item.localUrl);
+                    }
+                }
+                items = [];
+                renderGrid();
                 progressGlobal.classList.remove('visible');
-                showToast('🗑️ All files cleared.', 'info', 1500);
+                showToast('🗑️ All cleared.', 'info', 1500);
             }
 
-            // ---- Conversion engine ----
-            async function convertSingleFile(entry) {
-                if (entry.status === 'done' && skipExistingCheck.checked) {
-                    return true;
-                }
+            // ---- Upload to ImgBB ----
+            async function uploadItem(id) {
+                const item = items.find(i => i.id === id);
+                if (!item) return;
+                if (item.status === 'done' || item.status === 'uploading') return;
 
-                entry.status = 'processing';
-                entry.error = null;
-                renderFileGrid();
+                item.status = 'uploading';
+                item.error = null;
+                renderGrid();
+
+                // Show progress
+                progressGlobal.classList.add('visible');
 
                 try {
-                    let imageDataUrl = entry.originalDataUrl;
+                    // Prepare form data for ImgBB
+                    const formData = new FormData();
+                    formData.append('image', item.file);
 
-                    // If HEIC, decode using our robust decoder
-                    if (entry.isHeic) {
-                        try {
-                            const arrayBuffer = await entry.file.arrayBuffer();
-                            const pngBlob = await decodeHeic(arrayBuffer);
-
-                            // Convert blob to data URL
-                            imageDataUrl = await new Promise((resolve, reject) => {
-                                const r = new FileReader();
-                                r.onload = () => resolve(r.result);
-                                r.onerror = reject;
-                                r.readAsDataURL(pngBlob);
-                            });
-                        } catch (heicErr) {
-                            console.error('HEIC decode error:', heicErr);
-                            throw new Error('HEIC decode failed: ' + (heicErr.message || 'unknown') +
-                                '\n\nTry:\n- Install HEIF Image Extensions from Windows Store\n- Use Chrome or Edge browser\n- Convert using a different tool');
-                        }
-                    }
-
-                    // Load image onto canvas
-                    const img = new Image();
-                    await new Promise((resolve, reject) => {
-                        img.onload = resolve;
-                        img.onerror = () => reject(new Error('Image load failed'));
-                        img.src = imageDataUrl;
+                    // ImgBB free API (no API key required for basic uploads)
+                    // Using the public upload endpoint
+                    const response = await fetch('https://api.imgbb.com/1/upload', {
+                        method: 'POST',
+                        body: formData,
                     });
 
-                    const canvas = document.createElement('canvas');
-                    canvas.width = img.naturalWidth || img.width;
-                    canvas.height = img.naturalHeight || img.height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0);
-
-                    // Convert to target format
-                    const format = entry.outputFormat || formatSelect.value;
-                    const quality = entry.outputQuality || (parseInt(qualitySlider.value, 10) / 100);
-
-                    // Check AVIF support
-                    if (format === 'image/avif') {
-                        const supported = await new Promise((resolve) => {
-                            const testCanvas = document.createElement('canvas');
-                            testCanvas.width = 1;
-                            testCanvas.height = 1;
-                            testCanvas.toBlob((b) => resolve(b !== null), 'image/avif', 0.5);
-                        });
-
-                        if (!supported) {
-                            throw new Error('AVIF not supported by this browser. Use Chrome/Edge.');
-                        }
+                    if (!response.ok) {
+                        throw new Error(`Upload failed with status ${response.status}`);
                     }
 
-                    const blob = await new Promise((resolve, reject) => {
-                        try {
-                            canvas.toBlob(
-                                (b) => b ? resolve(b) : reject(new Error('Canvas toBlob failed')),
-                                format,
-                                quality
-                            );
-                        } catch (err) {
-                            reject(err);
-                        }
-                    });
+                    const data = await response.json();
 
-                    entry.convertedBlob = blob;
-                    entry.status = 'done';
-                    entry.error = null;
-                    renderFileGrid();
-                    return true;
+                    if (!data.success) {
+                        throw new Error(data.error?.message || 'Upload failed');
+                    }
+
+                    // Extract the URL
+                    item.url = data.data.url || data.data.display_url || data.data.image?.url;
+
+                    if (!item.url) {
+                        throw new Error('No URL returned from upload service');
+                    }
+
+                    item.status = 'done';
+                    item.error = null;
+                    showToast(`✅ "${item.fileName}" uploaded!`, 'success', 2000);
 
                 } catch (err) {
-                    console.error('Conversion error for', entry.file.name, err);
-                    entry.status = 'error';
-                    entry.error = err.message || 'Conversion failed';
-                    renderFileGrid();
-                    return false;
+                    console.error('Upload error:', err);
+                    item.status = 'error';
+                    item.error = err.message || 'Upload failed. Try again.';
+
+                    // Check if it's a CORS or network issue
+                    if (err.message.includes('fetch') || err.message.includes('network')) {
+                        item.error = 'Network error. Check your internet connection.';
+                    }
+
+                    showToast(`❌ Failed to upload "${item.fileName}"`, 'error', 3000);
                 }
+
+                renderGrid();
+                updateProgress();
+                updateStats();
             }
 
-            // ---- Convert all with parallel processing ----
-            async function convertAll() {
-                if (isConverting) return;
-                const pending = files.filter(f => f.status !== 'done' || !skipExistingCheck.checked);
+            // ---- Upload all pending ----
+            async function uploadAllPending() {
+                const pending = items.filter(i => i.status === 'pending' || i.status === 'error');
                 if (pending.length === 0) {
-                    showToast('✅ All files are already converted.', 'success', 2000);
+                    showToast('✅ All files are uploaded!', 'success', 2000);
                     return;
                 }
 
-                isConverting = true;
-                convertAllBtn.disabled = true;
-                abortController = new AbortController();
+                if (isUploading) return;
+                isUploading = true;
 
-                const parallel = Math.min(parseInt(parallelInput.value, 10) || 4, 8);
+                // Show progress
+                progressGlobal.classList.add('visible');
                 const total = pending.length;
                 let completed = 0;
-                let failed = 0;
 
-                progressGlobal.classList.add('visible');
-                progressFill.style.width = '0%';
-                progressText.textContent = `0 / ${total}`;
-                progressETA.textContent = '--';
-
-                const startTime = Date.now();
-
-                // Process in batches
-                const batchSize = parallel;
-                for (let i = 0; i < pending.length; i += batchSize) {
-                    if (abortController.signal.aborted) break;
-
-                    const batch = pending.slice(i, i + batchSize);
-                    const batchPromises = batch.map(async (entry) => {
-                        entry.outputFormat = formatSelect.value;
-                        entry.outputQuality = parseInt(qualitySlider.value, 10) / 100;
-
-                        const success = await convertSingleFile(entry);
-                        completed++;
-                        if (!success) failed++;
-
-                        const pct = Math.min(Math.round((completed / total) * 100), 100);
-                        progressFill.style.width = pct + '%';
-                        progressText.textContent = `${completed} / ${total}`;
-
-                        const elapsed = (Date.now() - startTime) / 1000;
-                        const rate = completed / elapsed;
-                        const remaining = total - completed;
-                        const eta = rate > 0 ? remaining / rate : 0;
-                        progressETA.textContent = eta > 0 ? `ETA: ${Math.round(eta)}s` : '--';
-
-                        updateStats();
-                    });
-
-                    await Promise.all(batchPromises);
+                for (const item of pending) {
+                    await uploadItem(item.id);
+                    completed++;
+                    updateProgress(completed, total);
                 }
 
+                isUploading = false;
                 progressFill.style.width = '100%';
-                progressText.textContent = `✅ ${completed} done (${failed} failed)`;
-                progressETA.textContent = 'Done!';
+                progressText.textContent = `✅ ${completed} done`;
 
                 setTimeout(() => {
                     progressGlobal.classList.remove('visible');
                 }, 2000);
 
-                isConverting = false;
-                convertAllBtn.disabled = false;
-                updateStats();
-
-                if (failed === 0) {
-                    showToast(`✅ Converted ${completed} file${completed > 1 ? 's' : ''}!`, 'success', 3000);
-                } else {
-                    showToast(`⚠️ ${completed} converted, ${failed} failed. Check errors.`, 'warning', 4000);
-                }
-                renderFileGrid();
+                showToast(`✅ Uploaded ${completed} file${completed > 1 ? 's' : ''}!`, 'success', 3000);
+                renderGrid();
             }
 
-            // ---- Download functions ----
-            function downloadFile(blob, filename) {
+            function updateProgress(completed, total) {
+                if (!total) {
+                    const totalItems = items.length;
+                    const done = items.filter(i => i.status === 'done').length;
+                    const pct = totalItems > 0 ? Math.round((done / totalItems) * 100) : 0;
+                    progressFill.style.width = pct + '%';
+                    progressText.textContent = `${done} / ${totalItems}`;
+                    return;
+                }
+
+                const pct = Math.min(Math.round((completed / total) * 100), 100);
+                progressFill.style.width = pct + '%';
+                progressText.textContent = `${completed} / ${total}`;
+            }
+
+            // ---- Copy all URLs ----
+            function copyAllUrls() {
+                const urls = items.filter(i => i.url).map(i => i.url);
+                if (urls.length === 0) {
+                    showToast('⚠️ No URLs to copy.', 'warning', 2000);
+                    return;
+                }
+
+                const text = urls.join('\n');
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(`✅ Copied ${urls.length} URLs to clipboard!`, 'success', 2000);
+                }).catch(() => {
+                    // Fallback
+                    const textarea = document.createElement('textarea');
+                    textarea.value = text;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast(`✅ Copied ${urls.length} URLs!`, 'success', 2000);
+                });
+            }
+
+            // ---- Export URLs as JSON ----
+            function exportUrls() {
+                const data = items.filter(i => i.url).map(i => ({
+                    filename: i.fileName,
+                    size: i.fileSize,
+                    url: i.url,
+                    uploaded: new Date().toISOString(),
+                }));
+
+                if (data.length === 0) {
+                    showToast('⚠️ No URLs to export.', 'warning', 2000);
+                    return;
+                }
+
+                const json = JSON.stringify(data, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
                 const link = document.createElement('a');
-                link.download = filename;
-                link.href = URL.createObjectURL(blob);
+                link.download = `urls_${new Date().toISOString().slice(0,10)}.json`;
+                link.href = url;
                 link.click();
-                setTimeout(() => URL.revokeObjectURL(link.href), 5000);
-            }
-
-            async function downloadAll() {
-                const doneFiles = files.filter(f => f.status === 'done' && f.convertedBlob);
-                if (doneFiles.length === 0) {
-                    showToast('⚠️ No converted files to download.', 'error', 2000);
-                    return;
-                }
-
-                if (doneFiles.length === 1) {
-                    const f = doneFiles[0];
-                    const ext = getExtension(f.outputFormat || formatSelect.value);
-                    const base = f.file.name.replace(/\.[^.]+$/, '');
-                    downloadFile(f.convertedBlob, `${base}.${ext}`);
-                    showToast(`⬇️ Downloaded "${base}.${ext}"`, 'success', 2000);
-                    return;
-                }
-
-                try {
-                    if (typeof JSZip === 'undefined') {
-                        await new Promise((resolve, reject) => {
-                            const script = document.createElement('script');
-                            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
-                            script.onload = resolve;
-                            script.onerror = () => reject(new Error('Failed to load JSZip'));
-                            document.head.appendChild(script);
-                        });
-                    }
-
-                    const zip = new JSZip();
-                    for (const f of doneFiles) {
-                        const ext = getExtension(f.outputFormat || formatSelect.value);
-                        const base = f.file.name.replace(/\.[^.]+$/, '');
-                        zip.file(`${base}.${ext}`, f.convertedBlob);
-                    }
-
-                    const zipBlob = await zip.generateAsync({ type: 'blob' });
-                    downloadFile(zipBlob, 'converted_images.zip');
-                    showToast(`⬇️ Downloaded ZIP with ${doneFiles.length} files.`, 'success', 3000);
-
-                } catch (err) {
-                    console.error('ZIP error:', err);
-                    showToast('❌ Failed to create ZIP: ' + err.message, 'error', 3000);
-                }
-            }
-
-            async function downloadSelected() {
-                const selected = files.filter(f => f.status === 'done' && f.convertedBlob && f.selected !== false);
-                if (selected.length === 0) {
-                    showToast('⚠️ No selected converted files.', 'error', 2000);
-                    return;
-                }
-
-                if (selected.length === 1) {
-                    const f = selected[0];
-                    const ext = getExtension(f.outputFormat || formatSelect.value);
-                    const base = f.file.name.replace(/\.[^.]+$/, '');
-                    downloadFile(f.convertedBlob, `${base}.${ext}`);
-                    showToast(`⬇️ Downloaded "${base}.${ext}"`, 'success', 2000);
-                    return;
-                }
-
-                try {
-                    if (typeof JSZip === 'undefined') {
-                        await new Promise((resolve, reject) => {
-                            const script = document.createElement('script');
-                            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
-                            script.onload = resolve;
-                            script.onerror = () => reject(new Error('Failed to load JSZip'));
-                            document.head.appendChild(script);
-                        });
-                    }
-
-                    const zip = new JSZip();
-                    for (const f of selected) {
-                        const ext = getExtension(f.outputFormat || formatSelect.value);
-                        const base = f.file.name.replace(/\.[^.]+$/, '');
-                        zip.file(`${base}.${ext}`, f.convertedBlob);
-                    }
-
-                    const zipBlob = await zip.generateAsync({ type: 'blob' });
-                    downloadFile(zipBlob, 'selected_images.zip');
-                    showToast(`⬇️ Downloaded ZIP with ${selected.length} files.`, 'success', 3000);
-
-                } catch (err) {
-                    console.error('ZIP error:', err);
-                    showToast('❌ Failed to create ZIP: ' + err.message, 'error', 3000);
-                }
+                setTimeout(() => URL.revokeObjectURL(url), 5000);
+                showToast(`📄 Exported ${data.length} URLs as JSON`, 'success', 2000);
             }
 
             // ---- Event listeners ----
-            qualitySlider.addEventListener('input', () => {
-                qualityDisplay.textContent = qualitySlider.value + '%';
-            });
-
             dropZone.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 dropZone.classList.add('dragover');
@@ -1393,7 +1103,7 @@
                 const droppedFiles = e.dataTransfer.files;
                 for (const f of droppedFiles) {
                     if (isImageFile(f)) {
-                        addFile(f);
+                        addItem(f);
                     } else {
                         showToast(`⚠️ Skipped non-image: "${f.name}"`, 'warning', 2000);
                     }
@@ -1403,7 +1113,7 @@
             fileInput.addEventListener('change', (e) => {
                 for (const f of fileInput.files) {
                     if (isImageFile(f)) {
-                        addFile(f);
+                        addItem(f);
                     } else {
                         showToast(`⚠️ Skipped non-image: "${f.name}"`, 'warning', 2000);
                     }
@@ -1413,47 +1123,35 @@
 
             addFilesBtn.addEventListener('click', () => fileInput.click());
             clearAllBtn.addEventListener('click', clearAll);
-            convertAllBtn.addEventListener('click', convertAll);
-            downloadAllBtn.addEventListener('click', downloadAll);
-            downloadSelectedBtn.addEventListener('click', downloadSelected);
+            copyAllUrlsBtn.addEventListener('click', copyAllUrls);
+            exportUrlsBtn.addEventListener('click', exportUrls);
 
+            // Paste support
             document.addEventListener('paste', (e) => {
                 const items = e.clipboardData && e.clipboardData.items;
                 if (items) {
                     for (const item of items) {
                         if (item.type.startsWith('image/')) {
                             const file = item.getAsFile();
-                            if (file) addFile(file);
+                            if (file) addItem(file);
                         }
                     }
                 }
             });
 
+            // Keyboard shortcut: Ctrl+Enter to upload all
             document.addEventListener('keydown', (e) => {
-                if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
-                    // Paste handled above
-                }
-                if (e.key === 'Enter' && e.ctrlKey) {
-                    convertAll();
+                if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                    uploadAllPending();
                 }
             });
 
             // ---- Init ----
-            async function init() {
-                await initHeicDecoder();
-                renderFileGrid();
+            renderGrid();
+            showToast('🚀 Ready! Drop images to get shareable URLs.', 'info', 3000);
 
-                // Check if HEIC support is available
-                if (!heicDecoderReady) {
-                    showToast('⚠️ HEIC support limited. Install HEIF extensions for best results.', 'warning', 5000);
-                } else {
-                    showToast('🚀 Ready! HEIC support active.', 'success', 3000);
-                }
-            }
-
-            init();
-
-            window.__converter = { files, convertAll, addFile, decodeHeic };
+            // ---- Expose ----
+            window.__urlGen = { items, addItem, uploadItem, clearAll };
 
         })();
     </script>
