@@ -1,493 +1,1462 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMV · membership application</title>
-    <!-- html2pdf library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pro Image Converter — HEIC → WebP / PNG / JPEG / AVIF</title>
+    <!-- Load heic2any with WASM support -->
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js">
+    </script>
+    <!-- Load libheif WASM for actual HEIC decoding -->
+    <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.16.2/libheif.min.js">
+    </script>
     <style>
-        /* RESET & BASE — flat, word‑document style */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-primary: #0f0f1a;
+            --bg-secondary: #1a1a2e;
+            --bg-tertiary: #2a2a3e;
+            --text-primary: #e4e4f0;
+            --text-secondary: #8a8aaa;
+            --accent: #6d28d9;
+            --accent-hover: #7c3aed;
+            --success: #059669;
+            --danger: #b91c1c;
+            --warning: #d97706;
+            --border: #2a2a3e;
+        }
+
         body {
-            background: #141414;  /* subtle grey background like office paper */
-            font-family: 'Times New Roman', Times, serif;  /* classic word‑processor */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             min-height: 100vh;
-            padding: 0rem 0rem;
-            color: #DCDCDC;
+            padding: 20px;
         }
 
-        /* main container — flat, squared, minimal */
-        .document {
-            max-width: 1000px;
-            width: 100%;
-            background: #ffffff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border: 1px solid #b4b9c2;    /* simple grey border like printed sheet */
-            margin-bottom: 1.5rem;
+        .app {
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        /* header — exactly as requested: only org name and title */
         .header {
-            background: #ffffff;
-            padding: 1.2rem 2rem;
-            border-bottom: 2px solid #0055ff;  /* electric blue accent line */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 16px 24px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border);
         }
 
-        .header h1 {
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .header-left h1 {
+            font-size: 24px;
             font-weight: 700;
-            font-size: 1.8rem;
-            letter-spacing: -0.01em;
-            color: #000000;
-            margin: 0;
-            line-height: 1.2;
-            font-family: 'Times New Roman', Times, serif;
+            background: linear-gradient(135deg, #a78bfa, #6d28d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        .header h1 span {
-            font-weight: 400;
-            color: #0055ff;
-            font-size: 1.6rem;
-            margin-left: 0.5rem;
-        }
-
-        .header .title {
-            font-size: 1rem;
-            font-weight: 400;
-            color: #0055ff;
-            margin-top: 0.2rem;
-            border-left: px solid #0055ff;
-            padding-left: 0;
-        }
-
-        /* pdf toolbar — flat, minimal */
-        .pdf-toolbar {
-            background: #f2f5f9;
-            padding: 0.6rem 2rem;
-            display: flex;
-            justify-content: flex-end;
-            border-bottom: 1px solid #cbd2df;
-        }
-
-        .btn-pdf {
-            background: transparent;
-            border: 1px solid #0055ff;
-            color: #0055ff;
-            padding: 0.3rem 1.5rem;
-            font-family: 'Times New Roman', Times, serif;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            border-radius: 0px;   /* squared corners */
-        }
-
-        .btn-pdf:hover {
-            background: #e0ecff;
-        }
-
-        /* form content — flat, no rounding, moderate padding */
-        .form-content {
-            padding: 2rem 2rem 2.2rem 2rem;
-        }
-
-        /* netlify honeypot hidden */
-        .hidden {
-            display: none;
-        }
-
-        /* sections */
-        .section {
-            margin-bottom: 2rem;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
+        .badge {
+            background: var(--bg-tertiary);
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 11px;
+            color: #a78bfa;
             font-weight: 600;
+            letter-spacing: 0.3px;
             text-transform: uppercase;
-            letter-spacing: 0.01em;
-            color: #0055ff;
-            margin-bottom: 1.2rem;
-            border-bottom: 1px solid #a0b3cc;
-            padding-bottom: 0.2rem;
-            font-family: 'Times New Roman', Times, serif;
         }
 
-        /* grid – responsive */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem 2rem;
+        .badge.success {
+            background: #05966933;
+            color: #34d399;
         }
 
-        .full {
-            grid-column: span 2;
+        .badge.warning {
+            background: #d9770633;
+            color: #fbbf24;
         }
 
-        .field {
+        .header-stats {
+            font-size: 14px;
+            color: var(--text-secondary);
             display: flex;
-            flex-direction: column;
-            gap: 0.2rem;
+            gap: 20px;
+            flex-wrap: wrap;
         }
-
-        label {
-            font-size: 0.85rem;
+        .header-stats span {
+            color: var(--text-primary);
             font-weight: 600;
-            text-transform: uppercase;
-            color: #1f2a38;
-            letter-spacing: 0.01em;
         }
 
-        .hint {
-            color: #64748b;
-            font-size: 0.7rem;
-            font-weight: 400;
-            text-transform: none;
-            margin-left: 4px;
-        }
-
-        input, select, textarea {
-            background: #ffffff;
-            border: 1px solid #808080;  /* simple grey border like word */
-            padding: 0.6rem 0.8rem;
-            font-size: 0.95rem;
-            font-family: 'Times New Roman', Times, serif;
-            transition: border 0.1s;
-            width: 100%;
-            border-radius: 0;           /* squared */
-        }
-
-        input:focus, select:focus, textarea:focus {
-            outline: 2px solid #0055ff;
-            border-color: #0055ff;
-        }
-
-        /* inline groups (radios, checkboxes) */
-        .inline-group {
+        .controls-bar {
             display: flex;
             flex-wrap: wrap;
-            gap: 1.5rem;
-            background: #f8faff;
-            padding: 0.7rem 1.2rem;
-            border: 1px solid #bcc3cf;
+            gap: 12px;
+            align-items: center;
+            background: var(--bg-secondary);
+            padding: 14px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border);
         }
 
-        .inline-option {
+        .controls-bar .group {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
-        .inline-option input[type="radio"], 
-        .inline-option input[type="checkbox"] {
-            width: 1.1rem;
-            height: 1.1rem;
-            accent-color: #0055ff;
-            margin: 0;
-        }
-
-        .inline-option label {
-            text-transform: none;
+        .controls-bar label {
+            font-size: 13px;
             font-weight: 500;
-            font-size: 0.95rem;
-            color: #1e2a36;
+            color: var(--text-secondary);
         }
 
-        /* commitment box */
-        .commitment-box {
-            background: #f9fbfe;
-            padding: 1.5rem 1.8rem;
-            border: 1px solid #bdc5d2;
-            margin: 1rem 0 1rem;
-        }
-
-        .checkbox-line {
-            display: flex;
-            align-items: flex-start;
-            gap: 0.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .checkbox-line input[type="checkbox"] {
-            width: 1.1rem;
-            height: 1.1rem;
-            accent-color: #0055ff;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .checkbox-line label {
-            text-transform: none;
-            font-weight: 450;
-            font-size: 0.95rem;
-            line-height: 1.4;
-            color: #1e2a36;
-        }
-
-        .checkbox-line label strong {
-            font-weight: 700;
-            color: #000;
-        }
-
-        .signature-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .sig-field {
-            border-bottom: 1px solid #808080;
-        }
-        .sig-field input {
-            border: none;
-            padding: 0.4rem 0;
-            background: transparent;
-            font-size: 1rem;
-            border-radius: 0;
-        }
-        .sig-field input:focus {
-            outline: none;
-            border-bottom: 2px solid #0055ff;
-        }
-        .sig-label {
-            font-size: 0.7rem;
-            color: #3a4b62;
-            text-transform: uppercase;
-            margin-top: 0.1rem;
-        }
-
-        /* simple submit button */
-        .btn-submit {
-            background: #0055ff;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 500;
-            padding: 0.7rem 1.8rem;
-            border: none;
-            width: auto;
-            min-width: 200px;
+        .controls-bar select,
+        .controls-bar input[type="number"],
+        .controls-bar input[type="range"] {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 13px;
             cursor: pointer;
-            transition: background 0.15s;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            margin-top: 1.5rem;
-            border-radius: 0;          /* squared */
-            font-family: 'Times New Roman', Times, serif;
-            border-bottom: 2px solid #003bb5;
-            display: inline-block;
+            min-width: 80px;
         }
 
-        .btn-submit:hover {
-            background: #1a61ff;
+        .controls-bar select:focus,
+        .controls-bar input:focus {
+            outline: 2px solid var(--accent);
+            border-color: transparent;
         }
 
-        /* no footnotes, no badges, no extra notices */
-        .footer-placeholder {
-            text-align: left;
-            font-size: 0.7rem;
-            color: #5e6f88;
-            margin-top: 1rem;
-            border-top: 1px dashed #c7d1dd;
-            padding-top: 0.8rem;
+        .controls-bar input[type="range"] {
+            width: 120px;
+            accent-color: var(--accent);
+            height: 4px;
+            padding: 0;
+            cursor: pointer;
         }
 
-        /* responsive */
+        .controls-bar input[type="number"] {
+            width: 60px;
+        }
+
+        .quality-value {
+            min-width: 40px;
+            font-weight: 600;
+            color: #a78bfa;
+            font-size: 14px;
+        }
+
+        .controls-bar .spacer {
+            flex: 1;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(109, 40, 217, 0.3);
+        }
+        .btn-primary:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: #fff;
+        }
+        .btn-success:hover:not(:disabled) {
+            background: #10b981;
+            transform: translateY(-2px);
+        }
+        .btn-success:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: #fff;
+        }
+        .btn-danger:hover:not(:disabled) {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: #fff;
+        }
+        .btn-warning:hover:not(:disabled) {
+            background: #f59e0b;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+        }
+        .btn-secondary:hover:not(:disabled) {
+            background: #3a3a56;
+            transform: translateY(-2px);
+        }
+
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            padding: 50px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: var(--bg-secondary);
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .drop-zone:hover,
+        .drop-zone.dragover {
+            border-color: var(--accent);
+            background: #1a1a3a;
+            transform: scale(1.002);
+        }
+        .drop-zone .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        .drop-zone h3 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .drop-zone p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 4px;
+        }
+        .drop-zone .formats {
+            margin-top: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .drop-zone .formats span {
+            background: var(--bg-tertiary);
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        .drop-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .stats-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            background: var(--bg-secondary);
+            padding: 10px 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            font-size: 13px;
+        }
+        .stats-bar .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--text-secondary);
+        }
+        .stats-bar .stat-item .value {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .file-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+            padding: 4px 2px;
+        }
+        .file-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+        .file-grid::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+            border-radius: 4px;
+        }
+        .file-grid::-webkit-scrollbar-thumb {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+
+        .file-card {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+            position: relative;
+            min-height: 180px;
+        }
+        .file-card:hover {
+            border-color: var(--bg-tertiary);
+            transform: translateY(-2px);
+        }
+        .file-card .thumb {
+            width: 100%;
+            height: 120px;
+            border-radius: 6px;
+            background: var(--bg-primary);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+        .file-card .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .file-card .thumb .placeholder {
+            font-size: 36px;
+            opacity: 0.3;
+        }
+        .file-card .name {
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+        }
+        .file-card .meta {
+            font-size: 11px;
+            color: var(--text-secondary);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+        .file-card .meta .status {
+            font-weight: 600;
+            font-size: 10px;
+            padding: 1px 8px;
+            border-radius: 10px;
+        }
+        .file-card .meta .status.pending {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+        }
+        .file-card .meta .status.processing {
+            background: #7c3aed33;
+            color: #a78bfa;
+            animation: pulse 1.5s infinite;
+        }
+        .file-card .meta .status.done {
+            background: #05966933;
+            color: #34d399;
+        }
+        .file-card .meta .status.error {
+            background: #b91c1c33;
+            color: #f87171;
+        }
+        .file-card .size-reduction {
+            font-size: 11px;
+            font-weight: 600;
+            padding: 1px 8px;
+            border-radius: 10px;
+            background: #05966933;
+            color: #34d399;
+        }
+        .file-card .size-reduction.negative {
+            background: #b91c1c33;
+            color: #f87171;
+        }
+        .file-card .remove-file {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: var(--bg-primary);
+            border: none;
+            color: var(--text-secondary);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            line-height: 1;
+        }
+        .file-card .remove-file:hover {
+            color: #f87171;
+            background: #b91c1c33;
+        }
+        .file-card .error-msg {
+            font-size: 10px;
+            color: #f87171;
+            margin-top: 4px;
+            word-break: break-all;
+        }
+
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .progress-global {
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: none;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            border: 1px solid var(--border);
+        }
+        .progress-global.visible {
+            display: flex;
+        }
+        .progress-global .bar-track {
+            flex: 1;
+            height: 6px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            min-width: 100px;
+        }
+        .progress-global .bar-track .fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent), #a78bfa);
+            border-radius: 4px;
+            transition: width 0.4s ease;
+        }
+        .progress-global .progress-text {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            white-space: nowrap;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            margin-top: 4px;
+        }
+        .actions .spacer {
+            flex: 1;
+        }
+
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 999;
+            max-width: 420px;
+            pointer-events: none;
+        }
+        .toast {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 13px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            transform: translateX(120%);
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: auto;
+            backdrop-filter: blur(10px);
+        }
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+        .toast.error {
+            border-color: var(--danger);
+        }
+        .toast.success {
+            border-color: var(--success);
+        }
+        .toast.warning {
+            border-color: var(--warning);
+        }
+
+        .heic-warning {
+            background: #d9770633;
+            border: 1px solid var(--warning);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: none;
+            font-size: 13px;
+            color: #fbbf24;
+        }
+        .heic-warning.visible {
+            display: block;
+        }
+        .heic-warning strong {
+            color: #f59e0b;
+        }
+
         @media (max-width: 700px) {
-            body { padding: 0.8rem; }
-            .header { padding: 1rem 1.5rem; }
-            .pdf-toolbar { padding: 0.5rem 1.5rem; }
-            .form-content { padding: 1.5rem; }
-            .grid-2 { grid-template-columns: 1fr; }
-            .full { grid-column: span 1; }
-            .signature-row { grid-template-columns: 1fr; }
-            .inline-group { flex-direction: column; gap: 0.6rem; }
-            .btn-submit { width: 100%; }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 12px 16px;
+            }
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .controls-bar .group {
+                justify-content: space-between;
+            }
+            .controls-bar input[type="range"] {
+                width: 100px;
+            }
+            .file-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                max-height: 400px;
+            }
+            .file-card .thumb {
+                height: 90px;
+            }
+            .actions {
+                flex-direction: column;
+            }
+            .actions .btn {
+                justify-content: center;
+            }
+            .toast-container {
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+            }
+            .header-stats {
+                font-size: 12px;
+                gap: 12px;
+            }
+            .stats-bar {
+                font-size: 12px;
+                padding: 8px 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .file-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
+            }
+            .file-card {
+                padding: 8px;
+                min-height: 140px;
+            }
+            .file-card .thumb {
+                height: 70px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="document" id="application-document">
-        <!-- header: only org name and form title -->
+
+    <div class="app">
         <div class="header">
-            <h1>Association of Mutual Values <span><div class="title">MEMBERSHIP APPLICATION</div></span></h1>
-            
+            <div class="header-left">
+                <h1>⚡ Image Converter Pro</h1>
+                <span class="badge">HEIC ✓</span>
+                <span class="badge success">Batch ✓</span>
+                <span class="badge warning">100% Local</span>
+            </div>
+            <div class="header-stats">
+                <div>📁 <span id="fileCount">0</span> files</div>
+                <div>✅ <span id="doneCount">0</span> done</div>
+                <div>📊 <span id="totalSize">0 KB</span></div>
+            </div>
         </div>
 
-        <!-- pdf toolbar (simple) -->
-        <div class="pdf-toolbar">
-            <button class="btn-pdf" id="exportPdfBtn" type="button">
-                export PDF
-            </button>
+        <!-- HEIC Warning -->
+        <div class="heic-warning" id="heicWarning">
+            ⚠️ <strong>HEIC Support:</strong> Some browsers may require the <strong>HEIF Image Extensions</strong> from the Windows Store.
+            <br>If HEIC files fail, try:
+            <ul style="margin-top:6px;padding-left:20px;">
+                <li>Chrome 94+ with <a href="https://chrome.google.com/webstore/detail/heic-converter/heic-converter" target="_blank" style="color:#a78bfa;">HEIC Converter</a> extension</li>
+                <li>Edge 94+ (built-in HEIC support)</li>
+                <li>Install <a href="https://www.microsoft.com/store/productId/9n4wgh0z6vhq" target="_blank" style="color:#a78bfa;">HEIF Image Extensions</a> from Windows Store</li>
+            </ul>
         </div>
 
-        <!-- main form content -->
-        <div class="form-content" id="pdf-content">
-            <!-- netlify form – fully functional, but no visible notices -->
-            <form name="membership-application" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="mainForm">
-                <input type="hidden" name="form-name" value="membership-application" />
-                <p class="hidden">
-                    <label>bot check: <input name="bot-field" /></label>
-                </p>
+        <div class="controls-bar">
+            <div class="group">
+                <label for="formatSelect">Output</label>
+                <select id="formatSelect">
+                    <option value="image/webp">WebP</option>
+                    <option value="image/png">PNG</option>
+                    <option value="image/jpeg">JPEG</option>
+                    <option value="image/avif">AVIF</option>
+                </select>
+            </div>
+            <div class="group">
+                <label for="qualitySlider">Quality</label>
+                <input type="range" id="qualitySlider" min="1" max="100" value="85" />
+                <span class="quality-value" id="qualityDisplay">85%</span>
+            </div>
+            <div class="group">
+                <label for="parallelInput">Parallel</label>
+                <input type="number" id="parallelInput" min="1" max="8" value="4" style="width:50px;" />
+            </div>
+            <div class="spacer"></div>
+            <div class="group">
+                <button class="btn btn-secondary" id="clearAllBtn">🗑️ Clear All</button>
+                <button class="btn btn-secondary" id="addFilesBtn">➕ Add Files</button>
+            </div>
+        </div>
 
-                <!-- SECTION 1 – PERSONAL DATA -->
-                <div class="section">
-                    <div class="section-title">1 · identity & contact</div>
-                    <div class="grid-2">
-                        <div class="field full">
-                            <label>full legal name <span class="hint">as on ID</span></label>
-                            <input type="text" name="fullname" placeholder="e.g., Adebayo O. Lawal" required>
-                        </div>
-                        <div class="field">
-                            <label>date of birth</label>
-                            <input type="date" name="dob" required>
-                        </div>
-                        <div class="field">
-                            <label>gender</label>
-                            <select name="gender" required>
-                                <option value="" disabled selected>— select —</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Prefer not to say</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label>phone <span class="hint">whatsapp</span></label>
-                            <input type="tel" name="phone" placeholder="+234 800 000 0000" required>
-                        </div>
-                        <div class="field">
-                            <label>email</label>
-                            <input type="email" name="email" placeholder="hello@domain.com" required>
-                        </div>
-                        <div class="field full">
-                            <label>residential address <span class="hint">city, LGA, state</span></label>
-                            <input type="text" name="address" placeholder="Ikeja, Lagos Mainland, Lagos" required>
-                        </div>
-                        <div class="field full">
-                            <label>occupation / profession</label>
-                            <input type="text" name="occupation" placeholder="e.g., teacher, trader, engineer" required>
-                        </div>
-                    </div>
-                </div>
+        <div class="drop-zone" id="dropZone">
+            <span class="icon">📂</span>
+            <h3>Drop images anywhere</h3>
+            <p>HEIC · JPG · PNG · BMP · GIF · WebP · TIFF · SVG</p>
+            <div class="formats">
+                <span>HEIC</span><span>JPG</span><span>PNG</span><span>BMP</span>
+                <span>GIF</span><span>WebP</span><span>TIFF</span><span>SVG</span>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" multiple />
+        </div>
 
-                <!-- SECTION 2 – MOTIVATION & AWARENESS -->
-                <div class="section">
-                    <div class="section-title">2 · motivation & awareness</div>
-                    <div class="grid-2">
-                        <div class="field full">
-                            <label>how did you learn about AMV?</label>
-                            <input type="text" name="referral" placeholder="friend, church, social media..." required>
-                        </div>
-                        <div class="field full">
-                            <label>local community you primarily identify with</label>
-                            <input type="text" name="community" placeholder="e.g., Lagos traders" required>
-                        </div>
-                        
-                        <div class="field">
-                            <label>willing to serve on a committee?</label>
-                            <div class="inline-group">
-                                <div class="inline-option"><input type="radio" name="committee" value="yes" required> <label>Yes</label></div>
-                                <div class="inline-option"><input type="radio" name="committee" value="limited"> <label>Limited time</label></div>
-                                <div class="inline-option"><input type="radio" name="committee" value="no"> <label>Not now</label></div>
-                            </div>
-                        </div>
-                        <div class="field full">
-                            <label>core areas that resonate (select all that apply)</label>
-                            <div class="inline-group" style="gap: 1.5rem;">
-                                <div class="inline-option"><input type="checkbox" name="interest_faith" value="faith"> <label>Christ-like values</label></div>
-                                <div class="inline-option"><input type="checkbox" name="interest_socio" value="socio"> <label>Socio-economic awareness</label></div>
-                                <div class="inline-option"><input type="checkbox" name="interest_philan" value="philan"> <label>Philanthropy</label></div>
-                                <div class="inline-option"><input type="checkbox" name="interest_loans" value="loans"> <label>Community loans</label></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-item">⏳ Pending: <span class="value" id="pendingCount">0</span></div>
+            <div class="stat-item">🔄 Processing: <span class="value" id="processingCount">0</span></div>
+            <div class="stat-item">✅ Done: <span class="value" id="doneCount2">0</span></div>
+            <div class="stat-item">❌ Errors: <span class="value" id="errorCount">0</span></div>
+        </div>
 
-                <!-- SECTION 3 – COMMITMENT -->
-                <div class="section">
-                    <div class="section-title">3 · mutual commitment</div>
-                    <div class="commitment-box">
-                        <div class="checkbox-line">
-                            <input type="checkbox" name="covenant_faith" value="yes" id="cov1" required>
-                            <label for="cov1"><strong>Christ-like values</strong> — I commit to walk in compassion, humility, and integrity.</label>
-                        </div>
-                        <div class="checkbox-line">
-                            <input type="checkbox" name="covenant_aware" value="yes" id="cov2" required>
-                            <label for="cov2"><strong>Awareness & proactivity</strong> — I will stay aware of socio-economic issues and contribute.</label>
-                        </div>
-                        <div class="checkbox-line">
-                            <input type="checkbox" name="covenant_contrib" value="yes" id="cov3" required>
-                            <label for="cov3"><strong>Philanthropy & mutual loans</strong> — I understand financial participation is part of membership.</label>
-                        </div>
-                        <div class="checkbox-line">
-                            <input type="checkbox" name="covenant_integrity" value="yes" id="cov4" required>
-                            <label for="cov4"><strong>Community integrity</strong> — I will not exploit loans or members; I will uphold dignity.</label>
-                        </div>
+        <div class="progress-global" id="progressGlobal">
+            <span style="font-size:18px;">⏳</span>
+            <div class="bar-track">
+                <div class="fill" id="progressFill"></div>
+            </div>
+            <span class="progress-text" id="progressText">0 / 0</span>
+            <span class="progress-text" id="progressETA">--</span>
+        </div>
 
-                        <div style="margin: 1.8rem 0 1.2rem;">
-                            <label>additional information (skills, concerns, experience) <span class="hint">optional</span></label>
-                            <textarea name="additional_info" rows="2" placeholder="brief and relevant ..."></textarea>
-                        </div>
+        <div class="file-grid" id="fileGrid">
+            <div style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--text-secondary);font-size:14px;">
+                No files added. Drop images or click "Add Files".
+            </div>
+        </div>
 
-                        <div class="signature-row">
-                            <div class="sig-field">
-                                <input type="text" name="signature_name" placeholder="Full name (confirm)" required>
-                                <div class="sig-label">electronic signature</div>
-                            </div>
-                            <div class="sig-field">
-                                <input type="date" name="signature_date" required>
-                                <div class="sig-label">date of application</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="actions">
+            <button class="btn btn-primary" id="convertAllBtn">⚡ Convert All</button>
+            <button class="btn btn-success" id="downloadAllBtn">⬇️ Download All (ZIP)</button>
+            <button class="btn btn-secondary" id="downloadSelectedBtn">⬇️ Download Selected</button>
+            <span class="spacer"></span>
+            <label style="font-size:12px;color:var(--text-secondary);display:flex;align-items:center;gap:6px;">
+                <input type="checkbox" id="skipExistingCheck" checked />
+                Skip existing
+            </label>
+        </div>
+    </div>
 
-                <!-- simple submit button, no extra text -->
-                <div style="display: flex; justify-content: flex-start;">
-                    <button type="submit" class="btn-submit">submit</button>
-                </div>
+    <div class="toast-container" id="toastContainer"></div>
 
-                <!-- no footnote, no netlify badge, nothing else -->
-            </form>
-        </div><!-- end form-content -->
-    </div><!-- end document -->
-
-    <!-- PDF export and netlify form handling -->
     <script>
         (function() {
-            const exportBtn = document.getElementById('exportPdfBtn');
-            const element = document.getElementById('pdf-content');
+            'use strict';
 
-            exportBtn.addEventListener('click', function() {
-                const opt = {
-                    margin:        [0.5, 0.5, 0.5, 0.5],
-                    filename:     'AMV_membership_application.pdf',
-                    image:        { type: 'jpeg', quality: 0.98 },
-                    html2canvas:  { scale: 2, letterRendering: true, useCORS: true, logging: false },
-                    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            // ---- DOM refs ----
+            const dropZone = document.getElementById('dropZone');
+            const fileInput = document.getElementById('fileInput');
+            const fileGrid = document.getElementById('fileGrid');
+            const fileCount = document.getElementById('fileCount');
+            const doneCount = document.getElementById('doneCount');
+            const totalSize = document.getElementById('totalSize');
+            const pendingCount = document.getElementById('pendingCount');
+            const processingCount = document.getElementById('processingCount');
+            const doneCount2 = document.getElementById('doneCount2');
+            const errorCount = document.getElementById('errorCount');
+            const formatSelect = document.getElementById('formatSelect');
+            const qualitySlider = document.getElementById('qualitySlider');
+            const qualityDisplay = document.getElementById('qualityDisplay');
+            const parallelInput = document.getElementById('parallelInput');
+            const convertAllBtn = document.getElementById('convertAllBtn');
+            const downloadAllBtn = document.getElementById('downloadAllBtn');
+            const downloadSelectedBtn = document.getElementById('downloadSelectedBtn');
+            const clearAllBtn = document.getElementById('clearAllBtn');
+            const addFilesBtn = document.getElementById('addFilesBtn');
+            const progressGlobal = document.getElementById('progressGlobal');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            const progressETA = document.getElementById('progressETA');
+            const skipExistingCheck = document.getElementById('skipExistingCheck');
+            const toastContainer = document.getElementById('toastContainer');
+            const heicWarning = document.getElementById('heicWarning');
+
+            // ---- State ----
+            let files = [];
+            let idCounter = 0;
+            let isConverting = false;
+            let abortController = null;
+
+            // ---- HEIC decoder setup ----
+            let heicDecoderReady = false;
+            let heicDecoder = null;
+
+            // Try to initialize libheif
+            async function initHeicDecoder() {
+                try {
+                    if (typeof libheif !== 'undefined') {
+                        heicDecoder = new libheif.HeifDecoder();
+                        heicDecoderReady = true;
+                        console.log('✅ libheif initialized successfully');
+                        heicWarning.classList.remove('visible');
+                        return true;
+                    } else {
+                        console.warn('libheif not available, using fallback');
+                        heicWarning.classList.add('visible');
+                        return false;
+                    }
+                } catch (e) {
+                    console.warn('libheif init failed:', e);
+                    heicWarning.classList.add('visible');
+                    return false;
+                }
+            }
+
+            // ---- HEIC decoding using libheif ----
+            async function decodeHeic(arrayBuffer) {
+                // Try libheif first
+                if (heicDecoderReady && heicDecoder) {
+                    try {
+                        const decoded = await new Promise((resolve, reject) => {
+                            try {
+                                const result = heicDecoder.decode(arrayBuffer);
+                                if (result && result.length > 0) {
+                                    resolve(result);
+                                } else {
+                                    reject(new Error('No frames decoded'));
+                                }
+                            } catch (e) {
+                                reject(e);
+                            }
+                        });
+
+                        // Get first frame
+                        const frame = decoded[0];
+                        if (!frame) throw new Error('No frame available');
+
+                        // Get image data
+                        const width = frame.get_width();
+                        const height = frame.get_height();
+
+                        // Create canvas and draw
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        const imageData = ctx.createImageData(width, height);
+
+                        // Get RGBA data from frame
+                        const data = frame.get_data();
+                        if (data) {
+                            const rgbaData = new Uint8ClampedArray(data);
+                            imageData.data.set(rgbaData);
+                            ctx.putImageData(imageData, 0, 0);
+
+                            // Convert to blob
+                            const blob = await new Promise((resolve) => {
+                                canvas.toBlob((b) => resolve(b), 'image/png');
+                            });
+
+                            if (blob) {
+                                return blob;
+                            }
+                        }
+                        throw new Error('Failed to get image data');
+                    } catch (e) {
+                        console.warn('libheif decode failed:', e);
+                        // Fall through to next method
+                    }
+                }
+
+                // Fallback: Try heic2any (which may use WASM)
+                try {
+                    if (typeof heic2any !== 'undefined') {
+                        const blob = new Blob([arrayBuffer], { type: 'image/heic' });
+                        const result = await heic2any({
+                            blob: blob,
+                            toType: 'image/png',
+                            quality: 0.92,
+                        });
+                        const pngBlob = Array.isArray(result) ? result[0] : result;
+                        return pngBlob;
+                    }
+                } catch (e) {
+                    console.warn('heic2any fallback failed:', e);
+                }
+
+                // Last resort: Try browser's native HEIC support (Chrome/Edge)
+                try {
+                    const blob = new Blob([arrayBuffer], { type: 'image/heic' });
+                    const url = URL.createObjectURL(blob);
+
+                    const img = new Image();
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = () => reject(new Error('Browser cannot decode HEIC'));
+                        img.src = url;
+                    });
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth || img.width;
+                    canvas.height = img.naturalHeight || img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    const pngBlob = await new Promise((resolve) => {
+                        canvas.toBlob((b) => resolve(b), 'image/png');
+                    });
+
+                    URL.revokeObjectURL(url);
+                    if (pngBlob) return pngBlob;
+                } catch (e) {
+                    console.warn('Native HEIC decoding failed:', e);
+                }
+
+                throw new Error('HEIC decoding failed. Install HEIF Image Extensions from Windows Store or use Chrome/Edge.');
+            }
+
+            // ---- Helper functions ----
+            function formatSize(bytes) {
+                if (!bytes || bytes === 0) return '0 B';
+                const k = 1024;
+                const sizes = ['B', 'KB', 'MB', 'GB'];
+                const i = Math.min(Math.floor(Math.log(bytes) / Math.log(k)), sizes.length - 1);
+                const val = (bytes / Math.pow(k, i)).toFixed(i > 0 ? 1 : 0);
+                return val + ' ' + sizes[i];
+            }
+
+            function getExtension(mimeType) {
+                const map = {
+                    'image/webp': 'webp',
+                    'image/png': 'png',
+                    'image/jpeg': 'jpg',
+                    'image/avif': 'avif'
                 };
-                html2pdf().set(opt).from(element).save();
+                return map[mimeType] || 'bin';
+            }
+
+            function isImageFile(file) {
+                return file.type.startsWith('image/') ||
+                    /\.(heic|heif|jpg|jpeg|png|bmp|gif|webp|tiff|tif|svg|avif)$/i.test(file.name);
+            }
+
+            function isHeicFile(file) {
+                return file.type === 'image/heic' ||
+                    file.type === 'image/heif' ||
+                    /\.(heic|heif)$/i.test(file.name);
+            }
+
+            function showToast(message, type = 'info', duration = 3000) {
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.textContent = message;
+                toastContainer.appendChild(toast);
+
+                requestAnimationFrame(() => {
+                    toast.classList.add('show');
+                });
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 400);
+                }, duration);
+            }
+
+            // ---- Render file grid ----
+            function renderFileGrid() {
+                if (files.length === 0) {
+                    fileGrid.innerHTML =
+                        `<div style="grid-column:1/-1;text-align:center;padding:40px 0;color:var(--text-secondary);font-size:14px;">No files added. Drop images or click "Add Files".</div>`;
+                    updateStats();
+                    return;
+                }
+
+                let html = '';
+                for (const f of files) {
+                    const statusClass = f.status || 'pending';
+                    const statusLabel = {
+                        'pending': 'Pending',
+                        'processing': 'Processing...',
+                        'done': 'Done',
+                        'error': 'Error'
+                    } [statusClass] || statusClass;
+
+                    let reductionHtml = '';
+                    if (statusClass === 'done' && f.file && f.convertedBlob) {
+                        const origSize = f.file.size;
+                        const newSize = f.convertedBlob.size;
+                        if (origSize > 0) {
+                            const diff = ((origSize - newSize) / origSize * 100).toFixed(1);
+                            const sign = diff > 0 ? '-' : '+';
+                            const cls = diff > 0 ? '' : 'negative';
+                            reductionHtml =
+                                `<span class="size-reduction ${cls}">${sign}${Math.abs(diff)}%</span>`;
+                        }
+                    }
+
+                    const thumbHtml = f.originalDataUrl ?
+                        `<img src="${f.originalDataUrl}" alt="thumb" loading="lazy" />` :
+                        `<span class="placeholder">🖼️</span>`;
+
+                    const isChecked = f.selected !== false ? 'checked' : '';
+                    const heicBadge = f.isHeic ? `<span style="font-size:9px;background:#7c3aed33;padding:0 6px;border-radius:4px;color:#a78bfa;">HEIC</span>` :
+                        '';
+
+                    html += `
+                        <div class="file-card" data-id="${f.id}">
+                            <button class="remove-file" data-id="${f.id}" title="Remove">✕</button>
+                            <div class="thumb">${thumbHtml}</div>
+                            <div class="name" title="${f.file.name}">${f.file.name} ${heicBadge}</div>
+                            <div class="meta">
+                                <span>${formatSize(f.file.size)}</span>
+                                <span class="status ${statusClass}">${statusLabel}</span>
+                                ${reductionHtml}
+                            </div>
+                            ${f.error ? `<div class="error-msg">${f.error}</div>` : ''}
+                            <div style="margin-top:4px;display:flex;gap:6px;align-items:center;font-size:11px;color:var(--text-secondary);">
+                                <input type="checkbox" class="file-select" data-id="${f.id}" ${isChecked} />
+                                <label style="cursor:pointer;">Select</label>
+                                ${f.convertedBlob ? `<span style="margin-left:auto;">${formatSize(f.convertedBlob.size)}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+                fileGrid.innerHTML = html;
+                updateStats();
+
+                document.querySelectorAll('.remove-file').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const id = parseInt(btn.dataset.id, 10);
+                        removeFile(id);
+                    });
+                });
+
+                document.querySelectorAll('.file-select').forEach(cb => {
+                    cb.addEventListener('change', (e) => {
+                        const id = parseInt(cb.dataset.id, 10);
+                        const f = files.find(f => f.id === id);
+                        if (f) f.selected = cb.checked;
+                        updateStats();
+                    });
+                });
+            }
+
+            // ---- Update stats ----
+            function updateStats() {
+                const total = files.length;
+                const done = files.filter(f => f.status === 'done').length;
+                const pending = files.filter(f => f.status === 'pending').length;
+                const processing = files.filter(f => f.status === 'processing').length;
+                const errors = files.filter(f => f.status === 'error').length;
+                const totalBytes = files.reduce((sum, f) => sum + (f.file ? f.file.size : 0), 0);
+
+                fileCount.textContent = total;
+                doneCount.textContent = done;
+                totalSize.textContent = formatSize(totalBytes);
+                pendingCount.textContent = pending;
+                processingCount.textContent = processing;
+                doneCount2.textContent = done;
+                errorCount.textContent = errors;
+
+                if (isConverting) {
+                    convertAllBtn.disabled = true;
+                    convertAllBtn.textContent = '⏳ Converting...';
+                } else {
+                    convertAllBtn.disabled = pending === 0 && processing === 0;
+                    convertAllBtn.textContent = pending > 0 ? `⚡ Convert ${pending} Files` : '⚡ Convert All';
+                }
+
+                const hasDone = done > 0;
+                downloadAllBtn.disabled = !hasDone || isConverting;
+                downloadSelectedBtn.disabled = !hasDone || isConverting;
+            }
+
+            // ---- File operations ----
+            function addFile(file) {
+                const dup = files.some(f => f.file.name === file.name && f.file.size === file.size);
+                if (dup) {
+                    showToast(`⚠️ "${file.name}" already added.`, 'warning', 2000);
+                    return;
+                }
+
+                const isHeic = isHeicFile(file);
+
+                const entry = {
+                    id: ++idCounter,
+                    file: file,
+                    originalDataUrl: null,
+                    convertedBlob: null,
+                    status: 'pending',
+                    error: null,
+                    selected: true,
+                    isHeic: isHeic,
+                    outputFormat: formatSelect.value,
+                    outputQuality: parseInt(qualitySlider.value, 10) / 100,
+                };
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    entry.originalDataUrl = e.target.result;
+                    renderFileGrid();
+                };
+                reader.onerror = () => {
+                    entry.status = 'error';
+                    entry.error = 'Failed to read file';
+                    renderFileGrid();
+                };
+                reader.readAsDataURL(file);
+
+                files.push(entry);
+                renderFileGrid();
+
+                if (isHeic) {
+                    showToast(`📎 Added HEIC: "${file.name}" (will decode on convert)`, 'info', 2000);
+                } else {
+                    showToast(`📎 Added "${file.name}"`, 'success', 1500);
+                }
+            }
+
+            function removeFile(id) {
+                files = files.filter(f => f.id !== id);
+                renderFileGrid();
+                if (files.length === 0) {
+                    progressGlobal.classList.remove('visible');
+                }
+            }
+
+            function clearAll() {
+                if (files.length === 0) return;
+                if (isConverting) {
+                    showToast('⛔ Cannot clear while converting.', 'error', 2000);
+                    return;
+                }
+                files = [];
+                renderFileGrid();
+                progressGlobal.classList.remove('visible');
+                showToast('🗑️ All files cleared.', 'info', 1500);
+            }
+
+            // ---- Conversion engine ----
+            async function convertSingleFile(entry) {
+                if (entry.status === 'done' && skipExistingCheck.checked) {
+                    return true;
+                }
+
+                entry.status = 'processing';
+                entry.error = null;
+                renderFileGrid();
+
+                try {
+                    let imageDataUrl = entry.originalDataUrl;
+
+                    // If HEIC, decode using our robust decoder
+                    if (entry.isHeic) {
+                        try {
+                            const arrayBuffer = await entry.file.arrayBuffer();
+                            const pngBlob = await decodeHeic(arrayBuffer);
+
+                            // Convert blob to data URL
+                            imageDataUrl = await new Promise((resolve, reject) => {
+                                const r = new FileReader();
+                                r.onload = () => resolve(r.result);
+                                r.onerror = reject;
+                                r.readAsDataURL(pngBlob);
+                            });
+                        } catch (heicErr) {
+                            console.error('HEIC decode error:', heicErr);
+                            throw new Error('HEIC decode failed: ' + (heicErr.message || 'unknown') +
+                                '\n\nTry:\n- Install HEIF Image Extensions from Windows Store\n- Use Chrome or Edge browser\n- Convert using a different tool');
+                        }
+                    }
+
+                    // Load image onto canvas
+                    const img = new Image();
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = () => reject(new Error('Image load failed'));
+                        img.src = imageDataUrl;
+                    });
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.naturalWidth || img.width;
+                    canvas.height = img.naturalHeight || img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    // Convert to target format
+                    const format = entry.outputFormat || formatSelect.value;
+                    const quality = entry.outputQuality || (parseInt(qualitySlider.value, 10) / 100);
+
+                    // Check AVIF support
+                    if (format === 'image/avif') {
+                        const supported = await new Promise((resolve) => {
+                            const testCanvas = document.createElement('canvas');
+                            testCanvas.width = 1;
+                            testCanvas.height = 1;
+                            testCanvas.toBlob((b) => resolve(b !== null), 'image/avif', 0.5);
+                        });
+
+                        if (!supported) {
+                            throw new Error('AVIF not supported by this browser. Use Chrome/Edge.');
+                        }
+                    }
+
+                    const blob = await new Promise((resolve, reject) => {
+                        try {
+                            canvas.toBlob(
+                                (b) => b ? resolve(b) : reject(new Error('Canvas toBlob failed')),
+                                format,
+                                quality
+                            );
+                        } catch (err) {
+                            reject(err);
+                        }
+                    });
+
+                    entry.convertedBlob = blob;
+                    entry.status = 'done';
+                    entry.error = null;
+                    renderFileGrid();
+                    return true;
+
+                } catch (err) {
+                    console.error('Conversion error for', entry.file.name, err);
+                    entry.status = 'error';
+                    entry.error = err.message || 'Conversion failed';
+                    renderFileGrid();
+                    return false;
+                }
+            }
+
+            // ---- Convert all with parallel processing ----
+            async function convertAll() {
+                if (isConverting) return;
+                const pending = files.filter(f => f.status !== 'done' || !skipExistingCheck.checked);
+                if (pending.length === 0) {
+                    showToast('✅ All files are already converted.', 'success', 2000);
+                    return;
+                }
+
+                isConverting = true;
+                convertAllBtn.disabled = true;
+                abortController = new AbortController();
+
+                const parallel = Math.min(parseInt(parallelInput.value, 10) || 4, 8);
+                const total = pending.length;
+                let completed = 0;
+                let failed = 0;
+
+                progressGlobal.classList.add('visible');
+                progressFill.style.width = '0%';
+                progressText.textContent = `0 / ${total}`;
+                progressETA.textContent = '--';
+
+                const startTime = Date.now();
+
+                // Process in batches
+                const batchSize = parallel;
+                for (let i = 0; i < pending.length; i += batchSize) {
+                    if (abortController.signal.aborted) break;
+
+                    const batch = pending.slice(i, i + batchSize);
+                    const batchPromises = batch.map(async (entry) => {
+                        entry.outputFormat = formatSelect.value;
+                        entry.outputQuality = parseInt(qualitySlider.value, 10) / 100;
+
+                        const success = await convertSingleFile(entry);
+                        completed++;
+                        if (!success) failed++;
+
+                        const pct = Math.min(Math.round((completed / total) * 100), 100);
+                        progressFill.style.width = pct + '%';
+                        progressText.textContent = `${completed} / ${total}`;
+
+                        const elapsed = (Date.now() - startTime) / 1000;
+                        const rate = completed / elapsed;
+                        const remaining = total - completed;
+                        const eta = rate > 0 ? remaining / rate : 0;
+                        progressETA.textContent = eta > 0 ? `ETA: ${Math.round(eta)}s` : '--';
+
+                        updateStats();
+                    });
+
+                    await Promise.all(batchPromises);
+                }
+
+                progressFill.style.width = '100%';
+                progressText.textContent = `✅ ${completed} done (${failed} failed)`;
+                progressETA.textContent = 'Done!';
+
+                setTimeout(() => {
+                    progressGlobal.classList.remove('visible');
+                }, 2000);
+
+                isConverting = false;
+                convertAllBtn.disabled = false;
+                updateStats();
+
+                if (failed === 0) {
+                    showToast(`✅ Converted ${completed} file${completed > 1 ? 's' : ''}!`, 'success', 3000);
+                } else {
+                    showToast(`⚠️ ${completed} converted, ${failed} failed. Check errors.`, 'warning', 4000);
+                }
+                renderFileGrid();
+            }
+
+            // ---- Download functions ----
+            function downloadFile(blob, filename) {
+                const link = document.createElement('a');
+                link.download = filename;
+                link.href = URL.createObjectURL(blob);
+                link.click();
+                setTimeout(() => URL.revokeObjectURL(link.href), 5000);
+            }
+
+            async function downloadAll() {
+                const doneFiles = files.filter(f => f.status === 'done' && f.convertedBlob);
+                if (doneFiles.length === 0) {
+                    showToast('⚠️ No converted files to download.', 'error', 2000);
+                    return;
+                }
+
+                if (doneFiles.length === 1) {
+                    const f = doneFiles[0];
+                    const ext = getExtension(f.outputFormat || formatSelect.value);
+                    const base = f.file.name.replace(/\.[^.]+$/, '');
+                    downloadFile(f.convertedBlob, `${base}.${ext}`);
+                    showToast(`⬇️ Downloaded "${base}.${ext}"`, 'success', 2000);
+                    return;
+                }
+
+                try {
+                    if (typeof JSZip === 'undefined') {
+                        await new Promise((resolve, reject) => {
+                            const script = document.createElement('script');
+                            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+                            script.onload = resolve;
+                            script.onerror = () => reject(new Error('Failed to load JSZip'));
+                            document.head.appendChild(script);
+                        });
+                    }
+
+                    const zip = new JSZip();
+                    for (const f of doneFiles) {
+                        const ext = getExtension(f.outputFormat || formatSelect.value);
+                        const base = f.file.name.replace(/\.[^.]+$/, '');
+                        zip.file(`${base}.${ext}`, f.convertedBlob);
+                    }
+
+                    const zipBlob = await zip.generateAsync({ type: 'blob' });
+                    downloadFile(zipBlob, 'converted_images.zip');
+                    showToast(`⬇️ Downloaded ZIP with ${doneFiles.length} files.`, 'success', 3000);
+
+                } catch (err) {
+                    console.error('ZIP error:', err);
+                    showToast('❌ Failed to create ZIP: ' + err.message, 'error', 3000);
+                }
+            }
+
+            async function downloadSelected() {
+                const selected = files.filter(f => f.status === 'done' && f.convertedBlob && f.selected !== false);
+                if (selected.length === 0) {
+                    showToast('⚠️ No selected converted files.', 'error', 2000);
+                    return;
+                }
+
+                if (selected.length === 1) {
+                    const f = selected[0];
+                    const ext = getExtension(f.outputFormat || formatSelect.value);
+                    const base = f.file.name.replace(/\.[^.]+$/, '');
+                    downloadFile(f.convertedBlob, `${base}.${ext}`);
+                    showToast(`⬇️ Downloaded "${base}.${ext}"`, 'success', 2000);
+                    return;
+                }
+
+                try {
+                    if (typeof JSZip === 'undefined') {
+                        await new Promise((resolve, reject) => {
+                            const script = document.createElement('script');
+                            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+                            script.onload = resolve;
+                            script.onerror = () => reject(new Error('Failed to load JSZip'));
+                            document.head.appendChild(script);
+                        });
+                    }
+
+                    const zip = new JSZip();
+                    for (const f of selected) {
+                        const ext = getExtension(f.outputFormat || formatSelect.value);
+                        const base = f.file.name.replace(/\.[^.]+$/, '');
+                        zip.file(`${base}.${ext}`, f.convertedBlob);
+                    }
+
+                    const zipBlob = await zip.generateAsync({ type: 'blob' });
+                    downloadFile(zipBlob, 'selected_images.zip');
+                    showToast(`⬇️ Downloaded ZIP with ${selected.length} files.`, 'success', 3000);
+
+                } catch (err) {
+                    console.error('ZIP error:', err);
+                    showToast('❌ Failed to create ZIP: ' + err.message, 'error', 3000);
+                }
+            }
+
+            // ---- Event listeners ----
+            qualitySlider.addEventListener('input', () => {
+                qualityDisplay.textContent = qualitySlider.value + '%';
             });
 
-            // ✅ NETLIFY FIX: Remove preventDefault, let Netlify handle submission
-            const form = document.getElementById('mainForm');
-            form.addEventListener('submit', function(e) {
-                // Do NOT call e.preventDefault()
-                // Allow natural form submission to Netlify
-                console.log('Form submitting to Netlify...');
-                return true;  // Let the form submit normally
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropZone.classList.add('dragover');
             });
+            dropZone.addEventListener('dragleave', () => {
+                dropZone.classList.remove('dragover');
+            });
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropZone.classList.remove('dragover');
+                const droppedFiles = e.dataTransfer.files;
+                for (const f of droppedFiles) {
+                    if (isImageFile(f)) {
+                        addFile(f);
+                    } else {
+                        showToast(`⚠️ Skipped non-image: "${f.name}"`, 'warning', 2000);
+                    }
+                }
+            });
+
+            fileInput.addEventListener('change', (e) => {
+                for (const f of fileInput.files) {
+                    if (isImageFile(f)) {
+                        addFile(f);
+                    } else {
+                        showToast(`⚠️ Skipped non-image: "${f.name}"`, 'warning', 2000);
+                    }
+                }
+                fileInput.value = '';
+            });
+
+            addFilesBtn.addEventListener('click', () => fileInput.click());
+            clearAllBtn.addEventListener('click', clearAll);
+            convertAllBtn.addEventListener('click', convertAll);
+            downloadAllBtn.addEventListener('click', downloadAll);
+            downloadSelectedBtn.addEventListener('click', downloadSelected);
+
+            document.addEventListener('paste', (e) => {
+                const items = e.clipboardData && e.clipboardData.items;
+                if (items) {
+                    for (const item of items) {
+                        if (item.type.startsWith('image/')) {
+                            const file = item.getAsFile();
+                            if (file) addFile(file);
+                        }
+                    }
+                }
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
+                    // Paste handled above
+                }
+                if (e.key === 'Enter' && e.ctrlKey) {
+                    convertAll();
+                }
+            });
+
+            // ---- Init ----
+            async function init() {
+                await initHeicDecoder();
+                renderFileGrid();
+
+                // Check if HEIC support is available
+                if (!heicDecoderReady) {
+                    showToast('⚠️ HEIC support limited. Install HEIF extensions for best results.', 'warning', 5000);
+                } else {
+                    showToast('🚀 Ready! HEIC support active.', 'success', 3000);
+                }
+            }
+
+            init();
+
+            window.__converter = { files, convertAll, addFile, decodeHeic };
+
         })();
     </script>
 
-    <!-- no footer notice at all -->
 </body>
 </html>
